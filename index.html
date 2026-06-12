@@ -175,7 +175,7 @@
       color: var(--azul);
       white-space: pre-wrap;
       font-family: monospace;
-      margin-bottom: 14px;
+      margin-bottom: 6px;
     }
 
     .btn-primary {
@@ -304,6 +304,35 @@
       margin-bottom: 24px;
     }
 
+    .pie-italic {
+      font-style: italic;
+    }
+    .ejemplo-disclaimer {
+      font-size: 0.75rem;
+      color: #556;
+      font-style: italic;
+      margin-bottom: 14px;
+      padding: 0 4px;
+      line-height: 1.4;
+    }
+    .btn-menu-ext {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      margin: 10px auto 0;
+      background: none;
+      border: 2px solid rgba(196,223,87,0.7);
+      border-radius: 10px;
+      padding: 13px;
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--lima);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-menu-ext:hover { opacity: 0.75; }
     .hidden { display: none !important; }
   </style>
 </head>
@@ -336,9 +365,9 @@
       </button>
     </div>
     <div class="bienvenida">
-      Esta plataforma es para informar mascotas u objetos perdidos o encontrados.<br><br>
-      El mensaje llega a LA EUGE informa 📣 para su revisión y publicación.<br><br>
-      Una vez enviado el formulario, si lo considerás necesario, podrás adjuntar una foto directamente en WhatsApp.
+      Esta plataforma está destinada a informar mascotas u objetos perdidos o encontrados.<br><br>
+      Los reportes enviados serán recibidos por LA EUGE informa 📣, donde serán revisados antes de su publicación.<br><br>
+      Una vez completado y enviado el formulario, si lo considerás necesario, podrás enviar fotografías complementarias directamente por WhatsApp.
     </div>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
@@ -418,14 +447,15 @@
       </div>
 
       <button class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
-        <span>📋 Ver ejemplo de cómo completarlo</span>
+        <span>📋 Ver ejemplo de publicación</span>
         <span id="ejemplo-arrow">▼</span>
       </button>
       <div class="ejemplo-box hidden" id="ejemplo-box"></div>
+      <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
 
       <button class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
-      <button class="btn-secundario" onclick="irAlMenu()">🏠 Volver al menú principal</button>
     </div>
+    <button class="btn-menu-ext" onclick="irAlMenu()">🏠 Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
@@ -440,8 +470,8 @@
         Si contás con una foto de tu mascota o del objeto sobre el que consultás, podés adjuntarla directamente en WhatsApp cuando se abra el chat. Para obtener una mejor respuesta, procurá que la imagen sea clara, esté bien iluminada y que el elemento se vea de cerca. La foto es opcional.
       </div>
       <button class="btn-primary" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
-      <button class="btn-secundario" onclick="irAlMenu()">🏠 Volver al menú principal</button>
     </div>
+    <button class="btn-menu-ext" onclick="irAlMenu()">🏠 Volver al menú principal</button>
     <div class="linea-envio">
       Este mensaje será enviado para su revisión a la línea de LA EUGE informa 📣<br>
       +54 9 3764-113300
@@ -455,7 +485,7 @@
       <div class="icono">✅</div>
       <h2>¡Mensaje enviado!</h2>
       <p>Tu mensaje fue enviado con éxito.<br>Abrí WhatsApp y, si lo deseás, adjuntá una fotografía.</p>
-      <button class="btn-secundario" onclick="irAlMenu()" style="max-width:480px;margin:0 auto;display:block;">🏠 Volver al menú principal</button>
+      <button class="btn-menu-ext" onclick="irAlMenu()">🏠 Volver al menú principal</button>
     </div>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
@@ -515,7 +545,7 @@ María González — 3764123456
 
 📅 12/06/2026
 
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
 
     'mascota-encontrada': `#reportevecinal
 
@@ -531,13 +561,13 @@ Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja 
 
 📅 12/06/2026
 
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
 
     'objeto-perdido': `#reportevecinal
 
 🎒 PERDÍ UN OBJETO
 
-🔑 Mochila
+👉 Mochila
 Mochila azul con cierre rojo, tiene llaves y una pelota adentro.
 
 📍 Zona: Sector pileta
@@ -548,13 +578,13 @@ María González — 3764123456
 
 📅 12/06/2026
 
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
 
     'objeto-encontrado': `#reportevecinal
 
 📦 ENCONTRÉ UN OBJETO
 
-🔑 Mochila
+👉 Mochila
 Mochila azul con cierre rojo, encontrada en muy buen estado.
 
 📍 Zona: Cancha de pádel
@@ -564,7 +594,7 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
 
 📅 12/06/2026
 
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
   };
 
   let categoriaActual = '';
@@ -598,6 +628,7 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     document.getElementById('ejemplo-box').textContent = EJEMPLOS[cat];
     ejemploVisible = false;
     ocultar('ejemplo-box');
+    ocultar('ejemplo-disclaimer');
     document.getElementById('ejemplo-arrow').textContent = '▼';
 
     resetForm(cat);
@@ -609,6 +640,7 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
   function toggleEjemplo() {
     ejemploVisible = !ejemploVisible;
     toggle('ejemplo-box', ejemploVisible);
+    toggle('ejemplo-disclaimer', ejemploVisible);
     document.getElementById('ejemplo-arrow').textContent = ejemploVisible ? '▲' : '▼';
   }
 
@@ -724,7 +756,7 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
       lines.push(emojiAnimal + ' ' + tipoAnimal + ' | ' + nombreLabel);
     } else {
       const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
-      lines.push('🔑 ' + tipoObjeto);
+      lines.push('👉 ' + tipoObjeto);
     }
 
     lines.push(corregirOrto(document.getElementById('descripcion').value.trim()));
@@ -758,14 +790,14 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     lines.push('');
     lines.push('📅 ' + hoy);
     lines.push('');
-    lines.push('(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)');
+    lines.push('__(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)__');
 
     return lines.join('\n');
   }
 
   function enviarWhatsApp() {
     const msg = armarMensaje();
-    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+    window.location.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
     ocultar('screen-preview');
     mostrar('screen-confirmacion');
     window.scrollTo(0, 0);
