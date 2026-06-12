@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reportes Vecinales — La Eugenia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde:    #0d6663;
+      --lima:     #c4df57;
+      --azul:     #003a6b;
+      --blanco:   #ffffff;
+      --gris:     #f0f0f0;
+      --error:    #cc2200;
+      --radius:   12px;
+    }
+
+    body {
+      background: var(--verde);
+      font-family: 'Roboto', sans-serif;
+      color: var(--azul);
+      min-height: 100vh;
+      padding: 20px 16px 40px;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .header img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    .header h1 {
+      font-family: Impact, 'Arial Narrow', sans-serif;
+      font-size: 2rem;
+      color: var(--lima);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .header p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--lima);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      max-width: 480px;
+      margin: 0 auto 16px;
+    }
+
+    /* CATEGORÍAS */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto 16px;
+    }
+    .cat-btn {
+      background: var(--lima);
+      border: none;
+      border-radius: var(--radius);
+      padding: 18px 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .cat-btn:hover, .cat-btn:focus {
+      background: #d4ef67;
+      transform: translateY(-2px);
+      outline: none;
+    }
+    .cat-btn .emoji { font-size: 2rem; display: block; margin-bottom: 6px; }
+    .cat-btn .label {
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      color: var(--azul);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    /* FORM */
+    .form-title {
+      font-family: Impact, sans-serif;
+      font-size: 1.4rem;
+      color: var(--azul);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--azul);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .field label .opc {
+      font-weight: 400;
+      text-transform: none;
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 2px solid var(--azul);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.95rem;
+      color: var(--azul);
+      background: var(--blanco);
+      transition: border-color 0.2s;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--verde);
+    }
+    .field input.error,
+    .field select.error,
+    .field textarea.error {
+      border-color: var(--error);
+    }
+    .field .err-msg {
+      color: var(--error);
+      font-size: 0.78rem;
+      margin-top: 4px;
+      display: none;
+    }
+    .field .err-msg.visible { display: block; }
+
+    .field textarea { resize: vertical; min-height: 80px; }
+
+    .char-count {
+      text-align: right;
+      font-size: 0.75rem;
+      color: #555;
+      margin-top: 3px;
+    }
+    .char-count.over { color: var(--error); font-weight: 700; }
+
+    /* RADIO GROUP */
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 2px solid var(--azul);
+      border-radius: 8px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .radio-group input[type=radio] { display: none; }
+    .radio-group input[type=radio]:checked + span {
+      font-weight: 700;
+    }
+    .radio-group label:has(input:checked) {
+      background: var(--azul);
+      color: white;
+      border-color: var(--azul);
+    }
+
+    /* BOTONES */
+    .btn-primary {
+      width: 100%;
+      background: var(--azul);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-family: Impact, sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--blanco);
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0 auto 12px;
+      max-width: 480px;
+      padding: 0;
+      opacity: 0.85;
+    }
+    .btn-back:hover { opacity: 1; }
+
+    /* PREVIEW */
+    .preview-box {
+      background: var(--blanco);
+      border: 2px solid var(--azul);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 14px;
+      color: var(--azul);
+      font-family: monospace;
+    }
+
+    .foto-tip {
+      background: rgba(0,58,107,0.1);
+      border-left: 3px solid var(--azul);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      color: var(--azul);
+      margin-bottom: 14px;
+    }
+    .foto-tip strong { display: block; margin-bottom: 2px; }
+
+    /* CGV BTN */
+    .cgv-btn {
+      display: block;
+      text-align: center;
+      background: var(--verde);
+      color: var(--lima);
+      border-radius: 10px;
+      padding: 12px;
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin: 16px auto 0;
+      max-width: 480px;
+      transition: opacity 0.2s;
+    }
+    .cgv-btn:hover { opacity: 0.88; }
+
+    /* HIDDEN */
+    .hidden { display: none !important; }
+
+    /* OTRO ANIMAL input */
+    #otro-animal-wrap { margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="https://i.imgur.com/2YIjNDH.png" alt="La Eugenia"/>
+    <h1>Reportes<br>Vecinales</h1>
+    <p>Club de Campo La Eugenia — Garupá</p>
+  </div>
+
+  <!-- PANTALLA 1: CATEGORÍAS -->
+  <div id="screen-cats">
+    <div class="cat-grid">
+      <button class="cat-btn" onclick="elegirCategoria('mascota-perdida')">
+        <span class="emoji">🐾</span>
+        <span class="label">Mascota<br>perdida</span>
+      </button>
+      <button class="cat-btn" onclick="elegirCategoria('mascota-encontrada')">
+        <span class="emoji">🐶</span>
+        <span class="label">Mascota<br>encontrada</span>
+      </button>
+      <button class="cat-btn" onclick="elegirCategoria('objeto-perdido')">
+        <span class="emoji">🎒</span>
+        <span class="label">Objeto<br>perdido</span>
+      </button>
+      <button class="cat-btn" onclick="elegirCategoria('objeto-encontrado')">
+        <span class="emoji">📦</span>
+        <span class="label">Objeto<br>encontrado</span>
+      </button>
+    </div>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+  <!-- PANTALLA 2: FORMULARIO -->
+  <div id="screen-form" class="hidden">
+    <button class="btn-back" onclick="volver()">← Volver</button>
+    <div class="card">
+      <div class="form-title" id="form-title">🐾 MASCOTA PERDIDA</div>
+
+      <!-- MASCOTA: tipo de animal -->
+      <div class="field" id="field-tipo-animal">
+        <label>Tipo de animal</label>
+        <div class="radio-group" id="radio-animal">
+          <label><input type="radio" name="tipo_animal" value="Perro" onchange="onTipoAnimal()"><span>🐕 Perro</span></label>
+          <label><input type="radio" name="tipo_animal" value="Gato" onchange="onTipoAnimal()"><span>🐱 Gato</span></label>
+          <label><input type="radio" name="tipo_animal" value="otro" onchange="onTipoAnimal()"><span>🐾 Otro</span></label>
+        </div>
+        <div id="otro-animal-wrap" class="hidden">
+          <input type="text" id="otro-animal" placeholder="¿Qué animal?" maxlength="40"/>
+        </div>
+        <span class="err-msg" id="err-tipo-animal">Seleccioná el tipo de animal.</span>
+      </div>
+
+      <!-- MASCOTA: nombre (opcional) -->
+      <div class="field" id="field-nombre-mascota">
+        <label>Nombre de la mascota <span class="opc">(opcional)</span></label>
+        <input type="text" id="nombre-mascota" placeholder="Ej: Toro, Luna..." maxlength="40"/>
+      </div>
+
+      <!-- OBJETO: tipo -->
+      <div class="field hidden" id="field-tipo-objeto">
+        <label>Tipo de objeto</label>
+        <input type="text" id="tipo-objeto" placeholder="Ej: mochila, llaves, bicicleta, ropa..." maxlength="60"/>
+        <span class="err-msg" id="err-tipo-objeto">Describí qué tipo de objeto es.</span>
+      </div>
+
+      <!-- DESCRIPCIÓN -->
+      <div class="field">
+        <label>Descripción</label>
+        <textarea id="descripcion" maxlength="250" placeholder="" oninput="contarChars()"></textarea>
+        <div class="char-count"><span id="char-num">0</span>/250</div>
+        <span class="err-msg" id="err-descripcion">Agregá una descripción.</span>
+      </div>
+
+      <!-- ZONA -->
+      <div class="field">
+        <label>Zona donde fue visto / perdido / encontrado</label>
+        <input type="text" id="zona" placeholder="Ej: M03, B12, cerca de la pileta, sendero..." maxlength="80"/>
+        <span class="err-msg" id="err-zona">Indicá la zona.</span>
+      </div>
+
+      <!-- CUÁNDO (solo perdidos) -->
+      <div class="field hidden" id="field-cuando">
+        <label>¿Cuándo fue la última vez que lo viste? <span class="opc">(opcional)</span></label>
+        <input type="text" id="cuando" placeholder="Ej: el jueves a la noche, durante la tormenta..." maxlength="80"/>
+      </div>
+
+      <!-- DÓNDE ESTÁ AHORA (solo encontrados) -->
+      <div class="field hidden" id="field-donde-esta">
+        <label>¿Dónde está ahora?</label>
+        <select id="donde-esta" onchange="onDondeEsta()">
+          <option value="">— Seleccioná —</option>
+          <option value="Garita de seguridad">Garita de seguridad</option>
+          <option value="Cantina">Cantina</option>
+          <option value="Sector pileta (bañero)">Sector pileta (bañero)</option>
+          <option value="otro-lugar">Otro lugar...</option>
+        </select>
+        <div id="otro-lugar-wrap" class="hidden" style="margin-top:8px">
+          <input type="text" id="otro-lugar" placeholder="Especificá dónde..." maxlength="60"/>
+        </div>
+        <span class="err-msg" id="err-donde-esta">Indicá dónde está.</span>
+      </div>
+
+      <!-- NOMBRE Y APELLIDO -->
+      <div class="field">
+        <label>Nombre y Apellido de quien reporta</label>
+        <input type="text" id="nombre-reporta" placeholder="Ej: María González" maxlength="60"/>
+        <span class="err-msg" id="err-nombre">Ingresá nombre y apellido.</span>
+      </div>
+
+      <!-- TELÉFONO -->
+      <div class="field">
+        <label>Teléfono de contacto</label>
+        <input type="tel" id="telefono" placeholder="Ej: 3764123456" maxlength="15" oninput="soloNumeros(this)"/>
+        <span class="err-msg" id="err-tel">Ingresá un número válido (mínimo 10 dígitos).</span>
+      </div>
+
+      <button class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
+    </div>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+  <!-- PANTALLA 3: PREVIEW -->
+  <div id="screen-preview" class="hidden">
+    <button class="btn-back" onclick="volverAForm()">← Editar</button>
+    <div class="card">
+      <div class="form-title">✅ REVISÁ TU MENSAJE</div>
+      <div class="preview-box" id="preview-text"></div>
+      <div class="foto-tip">
+        <strong>📸 No olvides adjuntar la foto</strong>
+        Al abrirse WhatsApp, adjuntá la foto antes de enviar.
+      </div>
+      <button class="btn-primary" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
+    </div>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+<script>
+  const WA_NUMBER = '5493764113300';
+
+  const CONFIG = {
+    'mascota-perdida':    { emoji: '🐾', titulo: 'MASCOTA PERDIDA',    esMascota: true,  esPerdido: true  },
+    'mascota-encontrada': { emoji: '🐶', titulo: 'MASCOTA ENCONTRADA', esMascota: true,  esPerdido: false },
+    'objeto-perdido':     { emoji: '🎒', titulo: 'OBJETO PERDIDO',     esMascota: false, esPerdido: true  },
+    'objeto-encontrado':  { emoji: '📦', titulo: 'OBJETO ENCONTRADO',  esMascota: false, esPerdido: false },
+  };
+
+  const PLACEHOLDERS = {
+    'mascota-perdida':    'Ej: Perro mediano, negro con mancha blanca en el pecho, renguea un poco. Se asustó con la tormenta.',
+    'mascota-encontrada': 'Ej: Gato anaranjado, adulto, sin collar, muy asustado. Encontrado cerca de la pileta.',
+    'objeto-perdido':     'Ej: Mochila azul con cremallera roja, tenía llaves adentro. La perdí en el sendero ecodeportivo.',
+    'objeto-encontrado':  'Ej: Par de anteojos de sol negros encontrados en la cancha de pádel 2.',
+  };
+
+  let categoriaActual = '';
+
+  function elegirCategoria(cat) {
+    categoriaActual = cat;
+    const cfg = CONFIG[cat];
+
+    document.getElementById('form-title').textContent = cfg.emoji + ' ' + cfg.titulo;
+    document.getElementById('descripcion').placeholder = PLACEHOLDERS[cat];
+
+    // Mostrar/ocultar campos según categoría
+    toggle('field-tipo-animal',    cfg.esMascota);
+    toggle('field-nombre-mascota', cfg.esMascota);
+    toggle('field-tipo-objeto',    !cfg.esMascota);
+    toggle('field-cuando',         cfg.esPerdido);
+    toggle('field-donde-esta',     !cfg.esPerdido);
+
+    // Reset
+    resetForm();
+
+    mostrar('screen-form');
+    ocultar('screen-cats');
+    window.scrollTo(0,0);
+  }
+
+  function volver() {
+    ocultar('screen-form');
+    mostrar('screen-cats');
+    window.scrollTo(0,0);
+  }
+
+  function volverAForm() {
+    ocultar('screen-preview');
+    mostrar('screen-form');
+    window.scrollTo(0,0);
+  }
+
+  function onTipoAnimal() {
+    const val = document.querySelector('input[name=tipo_animal]:checked')?.value;
+    toggle('otro-animal-wrap', val === 'otro');
+  }
+
+  function onDondeEsta() {
+    const val = document.getElementById('donde-esta').value;
+    toggle('otro-lugar-wrap', val === 'otro-lugar');
+  }
+
+  function soloNumeros(el) {
+    el.value = el.value.replace(/[^0-9]/g, '');
+  }
+
+  function contarChars() {
+    const n = document.getElementById('descripcion').value.length;
+    const el = document.getElementById('char-num');
+    el.textContent = n;
+    el.parentElement.classList.toggle('over', n >= 240);
+  }
+
+  function corregirOrto(texto) {
+    // Capitaliza primera letra de cada oración
+    return texto
+      .replace(/(^\s*|[.!?]\s+)([a-záéíóúüñ])/gi, (m, p1, p2) => p1 + p2.toUpperCase())
+      .trim();
+  }
+
+  function validar() {
+    let ok = true;
+    const cfg = CONFIG[categoriaActual];
+
+    if (cfg.esMascota) {
+      const tipoAnimal = document.querySelector('input[name=tipo_animal]:checked');
+      mostrarError('err-tipo-animal', !tipoAnimal);
+      if (!tipoAnimal) ok = false;
+      if (tipoAnimal?.value === 'otro' && !document.getElementById('otro-animal').value.trim()) {
+        mostrarError('err-tipo-animal', true);
+        ok = false;
+      }
+    } else {
+      const to = document.getElementById('tipo-objeto').value.trim();
+      mostrarError('err-tipo-objeto', !to);
+      if (!to) ok = false;
+    }
+
+    const desc = document.getElementById('descripcion').value.trim();
+    mostrarError('err-descripcion', !desc);
+    if (!desc) ok = false;
+
+    const zona = document.getElementById('zona').value.trim();
+    mostrarError('err-zona', !zona);
+    if (!zona) ok = false;
+
+    if (!cfg.esPerdido) {
+      const de = document.getElementById('donde-esta').value;
+      const deOk = de && !(de === 'otro-lugar' && !document.getElementById('otro-lugar').value.trim());
+      mostrarError('err-donde-esta', !deOk);
+      if (!deOk) ok = false;
+    }
+
+    const nombre = document.getElementById('nombre-reporta').value.trim();
+    const nombreOk = nombre.includes(' ') && nombre.length >= 5;
+    mostrarError('err-nombre', !nombreOk);
+    if (!nombreOk) ok = false;
+
+    const tel = document.getElementById('telefono').value.trim();
+    mostrarError('err-tel', tel.length < 10);
+    if (tel.length < 10) ok = false;
+
+    return ok;
+  }
+
+  function verPreview() {
+    if (!validar()) return;
+    const msg = armarMensaje();
+    document.getElementById('preview-text').textContent = msg;
+    ocultar('screen-form');
+    mostrar('screen-preview');
+    window.scrollTo(0,0);
+  }
+
+  function armarMensaje() {
+    const cfg = CONFIG[categoriaActual];
+    const hoy = new Date().toLocaleDateString('es-AR');
+    const lines = [];
+
+    lines.push('#reportevecinal');
+    lines.push(cfg.emoji + ' ' + cfg.titulo);
+    lines.push('');
+
+    if (cfg.esMascota) {
+      const tipoAnimalEl = document.querySelector('input[name=tipo_animal]:checked');
+      let tipoAnimal = tipoAnimalEl?.value === 'otro'
+        ? document.getElementById('otro-animal').value.trim()
+        : tipoAnimalEl?.value || '';
+      const nombreMascota = document.getElementById('nombre-mascota').value.trim();
+      lines.push('🐾 ' + tipoAnimal + (nombreMascota ? ' | Nombre: ' + nombreMascota : ' | Sin nombre conocido'));
+    } else {
+      const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
+      lines.push('📦 ' + tipoObjeto);
+    }
+
+    const desc = corregirOrto(document.getElementById('descripcion').value.trim());
+    lines.push(desc);
+    lines.push('');
+
+    const zona = document.getElementById('zona').value.trim();
+    lines.push('📍 Zona: ' + zona);
+
+    if (cfg.esPerdido) {
+      const cuando = document.getElementById('cuando').value.trim();
+      if (cuando) lines.push('🕐 Última vez visto: ' + cuando);
+    } else {
+      let dondeEsta = document.getElementById('donde-esta').value;
+      if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
+      lines.push('🏠 Retirar en: ' + dondeEsta);
+    }
+
+    lines.push('');
+    const nombre = document.getElementById('nombre-reporta').value.trim();
+    const tel = document.getElementById('telefono').value.trim();
+
+    if (cfg.esPerdido) {
+      lines.push('📞 Si lo encontrás, contactar directamente a:');
+      lines.push(nombre + ' — ' + tel);
+    } else {
+      lines.push('📞 Reportado por: ' + nombre + ' — ' + tel);
+    }
+
+    lines.push('📅 ' + hoy);
+
+    return lines.join('\n');
+  }
+
+  function enviarWhatsApp() {
+    const msg = armarMensaje();
+    const url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+    window.open(url, '_blank');
+  }
+
+  // Helpers
+  function mostrar(id) { document.getElementById(id).classList.remove('hidden'); }
+  function ocultar(id) { document.getElementById(id).classList.add('hidden'); }
+  function toggle(id, show) { show ? mostrar(id) : ocultar(id); }
+  function mostrarError(id, show) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('visible', show);
+    // también marcar el input
+    const campo = el?.previousElementSibling;
+    if (campo && (campo.tagName === 'INPUT' || campo.tagName === 'SELECT' || campo.tagName === 'TEXTAREA')) {
+      campo.classList.toggle('error', show);
+    }
+  }
+
+  function resetForm() {
+    document.querySelectorAll('input[name=tipo_animal]').forEach(r => r.checked = false);
+    ['otro-animal','nombre-mascota','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono']
+      .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    document.getElementById('donde-esta').value = '';
+    document.getElementById('char-num').textContent = '0';
+    ocultar('otro-animal-wrap');
+    ocultar('otro-lugar-wrap');
+    document.querySelectorAll('.err-msg').forEach(e => e.classList.remove('visible'));
+    document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+  }
+</script>
+</body>
+</html>
