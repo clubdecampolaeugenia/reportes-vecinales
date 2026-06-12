@@ -269,15 +269,16 @@
       display: block;
       text-align: center;
       background: rgba(0,0,0,0.2);
+      border: 2px solid rgba(0,0,0,0.2);
       color: var(--lima);
       border-radius: 10px;
-      padding: 12px;
+      padding: 13px 12px;
       font-family: Impact, sans-serif;
       font-size: 1rem;
       letter-spacing: 1px;
       text-transform: uppercase;
       text-decoration: none;
-      margin: 16px auto 0;
+      margin: 10px auto 0;
       max-width: 480px;
       transition: opacity 0.2s;
     }
@@ -467,7 +468,7 @@
       <button class="btn-editar" onclick="volverAForm()">← Editar</button>
       <div class="foto-tip">
         <strong>📸 ¿Tenés una foto?</strong>
-        Si contás con una foto de tu mascota o del objeto sobre el que consultás, podés adjuntarla directamente en WhatsApp cuando se abra el chat. Para obtener una mejor respuesta, procurá que la imagen sea clara, esté bien iluminada y que el elemento se vea de cerca. La foto es opcional.
+        Si contás con una foto de tu mascota u objeto, podés adjuntarla directamente en WhatsApp cuando se abra el chat. Las imágenes claras, bien iluminadas y tomadas de cerca facilitan su identificación. Adjuntarla es opcional.
       </div>
       <button class="btn-primary" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
     </div>
@@ -545,7 +546,7 @@ María González — 3764123456
 
 📅 12/06/2026
 
-_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
 
     'mascota-encontrada': `#reportevecinal
 
@@ -561,7 +562,7 @@ Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja 
 
 📅 12/06/2026
 
-_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
 
     'objeto-perdido': `#reportevecinal
 
@@ -578,7 +579,7 @@ María González — 3764123456
 
 📅 12/06/2026
 
-_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
 
     'objeto-encontrado': `#reportevecinal
 
@@ -594,7 +595,7 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
 
 📅 12/06/2026
 
-_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_`,
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
   };
 
   let categoriaActual = '';
@@ -790,7 +791,7 @@ _(Toda información sobre este reporte debe dirigirse a la persona de contacto i
     lines.push('');
     lines.push('📅 ' + hoy);
     lines.push('');
-    lines.push('__(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)__');
+    lines.push('_(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)_');
 
     return lines.join('\n');
   }
