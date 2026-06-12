@@ -272,7 +272,7 @@
       border: 2px solid rgba(0,0,0,0.2);
       color: var(--lima);
       border-radius: 10px;
-      padding: 13px 12px;
+      padding: 14px 12px;
       font-family: Impact, sans-serif;
       font-size: 1rem;
       letter-spacing: 1px;
@@ -324,7 +324,7 @@
       background: none;
       border: 2px solid rgba(196,223,87,0.7);
       border-radius: 10px;
-      padding: 13px;
+      padding: 14px 12px;
       font-family: Impact, sans-serif;
       font-size: 1rem;
       letter-spacing: 1px;
@@ -378,6 +378,13 @@
     <div class="card">
       <div class="form-title" id="form-title">🐾 PERDÍ UNA MASCOTA</div>
 
+      <button class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
+        <span>📋 Ver ejemplo de publicación</span>
+        <span id="ejemplo-arrow">▼</span>
+      </button>
+      <div class="ejemplo-box hidden" id="ejemplo-box"></div>
+      <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
+
       <div class="field" id="field-tipo-animal">
         <label>Tipo de animal</label>
         <div class="radio-group">
@@ -404,7 +411,7 @@
 
       <div class="field">
         <label>Descripción</label>
-        <textarea id="descripcion" maxlength="250" placeholder="" oninput="contarChars()"></textarea>
+        <textarea id="descripcion" maxlength="250" placeholder="" oninput="contarChars()" onblur="normalizarDesc(this)"></textarea>
         <div class="char-count"><span id="char-num">0</span>/250</div>
         <span class="err-msg" id="err-descripcion">Agregá una descripción.</span>
       </div>
@@ -437,7 +444,7 @@
 
       <div class="field">
         <label>Nombre y Apellido de quien reporta</label>
-        <input type="text" id="nombre-reporta" placeholder="Ej: María González" maxlength="60"/>
+        <input type="text" id="nombre-reporta" placeholder="Ej: María González" maxlength="60" oninput="capitalizarNombre(this)"/>
         <span class="err-msg" id="err-nombre">Ingresá nombre y apellido completo.</span>
       </div>
 
@@ -447,12 +454,6 @@
         <span class="err-msg" id="err-tel">Ingresá un número válido (mínimo 10 dígitos).</span>
       </div>
 
-      <button class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
-        <span>📋 Ver ejemplo de publicación</span>
-        <span id="ejemplo-arrow">▼</span>
-      </button>
-      <div class="ejemplo-box hidden" id="ejemplo-box"></div>
-      <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
 
       <button class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
     </div>
@@ -815,6 +816,28 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     const campo = el.previousElementSibling;
     if (campo && ['INPUT','SELECT','TEXTAREA'].includes(campo.tagName)) {
       campo.classList.toggle('error', show);
+    }
+  }
+
+  function capitalizarNombre(el) {
+    const pos = el.selectionStart;
+    el.value = el.value
+      .toLowerCase()
+      .replace(/(?:^|\s)\S/g, c => c.toUpperCase());
+    el.setSelectionRange(pos, pos);
+  }
+
+  function normalizarDesc(el) {
+    const val = el.value.trim();
+    // Only normalize if mostly uppercase (>60% uppercase letters)
+    const letters = val.replace(/[^a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]/g, '');
+    if (!letters.length) return;
+    const upperCount = (letters.match(/[A-ZÁÉÍÓÚÜÑ]/g) || []).length;
+    if (upperCount / letters.length > 0.6) {
+      el.value = val
+        .toLowerCase()
+        .replace(/(^|[.!?]\s+)([a-záéíóúüñ])/gi, (m, p1, p2) => p1 + p2.toUpperCase())
+        .replace(/^[a-záéíóúüñ]/, c => c.toUpperCase());
     }
   }
 
