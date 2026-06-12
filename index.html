@@ -4,49 +4,57 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reportes Vecinales — La Eugenia</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/urkunqx.png"/>
+  <link rel="apple-touch-icon" href="https://i.imgur.com/urkunqx.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="Reportes Vecinales"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --verde:    #0d6663;
-      --lima:     #c4df57;
-      --azul:     #003a6b;
-      --blanco:   #ffffff;
-      --gris:     #f0f0f0;
-      --error:    #cc2200;
-      --radius:   12px;
+      --verde:  #0d6663;
+      --lima:   #c4df57;
+      --azul:   #003a6b;
+      --blanco: #ffffff;
+      --error:  #cc2200;
+      --radius: 12px;
     }
-
     body {
       background: var(--verde);
       font-family: 'Roboto', sans-serif;
       color: var(--azul);
       min-height: 100vh;
-      padding: 20px 16px 40px;
+      padding: 20px 16px 48px;
     }
 
     /* HEADER */
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    .header img {
-      width: 80px;
-      margin-bottom: 10px;
-    }
+    .header { text-align: center; margin-bottom: 20px; }
+    .header img { width: 110px; margin-bottom: 12px; }
     .header h1 {
       font-family: Impact, 'Arial Narrow', sans-serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--lima);
       letter-spacing: 1px;
       text-transform: uppercase;
       line-height: 1.1;
     }
-    .header p {
-      color: rgba(255,255,255,0.85);
-      font-size: 0.9rem;
-      margin-top: 6px;
+    .header .subtitulo {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.88rem;
+      margin-top: 5px;
+    }
+
+    /* BIENVENIDA */
+    .bienvenida {
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      max-width: 480px;
+      margin: 0 auto 20px;
+      color: var(--blanco);
+      font-size: 0.88rem;
+      line-height: 1.55;
+      text-align: center;
     }
 
     /* CARD */
@@ -70,7 +78,7 @@
       background: var(--lima);
       border: none;
       border-radius: var(--radius);
-      padding: 18px 10px;
+      padding: 20px 10px;
       cursor: pointer;
       text-align: center;
       transition: transform 0.15s, background 0.15s;
@@ -80,7 +88,7 @@
       transform: translateY(-2px);
       outline: none;
     }
-    .cat-btn .emoji { font-size: 2rem; display: block; margin-bottom: 6px; }
+    .cat-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
     .cat-btn .label {
       font-family: Impact, sans-serif;
       font-size: 1rem;
@@ -90,7 +98,7 @@
       line-height: 1.2;
     }
 
-    /* FORM */
+    /* FORM TITLE */
     .form-title {
       font-family: Impact, sans-serif;
       font-size: 1.4rem;
@@ -102,10 +110,11 @@
       gap: 8px;
     }
 
+    /* FIELDS */
     .field { margin-bottom: 14px; }
     .field label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--azul);
       margin-bottom: 5px;
@@ -116,9 +125,8 @@
       font-weight: 400;
       text-transform: none;
       font-size: 0.78rem;
-      color: #555;
+      color: #445;
     }
-
     .field input,
     .field select,
     .field textarea {
@@ -134,15 +142,10 @@
     }
     .field input:focus,
     .field select:focus,
-    .field textarea:focus {
-      outline: none;
-      border-color: var(--verde);
-    }
+    .field textarea:focus { outline: none; border-color: var(--verde); }
     .field input.error,
     .field select.error,
-    .field textarea.error {
-      border-color: var(--error);
-    }
+    .field textarea.error { border-color: var(--error); }
     .field .err-msg {
       color: var(--error);
       font-size: 0.78rem;
@@ -150,15 +153,9 @@
       display: none;
     }
     .field .err-msg.visible { display: block; }
-
     .field textarea { resize: vertical; min-height: 80px; }
 
-    .char-count {
-      text-align: right;
-      font-size: 0.75rem;
-      color: #555;
-      margin-top: 3px;
-    }
+    .char-count { text-align: right; font-size: 0.75rem; color: #445; margin-top: 3px; }
     .char-count.over { color: var(--error); font-weight: 700; }
 
     /* RADIO GROUP */
@@ -177,15 +174,44 @@
       text-transform: none;
       letter-spacing: 0;
       transition: background 0.15s, border-color 0.15s;
+      color: var(--azul);
     }
     .radio-group input[type=radio] { display: none; }
-    .radio-group input[type=radio]:checked + span {
-      font-weight: 700;
-    }
     .radio-group label:has(input:checked) {
       background: var(--azul);
       color: white;
       border-color: var(--azul);
+    }
+
+    /* EJEMPLO BOX */
+    .ejemplo-toggle {
+      background: none;
+      border: 2px solid var(--azul);
+      border-radius: 8px;
+      color: var(--azul);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      cursor: pointer;
+      margin-bottom: 14px;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ejemplo-box {
+      background: rgba(0,58,107,0.08);
+      border-left: 3px solid var(--azul);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--azul);
+      white-space: pre-wrap;
+      font-family: monospace;
+      margin-bottom: 14px;
     }
 
     /* BOTONES */
@@ -222,6 +248,31 @@
     }
     .btn-back:hover { opacity: 1; }
 
+    .btn-menu {
+      background: none;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 8px;
+      color: var(--blanco);
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0 auto 12px;
+      max-width: 480px;
+      padding: 7px 14px;
+      opacity: 0.85;
+      font-family: 'Roboto', sans-serif;
+    }
+    .btn-menu:hover { opacity: 1; }
+
+    .nav-btns {
+      max-width: 480px;
+      margin: 0 auto 12px;
+      display: flex;
+      gap: 10px;
+    }
+
     /* PREVIEW */
     .preview-box {
       background: var(--blanco);
@@ -238,21 +289,32 @@
     }
 
     .foto-tip {
-      background: rgba(0,58,107,0.1);
+      background: rgba(0,58,107,0.08);
       border-left: 3px solid var(--azul);
       border-radius: 6px;
       padding: 10px 12px;
       font-size: 0.85rem;
       color: var(--azul);
       margin-bottom: 14px;
+      line-height: 1.5;
     }
-    .foto-tip strong { display: block; margin-bottom: 2px; }
+    .foto-tip strong { display: block; margin-bottom: 3px; }
+
+    .linea-envio {
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.85);
+      margin-top: 10px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     /* CGV BTN */
     .cgv-btn {
       display: block;
       text-align: center;
-      background: var(--verde);
+      background: rgba(0,0,0,0.2);
       color: var(--lima);
       border-radius: 10px;
       padding: 12px;
@@ -267,10 +329,7 @@
     }
     .cgv-btn:hover { opacity: 0.88; }
 
-    /* HIDDEN */
     .hidden { display: none !important; }
-
-    /* OTRO ANIMAL input */
     #otro-animal-wrap { margin-top: 10px; }
   </style>
 </head>
@@ -278,20 +337,25 @@
 
   <!-- HEADER -->
   <div class="header">
-    <img src="https://i.imgur.com/2YIjNDH.png" alt="La Eugenia"/>
+    <img src="https://i.imgur.com/urkunqx.png" alt="La Eugenia"/>
     <h1>Reportes<br>Vecinales</h1>
-    <p>Club de Campo La Eugenia — Garupá</p>
+    <div class="subtitulo">La Eugenia Club de Campo</div>
   </div>
 
   <!-- PANTALLA 1: CATEGORÍAS -->
   <div id="screen-cats">
+    <div class="bienvenida">
+      Esta plataforma es para informar mascotas u objetos perdidos o encontrados.<br><br>
+      El mensaje llega a LA EUGE informa 📣 para su revisión y publicación.<br><br>
+      Una vez enviado el formulario, si lo considerás necesario, podrás adjuntar una foto directamente en WhatsApp.
+    </div>
     <div class="cat-grid">
       <button class="cat-btn" onclick="elegirCategoria('mascota-perdida')">
-        <span class="emoji">🐾</span>
+        <span class="emoji">🐕</span>
         <span class="label">Mascota<br>perdida</span>
       </button>
       <button class="cat-btn" onclick="elegirCategoria('mascota-encontrada')">
-        <span class="emoji">🐶</span>
+        <span class="emoji">🐱</span>
         <span class="label">Mascota<br>encontrada</span>
       </button>
       <button class="cat-btn" onclick="elegirCategoria('objeto-perdido')">
@@ -308,31 +372,34 @@
 
   <!-- PANTALLA 2: FORMULARIO -->
   <div id="screen-form" class="hidden">
-    <button class="btn-back" onclick="volver()">← Volver</button>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="volver()">← Volver</button>
+      <button class="btn-menu" onclick="irAlMenu()">🏠 Menú principal</button>
+    </div>
     <div class="card">
       <div class="form-title" id="form-title">🐾 MASCOTA PERDIDA</div>
 
-      <!-- MASCOTA: tipo de animal -->
+      <!-- TIPO ANIMAL -->
       <div class="field" id="field-tipo-animal">
         <label>Tipo de animal</label>
-        <div class="radio-group" id="radio-animal">
+        <div class="radio-group">
           <label><input type="radio" name="tipo_animal" value="Perro" onchange="onTipoAnimal()"><span>🐕 Perro</span></label>
           <label><input type="radio" name="tipo_animal" value="Gato" onchange="onTipoAnimal()"><span>🐱 Gato</span></label>
           <label><input type="radio" name="tipo_animal" value="otro" onchange="onTipoAnimal()"><span>🐾 Otro</span></label>
         </div>
-        <div id="otro-animal-wrap" class="hidden">
+        <div id="otro-animal-wrap" class="hidden" style="margin-top:10px">
           <input type="text" id="otro-animal" placeholder="¿Qué animal?" maxlength="40"/>
         </div>
         <span class="err-msg" id="err-tipo-animal">Seleccioná el tipo de animal.</span>
       </div>
 
-      <!-- MASCOTA: nombre (opcional) -->
+      <!-- NOMBRE MASCOTA -->
       <div class="field" id="field-nombre-mascota">
         <label>Nombre de la mascota <span class="opc">(opcional)</span></label>
-        <input type="text" id="nombre-mascota" placeholder="Ej: Toro, Luna..." maxlength="40"/>
+        <input type="text" id="nombre-mascota" placeholder="Ej: Toto, Kika, Luna..." maxlength="40"/>
       </div>
 
-      <!-- OBJETO: tipo -->
+      <!-- TIPO OBJETO -->
       <div class="field hidden" id="field-tipo-objeto">
         <label>Tipo de objeto</label>
         <input type="text" id="tipo-objeto" placeholder="Ej: mochila, llaves, bicicleta, ropa..." maxlength="60"/>
@@ -349,8 +416,8 @@
 
       <!-- ZONA -->
       <div class="field">
-        <label>Zona donde fue visto / perdido / encontrado</label>
-        <input type="text" id="zona" placeholder="Ej: M03, B12, cerca de la pileta, sendero..." maxlength="80"/>
+        <label id="label-zona">Zona</label>
+        <input type="text" id="zona" placeholder="Ej: M09, B12, cerca de la pileta, sendero..." maxlength="80"/>
         <span class="err-msg" id="err-zona">Indicá la zona.</span>
       </div>
 
@@ -376,7 +443,7 @@
         <span class="err-msg" id="err-donde-esta">Indicá dónde está.</span>
       </div>
 
-      <!-- NOMBRE Y APELLIDO -->
+      <!-- NOMBRE -->
       <div class="field">
         <label>Nombre y Apellido de quien reporta</label>
         <input type="text" id="nombre-reporta" placeholder="Ej: María González" maxlength="60"/>
@@ -390,6 +457,13 @@
         <span class="err-msg" id="err-tel">Ingresá un número válido (mínimo 10 dígitos).</span>
       </div>
 
+      <!-- VER EJEMPLO -->
+      <button class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
+        <span>📋 Ver ejemplo de cómo completarlo</span>
+        <span id="ejemplo-arrow">▼</span>
+      </button>
+      <div class="ejemplo-box hidden" id="ejemplo-box"></div>
+
       <button class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
     </div>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
@@ -397,15 +471,22 @@
 
   <!-- PANTALLA 3: PREVIEW -->
   <div id="screen-preview" class="hidden">
-    <button class="btn-back" onclick="volverAForm()">← Editar</button>
+    <div class="nav-btns">
+      <button class="btn-back" onclick="volverAForm()">← Editar</button>
+      <button class="btn-menu" onclick="irAlMenu()">🏠 Menú principal</button>
+    </div>
     <div class="card">
       <div class="form-title">✅ REVISÁ TU MENSAJE</div>
       <div class="preview-box" id="preview-text"></div>
       <div class="foto-tip">
-        <strong>📸 No olvides adjuntar la foto</strong>
-        Al abrirse WhatsApp, adjuntá la foto antes de enviar.
+        <strong>📸 ¿Tenés una foto?</strong>
+        Si tenés una foto de tu mascota u objeto, adjuntala directamente en WhatsApp una vez que se abra el chat. Evitá fotos lejanas, oscuras o donde no se vea bien. No es obligatoria.
       </div>
       <button class="btn-primary" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
+    </div>
+    <div class="linea-envio">
+      Este mensaje será enviado para su revisión a la línea de LA EUGE informa 📣<br>
+      +54 9 3764-113300
     </div>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
@@ -415,19 +496,78 @@
 
   const CONFIG = {
     'mascota-perdida':    { emoji: '🐾', titulo: 'MASCOTA PERDIDA',    esMascota: true,  esPerdido: true  },
-    'mascota-encontrada': { emoji: '🐶', titulo: 'MASCOTA ENCONTRADA', esMascota: true,  esPerdido: false },
+    'mascota-encontrada': { emoji: '🐾', titulo: 'MASCOTA ENCONTRADA', esMascota: true,  esPerdido: false },
     'objeto-perdido':     { emoji: '🎒', titulo: 'OBJETO PERDIDO',     esMascota: false, esPerdido: true  },
     'objeto-encontrado':  { emoji: '📦', titulo: 'OBJETO ENCONTRADO',  esMascota: false, esPerdido: false },
   };
 
   const PLACEHOLDERS = {
-    'mascota-perdida':    'Ej: Perro mediano, negro con mancha blanca en el pecho, renguea un poco. Se asustó con la tormenta.',
-    'mascota-encontrada': 'Ej: Gato anaranjado, adulto, sin collar, muy asustado. Encontrado cerca de la pileta.',
-    'objeto-perdido':     'Ej: Mochila azul con cremallera roja, tenía llaves adentro. La perdí en el sendero ecodeportivo.',
-    'objeto-encontrado':  'Ej: Par de anteojos de sol negros encontrados en la cancha de pádel 2.',
+    'mascota-perdida':    'Ej: Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.',
+    'mascota-encontrada': 'Ej: Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.',
+    'objeto-perdido':     'Ej: Mochila azul con cierre rojo, tiene llaves y una pelota adentro.',
+    'objeto-encontrado':  'Ej: Mochila azul con cierre rojo, encontrada en muy buen estado.',
+  };
+
+  const ZONA_LABEL = {
+    'mascota-perdida':    'Zona donde fue visto por última vez',
+    'mascota-encontrada': 'Zona donde fue encontrado',
+    'objeto-perdido':     'Zona donde fue perdido',
+    'objeto-encontrado':  'Zona donde fue encontrado',
+  };
+
+  const EJEMPLOS = {
+    'mascota-perdida': `#reportevecinal
+🐾 MASCOTA PERDIDA
+
+🐕 Perro | Nombre: Toto
+Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.
+
+📍 Zona: Lote M09
+🕐 Última vez visto: El jueves a la noche durante la tormenta
+
+📞 Si lo encontrás, contactar directamente a:
+María González — 3764123456
+📅 12/06/2026`,
+
+    'mascota-encontrada': `#reportevecinal
+🐾 MASCOTA ENCONTRADA
+
+🐕 Perro | Sin nombre conocido
+Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.
+
+📍 Zona: Plaza de Juegos
+🏠 Retirar en: Lote M09
+
+📞 Reportado por: María González — 3764123456
+📅 12/06/2026`,
+
+    'objeto-perdido': `#reportevecinal
+🎒 OBJETO PERDIDO
+
+📦 Mochila
+Mochila azul con cierre rojo, tiene llaves y una pelota adentro.
+
+📍 Zona: Sector pileta
+
+📞 Si lo encontrás, contactar directamente a:
+María González — 3764123456
+📅 12/06/2026`,
+
+    'objeto-encontrado': `#reportevecinal
+📦 OBJETO ENCONTRADO
+
+📦 Mochila
+Mochila azul con cierre rojo, encontrada en muy buen estado.
+
+📍 Zona: Cancha de pádel
+🏠 Retirar en: Garita de seguridad
+
+📞 Reportado por: María González — 3764123456
+📅 12/06/2026`,
   };
 
   let categoriaActual = '';
+  let ejemploVisible = false;
 
   function elegirCategoria(cat) {
     categoriaActual = cat;
@@ -435,24 +575,45 @@
 
     document.getElementById('form-title').textContent = cfg.emoji + ' ' + cfg.titulo;
     document.getElementById('descripcion').placeholder = PLACEHOLDERS[cat];
+    document.getElementById('label-zona').textContent = ZONA_LABEL[cat];
 
-    // Mostrar/ocultar campos según categoría
     toggle('field-tipo-animal',    cfg.esMascota);
     toggle('field-nombre-mascota', cfg.esMascota);
     toggle('field-tipo-objeto',    !cfg.esMascota);
     toggle('field-cuando',         cfg.esPerdido);
     toggle('field-donde-esta',     !cfg.esPerdido);
 
-    // Reset
-    resetForm();
+    // Precargar nombre mascota encontrada
+    if (cat === 'mascota-encontrada') {
+      document.getElementById('nombre-mascota').value = 'Sin nombre conocido';
+    }
 
+    document.getElementById('ejemplo-box').textContent = EJEMPLOS[cat];
+    ejemploVisible = false;
+    ocultar('ejemplo-box');
+    document.getElementById('ejemplo-arrow').textContent = '▼';
+
+    resetForm(cat);
     mostrar('screen-form');
     ocultar('screen-cats');
     window.scrollTo(0,0);
   }
 
+  function toggleEjemplo() {
+    ejemploVisible = !ejemploVisible;
+    toggle('ejemplo-box', ejemploVisible);
+    document.getElementById('ejemplo-arrow').textContent = ejemploVisible ? '▲' : '▼';
+  }
+
   function volver() {
     ocultar('screen-form');
+    mostrar('screen-cats');
+    window.scrollTo(0,0);
+  }
+
+  function irAlMenu() {
+    ocultar('screen-form');
+    ocultar('screen-preview');
     mostrar('screen-cats');
     window.scrollTo(0,0);
   }
@@ -481,14 +642,19 @@
     const n = document.getElementById('descripcion').value.length;
     const el = document.getElementById('char-num');
     el.textContent = n;
-    el.parentElement.classList.toggle('over', n >= 240);
+    el.parentElement.classList.toggle('over', n >= 230);
   }
 
   function corregirOrto(texto) {
-    // Capitaliza primera letra de cada oración
     return texto
       .replace(/(^\s*|[.!?]\s+)([a-záéíóúüñ])/gi, (m, p1, p2) => p1 + p2.toUpperCase())
       .trim();
+  }
+
+  function getEmojiAnimal(val) {
+    if (val === 'Perro') return '🐕';
+    if (val === 'Gato') return '🐱';
+    return '🐾';
   }
 
   function validar() {
@@ -497,12 +663,9 @@
 
     if (cfg.esMascota) {
       const tipoAnimal = document.querySelector('input[name=tipo_animal]:checked');
-      mostrarError('err-tipo-animal', !tipoAnimal);
-      if (!tipoAnimal) ok = false;
-      if (tipoAnimal?.value === 'otro' && !document.getElementById('otro-animal').value.trim()) {
-        mostrarError('err-tipo-animal', true);
-        ok = false;
-      }
+      const sinOtro = tipoAnimal?.value === 'otro' && !document.getElementById('otro-animal').value.trim();
+      mostrarError('err-tipo-animal', !tipoAnimal || sinOtro);
+      if (!tipoAnimal || sinOtro) ok = false;
     } else {
       const to = document.getElementById('tipo-objeto').value.trim();
       mostrarError('err-tipo-objeto', !to);
@@ -519,9 +682,9 @@
 
     if (!cfg.esPerdido) {
       const de = document.getElementById('donde-esta').value;
-      const deOk = de && !(de === 'otro-lugar' && !document.getElementById('otro-lugar').value.trim());
-      mostrarError('err-donde-esta', !deOk);
-      if (!deOk) ok = false;
+      const sinOtroLugar = de === 'otro-lugar' && !document.getElementById('otro-lugar').value.trim();
+      mostrarError('err-donde-esta', !de || sinOtroLugar);
+      if (!de || sinOtroLugar) ok = false;
     }
 
     const nombre = document.getElementById('nombre-reporta').value.trim();
@@ -537,9 +700,8 @@
   }
 
   function verPreview() {
-    if (!validar()) return;
-    const msg = armarMensaje();
-    document.getElementById('preview-text').textContent = msg;
+    if (!validar()) { window.scrollTo(0,0); return; }
+    document.getElementById('preview-text').textContent = armarMensaje();
     ocultar('screen-form');
     mostrar('screen-preview');
     window.scrollTo(0,0);
@@ -556,11 +718,16 @@
 
     if (cfg.esMascota) {
       const tipoAnimalEl = document.querySelector('input[name=tipo_animal]:checked');
-      let tipoAnimal = tipoAnimalEl?.value === 'otro'
+      const tipoVal = tipoAnimalEl?.value;
+      const tipoAnimal = tipoVal === 'otro'
         ? document.getElementById('otro-animal').value.trim()
-        : tipoAnimalEl?.value || '';
+        : tipoVal || '';
+      const emojiAnimal = getEmojiAnimal(tipoVal);
       const nombreMascota = document.getElementById('nombre-mascota').value.trim();
-      lines.push('🐾 ' + tipoAnimal + (nombreMascota ? ' | Nombre: ' + nombreMascota : ' | Sin nombre conocido'));
+      const nombreLabel = nombreMascota && nombreMascota !== 'Sin nombre conocido'
+        ? 'Nombre: ' + nombreMascota
+        : 'Sin nombre conocido';
+      lines.push(emojiAnimal + ' ' + tipoAnimal + ' | ' + nombreLabel);
     } else {
       const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
       lines.push('📦 ' + tipoObjeto);
@@ -594,34 +761,35 @@
     }
 
     lines.push('📅 ' + hoy);
-
     return lines.join('\n');
   }
 
   function enviarWhatsApp() {
     const msg = armarMensaje();
-    const url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
-    window.open(url, '_blank');
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   }
 
-  // Helpers
   function mostrar(id) { document.getElementById(id).classList.remove('hidden'); }
   function ocultar(id) { document.getElementById(id).classList.add('hidden'); }
   function toggle(id, show) { show ? mostrar(id) : ocultar(id); }
+
   function mostrarError(id, show) {
     const el = document.getElementById(id);
-    if (el) el.classList.toggle('visible', show);
-    // también marcar el input
-    const campo = el?.previousElementSibling;
-    if (campo && (campo.tagName === 'INPUT' || campo.tagName === 'SELECT' || campo.tagName === 'TEXTAREA')) {
+    if (!el) return;
+    el.classList.toggle('visible', show);
+    const campo = el.previousElementSibling;
+    if (campo && ['INPUT','SELECT','TEXTAREA'].includes(campo.tagName)) {
       campo.classList.toggle('error', show);
     }
   }
 
-  function resetForm() {
+  function resetForm(cat) {
     document.querySelectorAll('input[name=tipo_animal]').forEach(r => r.checked = false);
-    ['otro-animal','nombre-mascota','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono']
+    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono']
       .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    if (cat !== 'mascota-encontrada') {
+      document.getElementById('nombre-mascota').value = '';
+    }
     document.getElementById('donde-esta').value = '';
     document.getElementById('char-num').textContent = '0';
     ocultar('otro-animal-wrap');
