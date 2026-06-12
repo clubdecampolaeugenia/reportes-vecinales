@@ -27,7 +27,6 @@
       padding: 20px 16px 48px;
     }
 
-    /* HEADER */
     .header { text-align: center; margin-bottom: 20px; }
     .header img { width: 110px; margin-bottom: 12px; }
     .header h1 {
@@ -38,26 +37,20 @@
       text-transform: uppercase;
       line-height: 1.1;
     }
-    .header .subtitulo {
-      color: rgba(255,255,255,0.9);
-      font-size: 0.88rem;
-      margin-top: 5px;
-    }
+    .header .subtitulo { color: rgba(255,255,255,0.9); font-size: 0.88rem; margin-top: 5px; }
 
-    /* BIENVENIDA */
     .bienvenida {
       background: rgba(255,255,255,0.1);
       border-radius: var(--radius);
       padding: 14px 16px;
       max-width: 480px;
-      margin: 0 auto 20px;
+      margin: 16px auto 16px;
       color: var(--blanco);
       font-size: 0.88rem;
-      line-height: 1.55;
+      line-height: 1.6;
       text-align: center;
     }
 
-    /* CARD */
     .card {
       background: var(--lima);
       border-radius: var(--radius);
@@ -66,13 +59,12 @@
       margin: 0 auto 16px;
     }
 
-    /* CATEGORÍAS */
     .cat-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       max-width: 480px;
-      margin: 0 auto 16px;
+      margin: 0 auto 0;
     }
     .cat-btn {
       background: var(--lima);
@@ -83,11 +75,7 @@
       text-align: center;
       transition: transform 0.15s, background 0.15s;
     }
-    .cat-btn:hover, .cat-btn:focus {
-      background: #d4ef67;
-      transform: translateY(-2px);
-      outline: none;
-    }
+    .cat-btn:hover, .cat-btn:focus { background: #d4ef67; transform: translateY(-2px); outline: none; }
     .cat-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
     .cat-btn .label {
       font-family: Impact, sans-serif;
@@ -98,7 +86,6 @@
       line-height: 1.2;
     }
 
-    /* FORM TITLE */
     .form-title {
       font-family: Impact, sans-serif;
       font-size: 1.4rem;
@@ -110,7 +97,6 @@
       gap: 8px;
     }
 
-    /* FIELDS */
     .field { margin-bottom: 14px; }
     .field label {
       display: block;
@@ -121,15 +107,8 @@
       text-transform: uppercase;
       letter-spacing: 0.4px;
     }
-    .field label .opc {
-      font-weight: 400;
-      text-transform: none;
-      font-size: 0.78rem;
-      color: #445;
-    }
-    .field input,
-    .field select,
-    .field textarea {
+    .field label .opc { font-weight: 400; text-transform: none; font-size: 0.78rem; color: #445; }
+    .field input, .field select, .field textarea {
       width: 100%;
       border: 2px solid var(--azul);
       border-radius: 8px;
@@ -140,25 +119,15 @@
       background: var(--blanco);
       transition: border-color 0.2s;
     }
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus { outline: none; border-color: var(--verde); }
-    .field input.error,
-    .field select.error,
-    .field textarea.error { border-color: var(--error); }
-    .field .err-msg {
-      color: var(--error);
-      font-size: 0.78rem;
-      margin-top: 4px;
-      display: none;
-    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--verde); }
+    .field input.error, .field select.error, .field textarea.error { border-color: var(--error); }
+    .field .err-msg { color: var(--error); font-size: 0.78rem; margin-top: 4px; display: none; }
     .field .err-msg.visible { display: block; }
     .field textarea { resize: vertical; min-height: 80px; }
 
     .char-count { text-align: right; font-size: 0.75rem; color: #445; margin-top: 3px; }
     .char-count.over { color: var(--error); font-weight: 700; }
 
-    /* RADIO GROUP */
     .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
     .radio-group label {
       display: flex;
@@ -173,17 +142,12 @@
       font-weight: 500;
       text-transform: none;
       letter-spacing: 0;
-      transition: background 0.15s, border-color 0.15s;
+      transition: background 0.15s;
       color: var(--azul);
     }
     .radio-group input[type=radio] { display: none; }
-    .radio-group label:has(input:checked) {
-      background: var(--azul);
-      color: white;
-      border-color: var(--azul);
-    }
+    .radio-group label:has(input:checked) { background: var(--azul); color: white; border-color: var(--azul); }
 
-    /* EJEMPLO BOX */
     .ejemplo-toggle {
       background: none;
       border: 2px solid var(--azul);
@@ -214,7 +178,6 @@
       margin-bottom: 14px;
     }
 
-    /* BOTONES */
     .btn-primary {
       width: 100%;
       background: var(--azul);
@@ -232,48 +195,39 @@
     }
     .btn-primary:hover { opacity: 0.88; }
 
-    .btn-back {
-      background: none;
+    .btn-secundario {
+      width: 100%;
+      background: var(--verde);
+      color: var(--lima);
       border: none;
-      color: var(--blanco);
-      font-size: 0.88rem;
+      border-radius: 10px;
+      padding: 13px;
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin: 0 auto 12px;
-      max-width: 480px;
-      padding: 0;
-      opacity: 0.85;
+      margin-top: 10px;
+      transition: opacity 0.2s;
     }
-    .btn-back:hover { opacity: 1; }
+    .btn-secundario:hover { opacity: 0.88; }
 
-    .btn-menu {
+    .btn-editar {
+      width: 100%;
       background: none;
-      border: 2px solid rgba(255,255,255,0.5);
-      border-radius: 8px;
-      color: var(--blanco);
-      font-size: 0.82rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin: 0 auto 12px;
-      max-width: 480px;
-      padding: 7px 14px;
-      opacity: 0.85;
+      border: 2px solid var(--azul);
+      border-radius: 10px;
+      padding: 11px;
       font-family: 'Roboto', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--azul);
+      cursor: pointer;
+      margin-top: 10px;
+      transition: opacity 0.2s;
     }
-    .btn-menu:hover { opacity: 1; }
+    .btn-editar:hover { opacity: 0.7; }
 
-    .nav-btns {
-      max-width: 480px;
-      margin: 0 auto 12px;
-      display: flex;
-      gap: 10px;
-    }
-
-    /* PREVIEW */
     .preview-box {
       background: var(--blanco);
       border: 2px solid var(--azul);
@@ -283,7 +237,6 @@
       line-height: 1.6;
       white-space: pre-wrap;
       word-break: break-word;
-      margin-bottom: 14px;
       color: var(--azul);
       font-family: monospace;
     }
@@ -295,7 +248,8 @@
       padding: 10px 12px;
       font-size: 0.85rem;
       color: var(--azul);
-      margin-bottom: 14px;
+      margin-top: 14px;
+      margin-bottom: 4px;
       line-height: 1.5;
     }
     .foto-tip strong { display: block; margin-bottom: 3px; }
@@ -304,13 +258,13 @@
       text-align: center;
       font-size: 0.82rem;
       color: rgba(255,255,255,0.85);
-      margin-top: 10px;
+      margin-top: 12px;
       max-width: 480px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.5;
     }
 
-    /* CGV BTN */
     .cgv-btn {
       display: block;
       text-align: center;
@@ -329,13 +283,32 @@
     }
     .cgv-btn:hover { opacity: 0.88; }
 
+    /* PANTALLA CONFIRMACIÓN */
+    .confirmacion {
+      text-align: center;
+      max-width: 480px;
+      margin: 40px auto 0;
+    }
+    .confirmacion .icono { font-size: 4rem; margin-bottom: 16px; }
+    .confirmacion h2 {
+      font-family: Impact, sans-serif;
+      font-size: 1.6rem;
+      color: var(--lima);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .confirmacion p {
+      color: var(--blanco);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
     .hidden { display: none !important; }
-    #otro-animal-wrap { margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <div class="header">
     <img src="https://i.imgur.com/urkunqx.png" alt="La Eugenia"/>
     <h1>Reportes<br>Vecinales</h1>
@@ -344,42 +317,37 @@
 
   <!-- PANTALLA 1: CATEGORÍAS -->
   <div id="screen-cats">
+    <div class="cat-grid">
+      <button class="cat-btn" onclick="elegirCategoria('mascota-perdida')">
+        <span class="emoji">🐕</span>
+        <span class="label">Perdí una<br>mascota</span>
+      </button>
+      <button class="cat-btn" onclick="elegirCategoria('mascota-encontrada')">
+        <span class="emoji">🐱</span>
+        <span class="label">Encontré<br>una mascota</span>
+      </button>
+      <button class="cat-btn" onclick="elegirCategoria('objeto-perdido')">
+        <span class="emoji">🎒</span>
+        <span class="label">Perdí un<br>objeto</span>
+      </button>
+      <button class="cat-btn" onclick="elegirCategoria('objeto-encontrado')">
+        <span class="emoji">📦</span>
+        <span class="label">Encontré<br>un objeto</span>
+      </button>
+    </div>
     <div class="bienvenida">
       Esta plataforma es para informar mascotas u objetos perdidos o encontrados.<br><br>
       El mensaje llega a LA EUGE informa 📣 para su revisión y publicación.<br><br>
       Una vez enviado el formulario, si lo considerás necesario, podrás adjuntar una foto directamente en WhatsApp.
-    </div>
-    <div class="cat-grid">
-      <button class="cat-btn" onclick="elegirCategoria('mascota-perdida')">
-        <span class="emoji">🐕</span>
-        <span class="label">Mascota<br>perdida</span>
-      </button>
-      <button class="cat-btn" onclick="elegirCategoria('mascota-encontrada')">
-        <span class="emoji">🐱</span>
-        <span class="label">Mascota<br>encontrada</span>
-      </button>
-      <button class="cat-btn" onclick="elegirCategoria('objeto-perdido')">
-        <span class="emoji">🎒</span>
-        <span class="label">Objeto<br>perdido</span>
-      </button>
-      <button class="cat-btn" onclick="elegirCategoria('objeto-encontrado')">
-        <span class="emoji">📦</span>
-        <span class="label">Objeto<br>encontrado</span>
-      </button>
     </div>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
   <!-- PANTALLA 2: FORMULARIO -->
   <div id="screen-form" class="hidden">
-    <div class="nav-btns">
-      <button class="btn-back" onclick="volver()">← Volver</button>
-      <button class="btn-menu" onclick="irAlMenu()">🏠 Menú principal</button>
-    </div>
     <div class="card">
-      <div class="form-title" id="form-title">🐾 MASCOTA PERDIDA</div>
+      <div class="form-title" id="form-title">🐾 PERDÍ UNA MASCOTA</div>
 
-      <!-- TIPO ANIMAL -->
       <div class="field" id="field-tipo-animal">
         <label>Tipo de animal</label>
         <div class="radio-group">
@@ -393,20 +361,17 @@
         <span class="err-msg" id="err-tipo-animal">Seleccioná el tipo de animal.</span>
       </div>
 
-      <!-- NOMBRE MASCOTA -->
       <div class="field" id="field-nombre-mascota">
         <label>Nombre de la mascota <span class="opc">(opcional)</span></label>
         <input type="text" id="nombre-mascota" placeholder="Ej: Toto, Kika, Luna..." maxlength="40"/>
       </div>
 
-      <!-- TIPO OBJETO -->
       <div class="field hidden" id="field-tipo-objeto">
         <label>Tipo de objeto</label>
         <input type="text" id="tipo-objeto" placeholder="Ej: mochila, llaves, bicicleta, ropa..." maxlength="60"/>
         <span class="err-msg" id="err-tipo-objeto">Describí qué tipo de objeto es.</span>
       </div>
 
-      <!-- DESCRIPCIÓN -->
       <div class="field">
         <label>Descripción</label>
         <textarea id="descripcion" maxlength="250" placeholder="" oninput="contarChars()"></textarea>
@@ -414,20 +379,17 @@
         <span class="err-msg" id="err-descripcion">Agregá una descripción.</span>
       </div>
 
-      <!-- ZONA -->
       <div class="field">
         <label id="label-zona">Zona</label>
         <input type="text" id="zona" placeholder="Ej: M09, B12, cerca de la pileta, sendero..." maxlength="80"/>
         <span class="err-msg" id="err-zona">Indicá la zona.</span>
       </div>
 
-      <!-- CUÁNDO (solo perdidos) -->
       <div class="field hidden" id="field-cuando">
-        <label>¿Cuándo fue la última vez que lo viste? <span class="opc">(opcional)</span></label>
-        <input type="text" id="cuando" placeholder="Ej: el jueves a la noche, durante la tormenta..." maxlength="80"/>
+        <label id="label-cuando">¿Cuándo? <span class="opc">(opcional)</span></label>
+        <input type="text" id="cuando" placeholder="" maxlength="80"/>
       </div>
 
-      <!-- DÓNDE ESTÁ AHORA (solo encontrados) -->
       <div class="field hidden" id="field-donde-esta">
         <label>¿Dónde está ahora?</label>
         <select id="donde-esta" onchange="onDondeEsta()">
@@ -443,21 +405,18 @@
         <span class="err-msg" id="err-donde-esta">Indicá dónde está.</span>
       </div>
 
-      <!-- NOMBRE -->
       <div class="field">
         <label>Nombre y Apellido de quien reporta</label>
         <input type="text" id="nombre-reporta" placeholder="Ej: María González" maxlength="60"/>
-        <span class="err-msg" id="err-nombre">Ingresá nombre y apellido.</span>
+        <span class="err-msg" id="err-nombre">Ingresá nombre y apellido completo.</span>
       </div>
 
-      <!-- TELÉFONO -->
       <div class="field">
         <label>Teléfono de contacto</label>
         <input type="tel" id="telefono" placeholder="Ej: 3764123456" maxlength="15" oninput="soloNumeros(this)"/>
         <span class="err-msg" id="err-tel">Ingresá un número válido (mínimo 10 dígitos).</span>
       </div>
 
-      <!-- VER EJEMPLO -->
       <button class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
         <span>📋 Ver ejemplo de cómo completarlo</span>
         <span id="ejemplo-arrow">▼</span>
@@ -465,24 +424,23 @@
       <div class="ejemplo-box hidden" id="ejemplo-box"></div>
 
       <button class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
+      <button class="btn-secundario" onclick="irAlMenu()">🏠 Volver al menú principal</button>
     </div>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
   <!-- PANTALLA 3: PREVIEW -->
   <div id="screen-preview" class="hidden">
-    <div class="nav-btns">
-      <button class="btn-back" onclick="volverAForm()">← Editar</button>
-      <button class="btn-menu" onclick="irAlMenu()">🏠 Menú principal</button>
-    </div>
     <div class="card">
       <div class="form-title">✅ REVISÁ TU MENSAJE</div>
       <div class="preview-box" id="preview-text"></div>
+      <button class="btn-editar" onclick="volverAForm()">← Editar</button>
       <div class="foto-tip">
         <strong>📸 ¿Tenés una foto?</strong>
-        Si tenés una foto de tu mascota u objeto, adjuntala directamente en WhatsApp una vez que se abra el chat. Evitá fotos lejanas, oscuras o donde no se vea bien. No es obligatoria.
+        Si contás con una foto de tu mascota o del objeto sobre el que consultás, podés adjuntarla directamente en WhatsApp cuando se abra el chat. Para obtener una mejor respuesta, procurá que la imagen sea clara, esté bien iluminada y que el elemento se vea de cerca. La foto es opcional.
       </div>
       <button class="btn-primary" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
+      <button class="btn-secundario" onclick="irAlMenu()">🏠 Volver al menú principal</button>
     </div>
     <div class="linea-envio">
       Este mensaje será enviado para su revisión a la línea de LA EUGE informa 📣<br>
@@ -491,14 +449,25 @@
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
+  <!-- PANTALLA 4: CONFIRMACIÓN -->
+  <div id="screen-confirmacion" class="hidden">
+    <div class="confirmacion">
+      <div class="icono">✅</div>
+      <h2>¡Mensaje enviado!</h2>
+      <p>Tu mensaje fue enviado con éxito.<br>Abrí WhatsApp y, si lo deseás, adjuntá una fotografía.</p>
+      <button class="btn-secundario" onclick="irAlMenu()" style="max-width:480px;margin:0 auto;display:block;">🏠 Volver al menú principal</button>
+    </div>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
 <script>
   const WA_NUMBER = '5493764113300';
 
   const CONFIG = {
-    'mascota-perdida':    { emoji: '🐾', titulo: 'MASCOTA PERDIDA',    esMascota: true,  esPerdido: true  },
-    'mascota-encontrada': { emoji: '🐾', titulo: 'MASCOTA ENCONTRADA', esMascota: true,  esPerdido: false },
-    'objeto-perdido':     { emoji: '🎒', titulo: 'OBJETO PERDIDO',     esMascota: false, esPerdido: true  },
-    'objeto-encontrado':  { emoji: '📦', titulo: 'OBJETO ENCONTRADO',  esMascota: false, esPerdido: false },
+    'mascota-perdida':    { emoji: '🐾', titulo: 'PERDÍ UNA MASCOTA',    esMascota: true,  esPerdido: true  },
+    'mascota-encontrada': { emoji: '🐾', titulo: 'ENCONTRÉ UNA MASCOTA', esMascota: true,  esPerdido: false },
+    'objeto-perdido':     { emoji: '🎒', titulo: 'PERDÍ UN OBJETO',      esMascota: false, esPerdido: true  },
+    'objeto-encontrado':  { emoji: '📦', titulo: 'ENCONTRÉ UN OBJETO',   esMascota: false, esPerdido: false },
   };
 
   const PLACEHOLDERS = {
@@ -515,9 +484,25 @@
     'objeto-encontrado':  'Zona donde fue encontrado',
   };
 
+  const CUANDO_LABEL = {
+    'mascota-perdida': '¿Cuándo fue la última vez que lo viste?',
+    'objeto-perdido':  '¿Cuándo lo perdiste?',
+  };
+
+  const CUANDO_PLACEHOLDER = {
+    'mascota-perdida': 'Ej: el jueves a la noche, durante la tormenta...',
+    'objeto-perdido':  'Ej: el jueves a la tarde, en el sector pileta...',
+  };
+
+  const CUANDO_LABEL_MSG = {
+    'mascota-perdida': 'Última vez visto',
+    'objeto-perdido':  'Cuándo',
+  };
+
   const EJEMPLOS = {
     'mascota-perdida': `#reportevecinal
-🐾 MASCOTA PERDIDA
+
+🐾 PERDÍ UNA MASCOTA
 
 🐕 Perro | Nombre: Toto
 Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.
@@ -527,43 +512,59 @@ Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los
 
 📞 Si lo encontrás, contactar directamente a:
 María González — 3764123456
-📅 12/06/2026`,
+
+📅 12/06/2026
+
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
 
     'mascota-encontrada': `#reportevecinal
-🐾 MASCOTA ENCONTRADA
 
-🐕 Perro | Sin nombre conocido
+🐾 ENCONTRÉ UNA MASCOTA
+
+🐕 Perro | sin nombre conocido
 Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.
 
 📍 Zona: Plaza de Juegos
 🏠 Retirar en: Lote M09
 
 📞 Reportado por: María González — 3764123456
-📅 12/06/2026`,
+
+📅 12/06/2026
+
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
 
     'objeto-perdido': `#reportevecinal
-🎒 OBJETO PERDIDO
 
-📦 Mochila
+🎒 PERDÍ UN OBJETO
+
+🔑 Mochila
 Mochila azul con cierre rojo, tiene llaves y una pelota adentro.
 
 📍 Zona: Sector pileta
+🕐 Cuándo: El jueves a la tarde
 
 📞 Si lo encontrás, contactar directamente a:
 María González — 3764123456
-📅 12/06/2026`,
+
+📅 12/06/2026
+
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
 
     'objeto-encontrado': `#reportevecinal
-📦 OBJETO ENCONTRADO
 
-📦 Mochila
+📦 ENCONTRÉ UN OBJETO
+
+🔑 Mochila
 Mochila azul con cierre rojo, encontrada en muy buen estado.
 
 📍 Zona: Cancha de pádel
 🏠 Retirar en: Garita de seguridad
 
 📞 Reportado por: María González — 3764123456
-📅 12/06/2026`,
+
+📅 12/06/2026
+
+(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
   };
 
   let categoriaActual = '';
@@ -577,15 +578,21 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     document.getElementById('descripcion').placeholder = PLACEHOLDERS[cat];
     document.getElementById('label-zona').textContent = ZONA_LABEL[cat];
 
+    // Cuándo: label y placeholder adaptados
+    if (cfg.esPerdido) {
+      document.getElementById('label-cuando').innerHTML =
+        CUANDO_LABEL[cat] + ' <span class="opc">(opcional)</span>';
+      document.getElementById('cuando').placeholder = CUANDO_PLACEHOLDER[cat];
+    }
+
     toggle('field-tipo-animal',    cfg.esMascota);
     toggle('field-nombre-mascota', cfg.esMascota);
     toggle('field-tipo-objeto',    !cfg.esMascota);
     toggle('field-cuando',         cfg.esPerdido);
     toggle('field-donde-esta',     !cfg.esPerdido);
 
-    // Precargar nombre mascota encontrada
     if (cat === 'mascota-encontrada') {
-      document.getElementById('nombre-mascota').value = 'Sin nombre conocido';
+      document.getElementById('nombre-mascota').value = 'sin nombre conocido';
     }
 
     document.getElementById('ejemplo-box').textContent = EJEMPLOS[cat];
@@ -596,7 +603,7 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     resetForm(cat);
     mostrar('screen-form');
     ocultar('screen-cats');
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   function toggleEjemplo() {
@@ -605,23 +612,16 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     document.getElementById('ejemplo-arrow').textContent = ejemploVisible ? '▲' : '▼';
   }
 
-  function volver() {
-    ocultar('screen-form');
-    mostrar('screen-cats');
-    window.scrollTo(0,0);
-  }
-
   function irAlMenu() {
-    ocultar('screen-form');
-    ocultar('screen-preview');
+    ['screen-form','screen-preview','screen-confirmacion'].forEach(ocultar);
     mostrar('screen-cats');
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   function volverAForm() {
     ocultar('screen-preview');
     mostrar('screen-form');
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   function onTipoAnimal() {
@@ -630,19 +630,15 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
   }
 
   function onDondeEsta() {
-    const val = document.getElementById('donde-esta').value;
-    toggle('otro-lugar-wrap', val === 'otro-lugar');
+    toggle('otro-lugar-wrap', document.getElementById('donde-esta').value === 'otro-lugar');
   }
 
-  function soloNumeros(el) {
-    el.value = el.value.replace(/[^0-9]/g, '');
-  }
+  function soloNumeros(el) { el.value = el.value.replace(/[^0-9]/g, ''); }
 
   function contarChars() {
     const n = document.getElementById('descripcion').value.length;
-    const el = document.getElementById('char-num');
-    el.textContent = n;
-    el.parentElement.classList.toggle('over', n >= 230);
+    document.getElementById('char-num').textContent = n;
+    document.getElementById('char-num').parentElement.classList.toggle('over', n >= 230);
   }
 
   function corregirOrto(texto) {
@@ -688,9 +684,8 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     }
 
     const nombre = document.getElementById('nombre-reporta').value.trim();
-    const nombreOk = nombre.includes(' ') && nombre.length >= 5;
-    mostrarError('err-nombre', !nombreOk);
-    if (!nombreOk) ok = false;
+    mostrarError('err-nombre', !nombre.includes(' ') || nombre.length < 5);
+    if (!nombre.includes(' ') || nombre.length < 5) ok = false;
 
     const tel = document.getElementById('telefono').value.trim();
     mostrarError('err-tel', tel.length < 10);
@@ -700,11 +695,11 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
   }
 
   function verPreview() {
-    if (!validar()) { window.scrollTo(0,0); return; }
+    if (!validar()) { window.scrollTo(0, 0); return; }
     document.getElementById('preview-text').textContent = armarMensaje();
     ocultar('screen-form');
     mostrar('screen-preview');
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
   }
 
   function armarMensaje() {
@@ -713,36 +708,36 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     const lines = [];
 
     lines.push('#reportevecinal');
+    lines.push('');
     lines.push(cfg.emoji + ' ' + cfg.titulo);
     lines.push('');
 
     if (cfg.esMascota) {
       const tipoAnimalEl = document.querySelector('input[name=tipo_animal]:checked');
       const tipoVal = tipoAnimalEl?.value;
-      const tipoAnimal = tipoVal === 'otro'
-        ? document.getElementById('otro-animal').value.trim()
-        : tipoVal || '';
+      const tipoAnimal = tipoVal === 'otro' ? document.getElementById('otro-animal').value.trim() : tipoVal || '';
       const emojiAnimal = getEmojiAnimal(tipoVal);
       const nombreMascota = document.getElementById('nombre-mascota').value.trim();
-      const nombreLabel = nombreMascota && nombreMascota !== 'Sin nombre conocido'
+      const nombreLabel = (nombreMascota && nombreMascota !== 'sin nombre conocido')
         ? 'Nombre: ' + nombreMascota
-        : 'Sin nombre conocido';
+        : 'sin nombre conocido';
       lines.push(emojiAnimal + ' ' + tipoAnimal + ' | ' + nombreLabel);
     } else {
       const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
-      lines.push('📦 ' + tipoObjeto);
+      lines.push('🔑 ' + tipoObjeto);
     }
 
-    const desc = corregirOrto(document.getElementById('descripcion').value.trim());
-    lines.push(desc);
+    lines.push(corregirOrto(document.getElementById('descripcion').value.trim()));
     lines.push('');
 
-    const zona = document.getElementById('zona').value.trim();
-    lines.push('📍 Zona: ' + zona);
+    lines.push('📍 Zona: ' + document.getElementById('zona').value.trim());
 
     if (cfg.esPerdido) {
       const cuando = document.getElementById('cuando').value.trim();
-      if (cuando) lines.push('🕐 Última vez visto: ' + cuando);
+      if (cuando) {
+        const label = CUANDO_LABEL_MSG[categoriaActual] || 'Cuándo';
+        lines.push('🕐 ' + label + ': ' + cuando);
+      }
     } else {
       let dondeEsta = document.getElementById('donde-esta').value;
       if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
@@ -760,13 +755,20 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
       lines.push('📞 Reportado por: ' + nombre + ' — ' + tel);
     }
 
+    lines.push('');
     lines.push('📅 ' + hoy);
+    lines.push('');
+    lines.push('(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)');
+
     return lines.join('\n');
   }
 
   function enviarWhatsApp() {
     const msg = armarMensaje();
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+    ocultar('screen-preview');
+    mostrar('screen-confirmacion');
+    window.scrollTo(0, 0);
   }
 
   function mostrar(id) { document.getElementById(id).classList.remove('hidden'); }
@@ -787,9 +789,7 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
     document.querySelectorAll('input[name=tipo_animal]').forEach(r => r.checked = false);
     ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono']
       .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-    if (cat !== 'mascota-encontrada') {
-      document.getElementById('nombre-mascota').value = '';
-    }
+    if (cat !== 'mascota-encontrada') document.getElementById('nombre-mascota').value = '';
     document.getElementById('donde-esta').value = '';
     document.getElementById('char-num').textContent = '0';
     ocultar('otro-animal-wrap');
