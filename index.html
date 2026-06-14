@@ -322,9 +322,9 @@
       width: 100%;
       max-width: 480px;
       margin: 10px auto 0;
-      background: none;
-      border: 2px solid rgba(196,223,87,0.7);
-      border-radius: 10px;
+      background: transparent;
+      border: 2px solid var(--lima);
+      border-radius: 50px;
       padding: 14px 12px;
       font-family: Impact, sans-serif;
       font-size: 1rem;
@@ -333,6 +333,7 @@
       color: var(--lima);
       cursor: pointer;
       transition: opacity 0.2s;
+      box-sizing: border-box;
     }
     .btn-menu-ext:hover { opacity: 0.75; }
     .hidden { display: none !important; }
