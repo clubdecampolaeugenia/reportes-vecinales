@@ -28,7 +28,7 @@
     }
 
     .header { text-align: center; margin-bottom: 20px; }
-    .header img { width: 181px; margin-bottom: 12px; }
+    .header img { width: 181px; margin-bottom: 12px; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25)); }
     .header h1 {
       font-family: Impact, 'Arial Narrow', sans-serif;
       font-size: 2.2rem;
@@ -57,6 +57,7 @@
       padding: 22px 18px;
       max-width: 480px;
       margin: 0 auto 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
     }
 
     .cat-grid {
@@ -73,9 +74,10 @@
       padding: 20px 10px;
       cursor: pointer;
       text-align: center;
-      transition: transform 0.15s, background 0.15s;
+      transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
     }
-    .cat-btn:hover, .cat-btn:focus { background: #d4ef67; transform: translateY(-2px); outline: none; }
+    .cat-btn:hover, .cat-btn:focus { background: #d4ef67; transform: translateY(-2px); outline: none; box-shadow: 0 6px 16px rgba(0,0,0,0.22); }
     .cat-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
     .cat-btn .label {
       font-family: Impact, sans-serif;
@@ -239,6 +241,7 @@
       word-break: break-word;
       color: var(--azul);
       font-family: monospace;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
     }
 
     .foto-tip {
