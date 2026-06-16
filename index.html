@@ -298,22 +298,20 @@
     /* PANTALLA CONFIRMACIÓN */
     .confirmacion {
       text-align: center;
-      max-width: 480px;
-      margin: 40px auto 0;
+      padding: 32px 18px;
     }
     .confirmacion .icono { font-size: 4rem; margin-bottom: 16px; }
     .confirmacion h2 {
       font-family: Impact, sans-serif;
       font-size: 1.6rem;
-      color: var(--lima);
+      color: var(--azul);
       text-transform: uppercase;
       margin-bottom: 12px;
     }
     .confirmacion p {
-      color: var(--blanco);
+      color: var(--azul);
       font-size: 0.95rem;
       line-height: 1.6;
-      margin-bottom: 24px;
     }
 
     .pie-italic {
@@ -525,12 +523,12 @@
 
   <!-- PANTALLA 4: CONFIRMACIÓN -->
   <div id="screen-confirmacion" class="hidden">
-    <div class="confirmacion">
+    <div class="card confirmacion">
       <div class="icono">✅</div>
       <h2>¡Mensaje enviado!</h2>
       <p>Tu mensaje fue enviado con éxito.<br>Abrí WhatsApp y, si lo deseás, adjuntá una fotografía.</p>
-      <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     </div>
+    <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
