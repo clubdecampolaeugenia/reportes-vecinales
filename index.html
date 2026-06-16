@@ -292,7 +292,6 @@
       width: 100%;
       box-sizing: border-box;
       transition: opacity 0.2s;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
     }
     .cgv-btn:hover { opacity: 0.88; }
 
@@ -346,9 +345,37 @@
       transition: opacity 0.2s;
       box-sizing: border-box;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     .btn-menu-ext:hover { opacity: 0.75; }
+
+    @keyframes fadeInScreen {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #screen-cats, #screen-form, #screen-preview, #screen-confirmacion {
+      animation: fadeInScreen 0.3s ease-out;
+    }
+
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .field input.error, .field select.error, .field textarea.error {
+      animation: shakeError 0.35s ease-in-out;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .confirmacion .icono {
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
     .hidden { display: none !important; }
   </style>
 </head>
