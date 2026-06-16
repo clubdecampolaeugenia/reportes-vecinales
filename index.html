@@ -28,7 +28,7 @@
     }
 
     .header { text-align: center; margin-bottom: 20px; }
-    .header img { width: 181px; margin-bottom: 12px; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.4)); }
+    .header img { width: 181px; margin-bottom: 12px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25)); }
     .header h1 {
       font-family: Impact, 'Arial Narrow', sans-serif;
       font-size: 2.2rem;
@@ -78,6 +78,12 @@
       box-shadow: 0 6px 16px rgba(0,0,0,0.32);
     }
     .cat-btn:hover, .cat-btn:focus { background: #d4ef67; transform: translateY(-2px); outline: none; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+    .cat-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      background: #d4ef67;
+      transition: transform 0.08s, box-shadow 0.08s;
+    }
     .cat-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
     .cat-btn .label {
       font-family: Impact, sans-serif;
@@ -340,6 +346,7 @@
       transition: opacity 0.2s;
       box-sizing: border-box;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     .btn-menu-ext:hover { opacity: 0.75; }
     .hidden { display: none !important; }
