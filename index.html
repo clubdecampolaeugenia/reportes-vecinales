@@ -360,8 +360,7 @@
       display: block;
       width: 100%;
       max-width: 480px;
-      margin: 24px auto 0;
-      background: transparent;
+      margin: 36px auto 0;
       border: 2px solid var(--lima);
       border-radius: 10px;
       padding: 14px;
@@ -613,18 +612,18 @@
       <div class="field">
         <label>Teléfono de contacto</label>
         <div style="display:flex; gap:8px;">
-          <select id="pais-cod" onchange="onPaisCod()" style="flex:0 0 auto; width:auto; min-width:108px;">
-            <option value="54" selected>Argentina (+54)</option>
-            <option value="55">Brasil (+55)</option>
-            <option value="595">Paraguay (+595)</option>
-            <option value="598">Uruguay (+598)</option>
-            <option value="56">Chile (+56)</option>
-            <option value="591">Bolivia (+591)</option>
-            <option value="34">España (+34)</option>
-            <option value="1">Estados Unidos (+1)</option>
-            <option value="otro">Otro país</option>
+          <select id="pais-cod" onchange="onPaisCod()" style="flex:0 0 108px; max-width:108px;">
+            <option value="54" selected>🇦🇷 +54 9</option>
+            <option value="55">🇧🇷 +55</option>
+            <option value="595">🇵🇾 +595</option>
+            <option value="598">🇺🇾 +598</option>
+            <option value="56">🇨🇱 +56</option>
+            <option value="591">🇧🇴 +591</option>
+            <option value="34">🇪🇸 +34</option>
+            <option value="1">🇺🇸 +1</option>
+            <option value="otro">🌐 Otro país</option>
           </select>
-          <input type="tel" id="telefono" placeholder="Ej: 3764123456" maxlength="15" oninput="soloNumeros(this)" style="flex:1;"/>
+          <input type="tel" id="telefono" placeholder="Ej: 3764123456" maxlength="15" oninput="soloNumeros(this)" style="flex:1; min-width:0;"/>
         </div>
         <div id="otro-pais-wrap" class="hidden" style="margin-top:8px">
           <input type="text" id="otro-pais-cod" placeholder="Código de país (ej: 44)" maxlength="4" oninput="soloNumeros(this)"/>
@@ -721,7 +720,7 @@
   };
 
   const EJEMPLOS = {
-    'mascota-perdida': `#reportevecinal
+    'mascota-perdida': `_#ReporteVecinal_
 
 🐾 PERDÍ UNA MASCOTA
 
@@ -739,7 +738,7 @@ WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
 
-    'mascota-encontrada': `#reportevecinal
+    'mascota-encontrada': `_#ReporteVecinal_
 
 🐾 ENCONTRÉ UNA MASCOTA
 
@@ -757,7 +756,7 @@ WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
 
-    'objeto-perdido': `#reportevecinal
+    'objeto-perdido': `_#ReporteVecinal_
 
 🎒 PERDÍ UN OBJETO
 
@@ -775,7 +774,7 @@ WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
 
-    'objeto-encontrado': `#reportevecinal
+    'objeto-encontrado': `_#ReporteVecinal_
 
 📦 ENCONTRÉ UN OBJETO
 
@@ -941,7 +940,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
     const cfg = CONFIG[categoriaActual];
     const lines = [];
 
-    lines.push('#reportevecinal');
+    lines.push('_#ReporteVecinal_');
     lines.push('');
     lines.push(cfg.emoji + ' ' + cfg.titulo);
     lines.push('');
@@ -1021,6 +1020,10 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
     html = html.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
 
+    // Hashtag en cursiva simple (sin etiqueta de sistema)
+    html = html.replace(/_#ReporteVecinal_/g, '<em>#ReporteVecinal</em>');
+
+    // Disclaimer final en cursiva con etiqueta de sistema
     html = html.replace(/_([^_]+)_/g, (m, contenido) => {
       return '<span class="preview-sistema-texto">' + contenido +
              '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
@@ -1044,6 +1047,8 @@ _Por favor, contactate directamente con la persona del reporte._`,
       .replace(/>/g, '&gt;');
 
     html = html.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+
+    html = html.replace(/_#ReporteVecinal_/g, '<em>#ReporteVecinal</em>');
 
     html = html.replace(/_([^_]+)_/g, (m, contenido) => {
       return '<span class="preview-sistema-texto">' + contenido +
