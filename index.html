@@ -887,7 +887,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
     const nombre = document.getElementById('nombre-reporta').value.trim();
     mostrarError('err-nombre', nombre.length < 2);
-    if (!nombre.includes(' ') || nombre.length < 5) ok = false;
+    if (nombre.length < 2) ok = false;
 
     const tel = document.getElementById('telefono').value.trim();
     mostrarError('err-tel', tel.length < 10);
