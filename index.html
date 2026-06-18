@@ -222,20 +222,40 @@
     .btn-secundario:hover { opacity: 0.88; }
 
     .btn-editar {
-      width: 100%;
+      width: auto;
       background: none;
-      border: 2px solid var(--azul);
-      border-radius: 10px;
-      padding: 11px;
+      border: none;
+      padding: 8px 4px;
       font-family: 'Roboto', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--azul);
+      opacity: 0.7;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 4px;
+      margin-bottom: 6px;
+      text-decoration: underline;
       transition: opacity 0.2s;
     }
-    .btn-editar:hover { opacity: 0.7; }
+    .btn-editar:hover { opacity: 1; }
+
+    .preview-sistema-texto {
+      color: #6b7280;
+      font-style: italic;
+    }
+    .preview-sistema-label {
+      display: block;
+      color: #9ca3af;
+      font-size: 0.72rem;
+      font-style: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-top: 2px;
+    }
+    .preview-link-wa {
+      color: #1a73e8;
+      text-decoration: underline;
+    }
 
     .preview-box {
       background: var(--blanco);
@@ -678,7 +698,7 @@
 
 🐾 PERDÍ UNA MASCOTA
 
-Perro | Nombre: Toto
+*Perro* | Nombre: Toto
 Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.
 
 Zona: Lote M09
@@ -686,26 +706,30 @@ Zona: Lote M09
 Última vez visto: El jueves a la noche durante la tormenta
 
 Si lo encontrás, contactar directamente a:
-María González — 3764123456`,
+María González — 3764123456 (WhatsApp)
+
+_Por favor, contactate directamente con la persona del reporte._`,
 
     'mascota-encontrada': `#reportevecinal
 
 🐾 ENCONTRÉ UNA MASCOTA
 
-Perro | sin nombre conocido
+*Perro* | sin nombre conocido
 Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.
 
 Zona: Plaza de Juegos
 
 Retirar en: Lote M09
 
-Reportado por: María González — 3764123456`,
+Reportado por: María González — 3764123456 (WhatsApp)
+
+_Por favor, contactate directamente con la persona del reporte._`,
 
     'objeto-perdido': `#reportevecinal
 
 🎒 PERDÍ UN OBJETO
 
-Mochila
+*Mochila*
 Mochila azul con cierre rojo, tiene llaves y una pelota adentro.
 
 Zona: Sector pileta
@@ -713,20 +737,24 @@ Zona: Sector pileta
 Cuándo: El jueves a la tarde
 
 Si lo encontrás, contactar directamente a:
-María González — 3764123456`,
+María González — 3764123456 (WhatsApp)
+
+_Por favor, contactate directamente con la persona del reporte._`,
 
     'objeto-encontrado': `#reportevecinal
 
 📦 ENCONTRÉ UN OBJETO
 
-Mochila
+*Mochila*
 Mochila azul con cierre rojo, encontrada en muy buen estado.
 
 Zona: Cancha de pádel
 
 Retirar en: Garita de seguridad
 
-Reportado por: María González — 3764123456`,
+Reportado por: María González — 3764123456 (WhatsApp)
+
+_Por favor, contactate directamente con la persona del reporte._`,
   };
 
   let categoriaActual = '';
@@ -757,7 +785,7 @@ Reportado por: María González — 3764123456`,
       document.getElementById('nombre-mascota').value = 'sin nombre conocido';
     }
 
-    document.getElementById('ejemplo-box').textContent = EJEMPLOS[cat];
+    document.getElementById('ejemplo-box').innerHTML = renderizarEjemploHTML(EJEMPLOS[cat]);
     ejemploVisible = false;
     ocultar('ejemplo-box');
     ocultar('ejemplo-disclaimer');
@@ -860,7 +888,7 @@ Reportado por: María González — 3764123456`,
 
   function verPreview() {
     if (!validar()) { window.scrollTo(0, 0); return; }
-    document.getElementById('preview-text').textContent = armarMensaje();
+    document.getElementById('preview-text').innerHTML = renderizarPreviewHTML(armarMensaje());
     ocultar('screen-form');
     mostrar('screen-preview');
     window.scrollTo(0, 0);
@@ -883,10 +911,10 @@ Reportado por: María González — 3764123456`,
       const nombreLabel = (nombreMascota && nombreMascota !== 'sin nombre conocido')
         ? 'Nombre: ' + nombreMascota
         : 'sin nombre conocido';
-      lines.push(tipoAnimal + ' | ' + nombreLabel);
+      lines.push('*' + tipoAnimal + '*' + ' | ' + nombreLabel);
     } else {
       const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
-      lines.push(tipoObjeto);
+      lines.push('*' + tipoObjeto + '*');
     }
 
     lines.push(corregirOrto(document.getElementById('descripcion').value.trim()));
@@ -915,15 +943,57 @@ Reportado por: María González — 3764123456`,
 
     if (cfg.esPerdido) {
       lines.push('Si lo encontrás, contactar directamente a:');
-      lines.push(nombre + ' — ' + telLink);
+      lines.push(nombre + ' — ' + tel + ' (' + telLink + ')');
     } else {
-      lines.push('Reportado por: ' + nombre + ' — ' + telLink);
+      lines.push('Reportado por: ' + nombre + ' — ' + tel + ' (' + telLink + ')');
     }
 
     lines.push('');
-    lines.push('Por favor, contactate directamente con la persona del reporte.');
+    lines.push('_Por favor, contactate directamente con la persona del reporte._');
 
     return lines.join('\n');
+  }
+
+  // Convierte el texto con formato WhatsApp (*negrita*, _cursiva_, link entre paréntesis)
+  // a HTML visual para mostrar en el preview, simulando cómo se vería ya publicado.
+  function renderizarPreviewHTML(textoPlano) {
+    let html = textoPlano
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // Negrita: *texto*
+    html = html.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+
+    // Cierre del sistema en cursiva: _texto_ -> reemplazar por bloque diferenciado
+    html = html.replace(/_([^_]+)_/g, (m, contenido) => {
+      return '<span class="preview-sistema-texto">' + contenido +
+             '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
+    });
+
+    // Link de WhatsApp: número (https://wa.me/...) -> número (WhatsApp) con link real azul
+    html = html.replace(/(\d{8,15}) \((https:\/\/wa\.me\/[^\)]+)\)/g,
+      '$1 <a class="preview-link-wa" href="$2" target="_blank">(WhatsApp)</a>');
+
+    return html;
+  }
+
+  function renderizarEjemploHTML(textoPlano) {
+    let html = textoPlano
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    html = html.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+
+    html = html.replace(/_([^_]+)_/g, (m, contenido) => {
+      return '<span class="preview-sistema-texto">' + contenido +
+             '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
+    });
+
+    html = html.replace(/(\d{8,15}) \(WhatsApp\)/g, '$1 <a class="preview-link-wa" href="#" onclick="return false;">(WhatsApp)</a>');
+
+    return html;
   }
 
   function abrirPopupFoto() {
