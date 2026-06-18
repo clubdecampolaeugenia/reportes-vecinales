@@ -510,19 +510,19 @@
   <!-- PANTALLA 1: CATEGORÍAS -->
   <div id="screen-cats">
     <div class="cat-grid">
-      <button class="cat-btn" onclick="elegirCategoria('mascota-perdida')">
+      <button type="button" class="cat-btn" onclick="elegirCategoria('mascota-perdida')">
         <span class="emoji">🐶</span>
         <span class="label">Perdí una<br>mascota</span>
       </button>
-      <button class="cat-btn" onclick="elegirCategoria('mascota-encontrada')">
+      <button type="button" class="cat-btn" onclick="elegirCategoria('mascota-encontrada')">
         <span class="emoji">🐱</span>
         <span class="label">Encontré<br>una mascota</span>
       </button>
-      <button class="cat-btn" onclick="elegirCategoria('objeto-perdido')">
+      <button type="button" class="cat-btn" onclick="elegirCategoria('objeto-perdido')">
         <span class="emoji">🎒</span>
         <span class="label">Perdí un<br>objeto</span>
       </button>
-      <button class="cat-btn" onclick="elegirCategoria('objeto-encontrado')">
+      <button type="button" class="cat-btn" onclick="elegirCategoria('objeto-encontrado')">
         <span class="emoji">📦</span>
         <span class="label">Encontré<br>un objeto</span>
       </button>
@@ -540,7 +540,7 @@
     <div class="card">
       <div class="form-title" id="form-title">🐾 PERDÍ UNA MASCOTA</div>
 
-      <button class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
+      <button type="button" class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
         <span>📋 Ver ejemplo de publicación</span>
         <span id="ejemplo-arrow">▼</span>
       </button>
@@ -617,9 +617,9 @@
       </div>
 
 
-      <button class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
+      <button type="button" class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
     </div>
-    <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
+    <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
@@ -628,14 +628,14 @@
     <div class="card">
       <div class="form-title">✅ REVISÁ TU MENSAJE</div>
       <div class="preview-box" id="preview-text"></div>
-      <button class="btn-editar" onclick="volverAForm()">← Editar</button>
-      <button class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
+      <button type="button" class="btn-editar" onclick="volverAForm()">← Editar</button>
+      <button type="button" class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
       <div class="linea-envio-card">
         Este mensaje será enviado para su revisión a +54 9 3764-113300<br>
         la línea de LA EUGE informa 📣
       </div>
     </div>
-    <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
+    <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
@@ -646,7 +646,7 @@
       <h2>¡Mensaje enviado!</h2>
       <p>Tu mensaje fue enviado con éxito.<br>Abrí WhatsApp y, si lo deseás, adjuntá una fotografía.</p>
     </div>
-    <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
+    <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
@@ -660,8 +660,8 @@
         <p>Cuando estés en el chat, podés adjuntar una foto antes de enviarlo.</p>
       </div>
       <hr class="modal-divider">
-      <button class="btn-modal-primario" onclick="enviarWhatsApp()">Abrir WhatsApp</button>
-      <button class="btn-modal-volver" onclick="cerrarPopupFoto()">Volver</button>
+      <button type="button" class="btn-modal-primario" onclick="enviarWhatsApp()">Abrir WhatsApp</button>
+      <button type="button" class="btn-modal-volver" onclick="cerrarPopupFoto()">Volver</button>
     </div>
   </div>
 
