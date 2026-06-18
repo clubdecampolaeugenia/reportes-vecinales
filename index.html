@@ -435,8 +435,9 @@
       animation: fadeInScreen 0.3s ease-out;
     }
     .modal-foto .icono {
-      font-size: 44px;
-      margin-bottom: 10px;
+      font-size: 52px;
+      margin-bottom: 4px;
+      line-height: 1;
     }
     .modal-foto .modal-titulo {
       color: var(--lima);
@@ -444,13 +445,20 @@
       font-size: 17px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .modal-foto .modal-texto {
       color: var(--hueso);
       font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 22px;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+    .modal-foto .modal-texto p { margin-bottom: 6px; }
+    .modal-foto .modal-texto p:last-child { margin-bottom: 0; }
+    .modal-foto .modal-divider {
+      border: none;
+      border-top: 1px solid rgba(196,223,87,0.25);
+      margin: 0 0 18px;
     }
     .modal-foto .btn-modal-primario {
       display: block;
@@ -595,9 +603,9 @@
       </div>
 
       <div class="field">
-        <label>Nombre y Apellido de quien reporta</label>
-        <input type="text" id="nombre-reporta" placeholder="Ej: María González" maxlength="60" oninput="capitalizarNombre(this)"/>
-        <span class="err-msg" id="err-nombre">Ingresá nombre y apellido completo.</span>
+        <label>Nombre de quien reporta</label>
+        <input type="text" id="nombre-reporta" placeholder="Ej: María" maxlength="60" oninput="capitalizarNombre(this)"/>
+        <span class="err-msg" id="err-nombre">Ingresá tu nombre.</span>
       </div>
 
       <div class="field">
@@ -621,8 +629,8 @@
       <button class="btn-editar" onclick="volverAForm()">← Editar</button>
       <button class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
       <div class="linea-envio-card">
-        Este mensaje será enviado para su revisión a la línea de LA EUGE informa 📣<br>
-        +54 9 3764-113300
+        Este mensaje será enviado para su revisión a +54 9 3764-113300<br>
+        la línea de LA EUGE informa 📣
       </div>
     </div>
     <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
@@ -646,9 +654,10 @@
       <div class="icono">📸</div>
       <div class="modal-titulo">Foto opcional</div>
       <div class="modal-texto">
-        Ahora se abrirá WhatsApp con tu mensaje ya escrito.<br><br>
-        Cuando estés en el chat, podés adjuntar una foto antes de enviarlo.
+        <p>Ahora se abrirá WhatsApp con tu mensaje ya escrito.</p>
+        <p>Cuando estés en el chat, podés adjuntar una foto antes de enviarlo.</p>
       </div>
+      <hr class="modal-divider">
       <button class="btn-modal-primario" onclick="enviarWhatsApp()">Abrir WhatsApp</button>
       <button class="btn-modal-volver" onclick="cerrarPopupFoto()">Volver</button>
     </div>
@@ -876,7 +885,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
     }
 
     const nombre = document.getElementById('nombre-reporta').value.trim();
-    mostrarError('err-nombre', !nombre.includes(' ') || nombre.length < 5);
+    mostrarError('err-nombre', nombre.length < 2);
     if (!nombre.includes(' ') || nombre.length < 5) ok = false;
 
     const tel = document.getElementById('telefono').value.trim();
@@ -939,7 +948,8 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
     const nombre = document.getElementById('nombre-reporta').value.trim();
     const tel = document.getElementById('telefono').value.trim();
-    const telLink = 'https://wa.me/549' + tel.replace(/^0/, '');
+    const telLimpio = tel.replace(/\D/g, '').replace(/^0+/, '');
+    const telLink = 'https://wa.me/549' + telLimpio;
 
     if (cfg.esPerdido) {
       lines.push('Si lo encontrás, contactar directamente a:');
