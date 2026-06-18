@@ -361,6 +361,7 @@
       width: 100%;
       max-width: 480px;
       margin: 36px auto 0;
+      background: transparent;
       border: 2px solid var(--lima);
       border-radius: 10px;
       padding: 14px;
@@ -733,7 +734,7 @@ Zona: Lote M09
 
 Si lo encontrás, contactar directamente a:
 • María González
-+54 9 3764 123456 (tel:+5493764123456)
++54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
@@ -751,7 +752,7 @@ Retirar en: Lote M09
 
 Reportado por:
 • María González
-+54 9 3764 123456 (tel:+5493764123456)
++54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
@@ -769,7 +770,7 @@ Cuándo: El jueves a la tarde
 
 Si lo encontrás, contactar directamente a:
 • María González
-+54 9 3764 123456 (tel:+5493764123456)
++54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
@@ -787,7 +788,7 @@ Retirar en: Garita de seguridad
 
 Reportado por:
 • María González
-+54 9 3764 123456 (tel:+5493764123456)
++54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
@@ -997,12 +998,12 @@ _Por favor, contactate directamente con la persona del reporte._`,
     if (cfg.esPerdido) {
       lines.push('Si lo encontrás, contactar directamente a:');
       lines.push('• ' + nombre);
-      lines.push(telVisual + ' (' + telLinkLlamar + ')');
+      lines.push(telVisual);
       lines.push('WhatsApp: ' + telLinkWA);
     } else {
       lines.push('Reportado por:');
       lines.push('• ' + nombre);
-      lines.push(telVisual + ' (' + telLinkLlamar + ')');
+      lines.push(telVisual);
       lines.push('WhatsApp: ' + telLinkWA);
     }
 
@@ -1029,13 +1030,9 @@ _Por favor, contactate directamente con la persona del reporte._`,
              '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
     });
 
-    // Teléfono visual + link tel: clickeable
-    html = html.replace(/(\+[\d\s]+) \((tel:[^\)]+)\)/g,
-      '$1 <a class="preview-link-wa" href="$2">(Llamar)</a>');
-
-    // Link de WhatsApp clickeable
+    // Link de WhatsApp clickeable, mostrando la URL cruda
     html = html.replace(/WhatsApp: (https:\/\/wa\.me\/[^\s<]+)/g,
-      '<a class="preview-link-wa" href="$1" target="_blank">Abrir WhatsApp</a>');
+      'WhatsApp: <a class="preview-link-wa" href="$1" target="_blank">$1</a>');
 
     return html;
   }
@@ -1055,11 +1052,8 @@ _Por favor, contactate directamente con la persona del reporte._`,
              '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
     });
 
-    html = html.replace(/(\+[\d\s]+) \((tel:[^\)]+)\)/g,
-      '$1 <a class="preview-link-wa" href="#" onclick="return false;">(Llamar)</a>');
-
     html = html.replace(/WhatsApp: (https:\/\/wa\.me\/[^\s<]+)/g,
-      '<a class="preview-link-wa" href="#" onclick="return false;">Abrir WhatsApp</a>');
+      'WhatsApp: <a class="preview-link-wa" href="#" onclick="return false;">$1</a>');
 
     return html;
   }
