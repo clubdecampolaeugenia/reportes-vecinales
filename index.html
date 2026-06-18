@@ -16,6 +16,7 @@
       --lima:   #c4df57;
       --azul:   #003a6b;
       --blanco: #ffffff;
+      --hueso:  #f5f3ec;
       --error:  #cc2200;
       --radius: 12px;
     }
@@ -274,6 +275,14 @@
       line-height: 1.5;
     }
 
+    .linea-envio-card {
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(0,58,107,0.65);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
     .cgv-btn {
       display: block;
       text-align: center;
@@ -373,6 +382,89 @@
     .confirmacion .icono {
       animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+
+    /* POP-UP FOTO OPCIONAL */
+    @keyframes fadeInOverlay {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeOutOverlay {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    .overlay-foto {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+    }
+    .overlay-foto.show { display: flex; animation: fadeInOverlay 0.25s ease-out; }
+    .overlay-foto.hide { display: flex; animation: fadeOutOverlay 0.25s ease-in forwards; }
+    .modal-foto {
+      background: var(--verde);
+      border-radius: 24px;
+      padding: 32px 26px;
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+      animation: fadeInScreen 0.3s ease-out;
+    }
+    .modal-foto .icono {
+      font-size: 44px;
+      margin-bottom: 10px;
+    }
+    .modal-foto .modal-titulo {
+      color: var(--lima);
+      font-family: Impact, sans-serif;
+      font-size: 17px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .modal-foto .modal-texto {
+      color: var(--hueso);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+    .modal-foto .btn-modal-primario {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: 2px solid var(--lima);
+      color: var(--lima);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: Impact, sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.15s, color 0.15s, transform 0.08s, box-shadow 0.08s;
+    }
+    .modal-foto .btn-modal-primario:hover { background: var(--lima); color: var(--verde); }
+    .modal-foto .btn-modal-primario:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .modal-foto .btn-modal-volver {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--hueso);
+      opacity: 0.75;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.85rem;
+      padding: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .modal-foto .btn-modal-volver:hover { opacity: 1; }
 
     .hidden { display: none !important; }
   </style>
@@ -507,17 +599,13 @@
       <div class="form-title">✅ REVISÁ TU MENSAJE</div>
       <div class="preview-box" id="preview-text"></div>
       <button class="btn-editar" onclick="volverAForm()">← Editar</button>
-      <div class="foto-tip">
-        <strong>📸 ¿Tenés una foto?</strong>
-        Si contás con una foto de tu mascota u objeto, podés adjuntarla directamente en WhatsApp cuando se abra el chat. Las imágenes claras, bien iluminadas y tomadas de cerca facilitan su identificación. Adjuntarla es opcional.
+      <button class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
+      <div class="linea-envio-card">
+        Este mensaje será enviado para su revisión a la línea de LA EUGE informa 📣<br>
+        +54 9 3764-113300
       </div>
-      <button class="btn-primary" onclick="enviarWhatsApp()">📲 Enviar por WhatsApp</button>
     </div>
     <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
-    <div class="linea-envio">
-      Este mensaje será enviado para su revisión a la línea de LA EUGE informa 📣<br>
-      +54 9 3764-113300
-    </div>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
@@ -530,6 +618,20 @@
     </div>
     <button class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+  <!-- POP-UP FOTO OPCIONAL -->
+  <div class="overlay-foto" id="overlay-foto">
+    <div class="modal-foto">
+      <div class="icono">📸</div>
+      <div class="modal-titulo">Foto opcional</div>
+      <div class="modal-texto">
+        Ahora se abrirá WhatsApp con tu mensaje ya escrito.<br><br>
+        Cuando estés en el chat, podés adjuntar una foto antes de enviarlo.
+      </div>
+      <button class="btn-modal-primario" onclick="enviarWhatsApp()">Abrir WhatsApp</button>
+      <button class="btn-modal-volver" onclick="cerrarPopupFoto()">Volver</button>
+    </div>
   </div>
 
 <script>
@@ -576,67 +678,55 @@
 
 🐾 PERDÍ UNA MASCOTA
 
-🐕 Perro | Nombre: Toto
+Perro | Nombre: Toto
 Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.
 
-📍 Zona: Lote M09
-🕐 Última vez visto: El jueves a la noche durante la tormenta
+Zona: Lote M09
 
-📞 Si lo encontrás, contactar directamente a:
-María González — 3764123456
+Última vez visto: El jueves a la noche durante la tormenta
 
-📅 12/06/2026
-
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+Si lo encontrás, contactar directamente a:
+María González — 3764123456`,
 
     'mascota-encontrada': `#reportevecinal
 
 🐾 ENCONTRÉ UNA MASCOTA
 
-🐕 Perro | sin nombre conocido
+Perro | sin nombre conocido
 Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.
 
-📍 Zona: Plaza de Juegos
-🏠 Retirar en: Lote M09
+Zona: Plaza de Juegos
 
-📞 Reportado por: María González — 3764123456
+Retirar en: Lote M09
 
-📅 12/06/2026
-
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+Reportado por: María González — 3764123456`,
 
     'objeto-perdido': `#reportevecinal
 
 🎒 PERDÍ UN OBJETO
 
-👉 Mochila
+Mochila
 Mochila azul con cierre rojo, tiene llaves y una pelota adentro.
 
-📍 Zona: Sector pileta
-🕐 Cuándo: El jueves a la tarde
+Zona: Sector pileta
 
-📞 Si lo encontrás, contactar directamente a:
-María González — 3764123456
+Cuándo: El jueves a la tarde
 
-📅 12/06/2026
-
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+Si lo encontrás, contactar directamente a:
+María González — 3764123456`,
 
     'objeto-encontrado': `#reportevecinal
 
 📦 ENCONTRÉ UN OBJETO
 
-👉 Mochila
+Mochila
 Mochila azul con cierre rojo, encontrada en muy buen estado.
 
-📍 Zona: Cancha de pádel
-🏠 Retirar en: Garita de seguridad
+Zona: Cancha de pádel
 
-📞 Reportado por: María González — 3764123456
+Retirar en: Garita de seguridad
 
-📅 12/06/2026
-
-(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)`,
+Reportado por: María González — 3764123456`,
   };
 
   let categoriaActual = '';
@@ -778,7 +868,6 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
 
   function armarMensaje() {
     const cfg = CONFIG[categoriaActual];
-    const hoy = new Date().toLocaleDateString('es-AR');
     const lines = [];
 
     lines.push('#reportevecinal');
@@ -790,54 +879,72 @@ Mochila azul con cierre rojo, encontrada en muy buen estado.
       const tipoAnimalEl = document.querySelector('input[name=tipo_animal]:checked');
       const tipoVal = tipoAnimalEl?.value;
       const tipoAnimal = tipoVal === 'otro' ? document.getElementById('otro-animal').value.trim() : tipoVal || '';
-      const emojiAnimal = getEmojiAnimal(tipoVal);
       const nombreMascota = document.getElementById('nombre-mascota').value.trim();
       const nombreLabel = (nombreMascota && nombreMascota !== 'sin nombre conocido')
         ? 'Nombre: ' + nombreMascota
         : 'sin nombre conocido';
-      lines.push(emojiAnimal + ' ' + tipoAnimal + ' | ' + nombreLabel);
+      lines.push(tipoAnimal + ' | ' + nombreLabel);
     } else {
       const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
-      lines.push('👉 ' + tipoObjeto);
+      lines.push(tipoObjeto);
     }
 
     lines.push(corregirOrto(document.getElementById('descripcion').value.trim()));
     lines.push('');
 
-    lines.push('📍 Zona: ' + document.getElementById('zona').value.trim());
+    lines.push('Zona: ' + document.getElementById('zona').value.trim());
+    lines.push('');
 
     if (cfg.esPerdido) {
       const cuando = document.getElementById('cuando').value.trim();
       if (cuando) {
         const label = CUANDO_LABEL_MSG[categoriaActual] || 'Cuándo';
-        lines.push('🕐 ' + label + ': ' + cuando);
+        lines.push(label + ': ' + cuando);
+        lines.push('');
       }
     } else {
       let dondeEsta = document.getElementById('donde-esta').value;
       if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
-      lines.push('🏠 Retirar en: ' + dondeEsta);
+      lines.push('Retirar en: ' + dondeEsta);
+      lines.push('');
     }
 
-    lines.push('');
     const nombre = document.getElementById('nombre-reporta').value.trim();
     const tel = document.getElementById('telefono').value.trim();
+    const telLink = 'https://wa.me/549' + tel.replace(/^0/, '');
 
     if (cfg.esPerdido) {
-      lines.push('📞 Si lo encontrás, contactar directamente a:');
-      lines.push(nombre + ' — ' + tel);
+      lines.push('Si lo encontrás, contactar directamente a:');
+      lines.push(nombre + ' — ' + telLink);
     } else {
-      lines.push('📞 Reportado por: ' + nombre + ' — ' + tel);
+      lines.push('Reportado por: ' + nombre + ' — ' + telLink);
     }
 
     lines.push('');
-    lines.push('📅 ' + hoy);
-    lines.push('');
-    lines.push('(Toda información sobre este reporte debe dirigirse a la persona de contacto indicada, no a esta línea. Gracias)');
+    lines.push('Por favor, contactate directamente con la persona del reporte.');
 
     return lines.join('\n');
   }
 
+  function abrirPopupFoto() {
+    const overlay = document.getElementById('overlay-foto');
+    overlay.classList.remove('hide');
+    overlay.classList.add('show');
+  }
+
+  function cerrarPopupFoto() {
+    const overlay = document.getElementById('overlay-foto');
+    overlay.classList.remove('show');
+    overlay.classList.add('hide');
+    setTimeout(() => { overlay.classList.remove('hide'); }, 300);
+  }
+
   function enviarWhatsApp() {
+    const overlay = document.getElementById('overlay-foto');
+    overlay.classList.remove('show');
+    overlay.classList.add('hide');
+    setTimeout(() => { overlay.classList.remove('hide'); }, 300);
+
     const msg = armarMensaje();
     window.location.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
     ocultar('screen-preview');
