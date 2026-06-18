@@ -67,6 +67,11 @@
     .editable-hint { position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: var(--petroleo); opacity: 0.4; pointer-events: none; }
     .correccion-wrap { margin-bottom: 10px; }
     .correccion-hint { color: var(--petroleo); font-size: 12px; font-style: italic; opacity: 0.7; margin: 0 0 6px; }
+    .btn-correccion-off { display: block; width: 100%; padding: 13px; border-radius: 24px; border: 2px solid #bbb; background: transparent; color: #bbb; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: not-allowed; text-align: center; margin-bottom: 10px; }
+    .btn-correccion-on { display: block; width: 100%; padding: 13px; border-radius: 24px; border: 2px solid var(--naranja); background: var(--petroleo); color: var(--naranja); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 10px; transition: opacity 0.15s; }
+    .btn-correccion-on:hover { opacity: 0.88; }
+    .btn-correccion-on:active { transform: scale(0.96); }
+    .resultado-box.editado { border-color: var(--naranja); border-top-color: var(--naranja); border-bottom-color: var(--naranja); }
     .resultado-box:focus { border-color: var(--naranja); }
     .btn-copiar-secundario { display: inline-block; background: transparent; border: none; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: none; cursor: pointer; padding: 4px 0; margin-bottom: 14px; text-decoration: underline; text-align: left; transition: opacity 0.15s; }
     .btn-copiar-secundario:hover { opacity: 0.7; }
@@ -193,8 +198,8 @@
         <div class="resultado-pie" id="pie-fijo">LA EUGE informa 📣</div>
       </div>
       <div class="correccion-wrap" id="correccionWrap" style="display:none;">
-        <p class="correccion-hint">¿Editaste manualmente?</p>
-        <button type="button" class="btn-outline" id="btnAjustar" onclick="correccionFinal()">Corrección Final con IA</button>
+        <p class="correccion-hint" id="correccionHint" style="display:none;">¿Editaste manualmente?</p>
+        <button type="button" class="btn-correccion-off" id="btnAjustar" onclick="correccionFinal()" disabled>Corrección Final con IA</button>
       </div>
       <button type="button" class="btn-copiar-secundario" id="btnCopiar" onclick="copiarMensaje()">📋 Copiar mensaje</button>
       <div id="mensajesDivididos" style="display:none;">
@@ -570,7 +575,11 @@ function onEditarTexto() {
   actualizarEnlaceWA();
   if (!textoEditado) {
     textoEditado = true;
-    document.getElementById('correccionWrap').style.display = 'block';
+    document.getElementById('btnAjustar').className = 'btn-correccion-on';
+    document.getElementById('btnAjustar').disabled = false;
+    document.getElementById('btnAjustar').innerHTML = '✦ Corrección Final con IA';
+    document.getElementById('correccionHint').style.display = 'block';
+    document.getElementById('resultadoBox').classList.add('editado');
   }
 }
 
@@ -712,6 +721,12 @@ async function correccionFinal() {
     icon.style.animation = 'popIn 0.5s cubic-bezier(0.34,1.56,0.64,1)';
     titulo.innerText = 'Revisión Final con IA completa';
     reproducirSonidoMagico();
+    textoEditado = false;
+    document.getElementById('btnAjustar').className = 'btn-correccion-off';
+    document.getElementById('btnAjustar').disabled = true;
+    document.getElementById('btnAjustar').innerHTML = 'Corrección Final con IA';
+    document.getElementById('correccionHint').style.display = 'none';
+    document.getElementById('resultadoBox').classList.remove('editado');
     setTimeout(() => {
       popup.style.display = 'none';
       icon.style.display = 'none';
@@ -771,6 +786,10 @@ function nuevoMensaje() {
   document.getElementById('btnWhatsApp').style.display = 'block';
   document.getElementById('correccionWrap').style.display = 'none';
   document.getElementById('btnNuevoExterno').style.display = 'none';
+  document.getElementById('btnAjustar').className = 'btn-correccion-off';
+  document.getElementById('btnAjustar').disabled = true;
+  document.getElementById('btnAjustar').innerHTML = 'Corrección Final con IA';
+  document.getElementById('resultadoBox').classList.remove('editado');
   document.querySelector('.btn-cgv-externo').style.marginTop = '36px';
   document.querySelector('.resultado-wrap').style.display = 'none';
   document.getElementById('cabecera-fija').innerText = '';
