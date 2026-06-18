@@ -54,14 +54,14 @@
     .mic-btn.grabando { background: var(--error); animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
-    .categoria-badge { display: inline-block; background: var(--petroleo); color: var(--lima); font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 12px; letter-spacing: 0.5px; }
+    .categoria-badge { display: inline-block; background: var(--petroleo); color: var(--lima); font-size: 12px; font-weight: 900; border-radius: 20px; padding: 5px 12px; letter-spacing: 0.3px; }
     .categoria-select { border: 2px solid var(--petroleo); cursor: pointer; outline: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 26px; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4df57' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 12px; }
-    .intervencion-badge { display: inline-block; font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 10px; background: var(--petroleo); color: var(--naranja); }
-    .chars-badge { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 10px; background: var(--blanco); color: var(--petroleo); }
-    .chars-badge.largo { background: var(--petroleo); color: var(--naranja); }
+    .intervencion-badge { display: inline-block; font-size: 12px; font-weight: 900; border-radius: 20px; padding: 5px 12px; background: var(--petroleo); color: var(--naranja); }
+    .chars-badge { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 20px; padding: 5px 12px; background: var(--blanco); color: var(--petroleo); }
+    .chars-badge.largo { background: var(--petroleo); color: var(--naranja); font-size: 12px; padding: 5px 12px; }
     .resultado-wrap { display: none; margin-bottom: 10px; }
     .resultado-cabecera { background: var(--blanco); border-radius: 14px 14px 0 0; border: 2px solid var(--verdecl); border-bottom: none; padding: 12px 19px 12px; color: var(--petroleo); font-size: 15px; font-style: italic; line-height: 1.5; white-space: pre-wrap; }
-    .resultado-box { background: var(--blanco); border-radius: 0; border: 2px solid var(--verdecl); border-top: 1px solid #d4e8d2; border-bottom: 1px solid #d4e8d2; padding: 10px 19px; color: var(--petroleo); font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.7; white-space: pre-wrap; min-height: 120px; width: 100%; box-sizing: border-box; resize: vertical; outline: none; }
+    .resultado-box { background: var(--blanco); border-radius: 0; border: 2px solid var(--verdecl); border-top: 1px solid #d4e8d2; border-bottom: 1px solid #d4e8d2; padding: 10px 19px; color: var(--petroleo); font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.7; white-space: pre-wrap; min-height: 120px; width: 100%; box-sizing: border-box; display: block; resize: vertical; outline: none; }
     .resultado-box:focus { border-color: var(--naranja); border-top-color: var(--naranja); border-bottom-color: var(--naranja); }
     .resultado-pie { background: var(--blanco); border-radius: 0 0 14px 14px; border: 2px solid var(--verdecl); border-top: none; padding: 12px 19px 12px; color: var(--petroleo); font-size: 15px; line-height: 1.5; }
     .editable-hint { position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: var(--petroleo); opacity: 0.4; pointer-events: none; }
@@ -83,7 +83,7 @@
     .btn-resumir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
     .btn-dividir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid var(--lima); background: transparent; color: var(--lima); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-dividir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-    .advertencia-box { background: var(--petroleo); border: 2px solid var(--naranja); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: var(--naranja); font-size: 13px; font-weight: 700; display: none; }
+    .advertencia-box { background: var(--lima); border: 2px solid var(--petroleo); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: var(--petroleo); font-size: 13px; font-weight: 700; display: none; }
     .btn-datos { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px dashed var(--petroleo); background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 14px; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-datos:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
     .datos-panel { background: var(--petroleo); border: 2px solid var(--lima); border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
@@ -197,11 +197,9 @@
         </div>
         <div class="resultado-pie" id="pie-fijo">LA EUGE informa 📣</div>
       </div>
-      <div class="correccion-wrap" id="correccionWrap" style="display:none;">
-        <p class="correccion-hint" id="correccionHint" style="display:none;">¿Editaste manualmente?</p>
-        <button type="button" class="btn-correccion-off" id="btnAjustar" onclick="correccionFinal()" disabled>Corrección Final con IA</button>
-      </div>
       <button type="button" class="btn-copiar-secundario" id="btnCopiar" onclick="copiarMensaje()">📋 Copiar mensaje</button>
+      <p class="correccion-hint" id="correccionHint" style="display:none;">¿Editaste manualmente?</p>
+      <button type="button" class="btn-correccion-off" id="btnAjustar" onclick="correccionFinal()" disabled>Corrección Final con IA</button>
       <div id="mensajesDivididos" style="display:none;">
         <span class="msg-label">Parte 1</span>
         <div class="msg-separado" id="msg1"></div>
@@ -519,10 +517,10 @@ function mostrarResultado(raw) {
 
   document.getElementById('cabecera-fija').innerText = cabecera;
   document.getElementById('resultadoBox').value = cuerpo;
-  document.getElementById('resultado-wrap') || (document.querySelector('.resultado-wrap').style.display = 'block');
+  document.getElementById('resultadoBox').style.display = 'block';
   document.querySelector('.resultado-wrap').style.display = 'block';
   textoEditado = false;
-  document.getElementById('correccionWrap').style.display = 'none';
+  
 
   const chars = parsed.mensaje.length;
   const cb = document.getElementById('charsBadge');
@@ -784,7 +782,7 @@ function nuevoMensaje() {
   document.getElementById('msg2').style.display = 'none';
   document.getElementById('btnCopiar').style.display = 'block';
   document.getElementById('btnWhatsApp').style.display = 'block';
-  document.getElementById('correccionWrap').style.display = 'none';
+  
   document.getElementById('btnNuevoExterno').style.display = 'none';
   document.getElementById('btnAjustar').className = 'btn-correccion-off';
   document.getElementById('btnAjustar').disabled = true;
