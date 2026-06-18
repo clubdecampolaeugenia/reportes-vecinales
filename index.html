@@ -247,7 +247,7 @@
     }
     .preview-sistema-label {
       display: block;
-      color: #9ca3af;
+      color: var(--naranja);
       font-size: 0.72rem;
       font-style: normal;
       text-transform: uppercase;
@@ -360,7 +360,7 @@
       display: block;
       width: 100%;
       max-width: 480px;
-      margin: 10px auto 0;
+      margin: 24px auto 0;
       background: transparent;
       border: 2px solid var(--lima);
       border-radius: 10px;
@@ -612,7 +612,23 @@
 
       <div class="field">
         <label>Teléfono de contacto</label>
-        <input type="tel" id="telefono" placeholder="Ej: 3764123456" maxlength="15" oninput="soloNumeros(this)"/>
+        <div style="display:flex; gap:8px;">
+          <select id="pais-cod" onchange="onPaisCod()" style="flex:0 0 auto; width:auto; min-width:108px;">
+            <option value="54" selected>Argentina (+54)</option>
+            <option value="55">Brasil (+55)</option>
+            <option value="595">Paraguay (+595)</option>
+            <option value="598">Uruguay (+598)</option>
+            <option value="56">Chile (+56)</option>
+            <option value="591">Bolivia (+591)</option>
+            <option value="34">España (+34)</option>
+            <option value="1">Estados Unidos (+1)</option>
+            <option value="otro">Otro país</option>
+          </select>
+          <input type="tel" id="telefono" placeholder="Ej: 3764123456" maxlength="15" oninput="soloNumeros(this)" style="flex:1;"/>
+        </div>
+        <div id="otro-pais-wrap" class="hidden" style="margin-top:8px">
+          <input type="text" id="otro-pais-cod" placeholder="Código de país (ej: 44)" maxlength="4" oninput="soloNumeros(this)"/>
+        </div>
         <span class="err-msg" id="err-tel">Ingresá un número válido (mínimo 10 dígitos).</span>
       </div>
 
@@ -709,7 +725,7 @@
 
 🐾 PERDÍ UNA MASCOTA
 
-*Perro* | Nombre: Toto
+• *Perro* | Nombre: Toto
 Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.
 
 Zona: Lote M09
@@ -717,8 +733,9 @@ Zona: Lote M09
 Última vez visto: El jueves a la noche durante la tormenta
 
 Si lo encontrás, contactar directamente a:
-María González
-3764123456 (WhatsApp)
+• María González
++54 9 3764 123456 (tel:+5493764123456)
+WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
 
@@ -726,7 +743,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
 🐾 ENCONTRÉ UNA MASCOTA
 
-*Perro* | sin nombre conocido
+• *Perro* | sin nombre conocido
 Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.
 
 Zona: Plaza de Juegos
@@ -734,8 +751,9 @@ Zona: Plaza de Juegos
 Retirar en: Lote M09
 
 Reportado por:
-María González
-3764123456 (WhatsApp)
+• María González
++54 9 3764 123456 (tel:+5493764123456)
+WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
 
@@ -743,7 +761,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
 🎒 PERDÍ UN OBJETO
 
-*Mochila*
+• *Mochila*
 Mochila azul con cierre rojo, tiene llaves y una pelota adentro.
 
 Zona: Sector pileta
@@ -751,8 +769,9 @@ Zona: Sector pileta
 Cuándo: El jueves a la tarde
 
 Si lo encontrás, contactar directamente a:
-María González
-3764123456 (WhatsApp)
+• María González
++54 9 3764 123456 (tel:+5493764123456)
+WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
 
@@ -760,7 +779,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
 📦 ENCONTRÉ UN OBJETO
 
-*Mochila*
+• *Mochila*
 Mochila azul con cierre rojo, encontrada en muy buen estado.
 
 Zona: Cancha de pádel
@@ -768,8 +787,9 @@ Zona: Cancha de pádel
 Retirar en: Garita de seguridad
 
 Reportado por:
-María González
-3764123456 (WhatsApp)
+• María González
++54 9 3764 123456 (tel:+5493764123456)
+WhatsApp: https://wa.me/5493764123456
 
 _Por favor, contactate directamente con la persona del reporte._`,
   };
@@ -841,6 +861,10 @@ _Por favor, contactate directamente con la persona del reporte._`,
     toggle('otro-lugar-wrap', document.getElementById('donde-esta').value === 'otro-lugar');
   }
 
+  function onPaisCod() {
+    toggle('otro-pais-wrap', document.getElementById('pais-cod').value === 'otro');
+  }
+
   function soloNumeros(el) { el.value = el.value.replace(/[^0-9]/g, ''); }
 
   function contarChars() {
@@ -896,8 +920,11 @@ _Por favor, contactate directamente con la persona del reporte._`,
     if (nombre.length < 2) ok = false;
 
     const tel = document.getElementById('telefono').value.trim();
-    mostrarError('err-tel', tel.length < 10);
-    if (tel.length < 10) ok = false;
+    const paisSelVal = document.getElementById('pais-cod').value;
+    const otroPaisVal = document.getElementById('otro-pais-cod').value.trim();
+    const telOk = tel.length >= 10 && (paisSelVal !== 'otro' || otroPaisVal.length >= 1);
+    mostrarError('err-tel', !telOk);
+    if (!telOk) ok = false;
 
     return ok;
   }
@@ -927,10 +954,10 @@ _Por favor, contactate directamente con la persona del reporte._`,
       const nombreLabel = (nombreMascota && nombreMascota !== 'sin nombre conocido')
         ? 'Nombre: ' + nombreMascota
         : 'sin nombre conocido';
-      lines.push('*' + tipoAnimal + '*' + ' | ' + nombreLabel);
+      lines.push('• *' + tipoAnimal + '*' + ' | ' + nombreLabel);
     } else {
       const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
-      lines.push('*' + tipoObjeto + '*');
+      lines.push('• *' + tipoObjeto + '*');
     }
 
     lines.push(corregirOrto(document.getElementById('descripcion').value.trim()));
@@ -956,18 +983,28 @@ _Por favor, contactate directamente con la persona del reporte._`,
     const nombre = document.getElementById('nombre-reporta').value.trim();
     const tel = document.getElementById('telefono').value.trim();
     const telLimpio = tel.replace(/\D/g, '').replace(/^0+/, '');
-    const telLink = 'https://wa.me/549' + telLimpio;
+
+    const paisSel = document.getElementById('pais-cod').value;
+    const codPais = paisSel === 'otro'
+      ? document.getElementById('otro-pais-cod').value.trim()
+      : paisSel;
+    const prefijoMovil = (codPais === '54') ? '9 ' : '';
+    const e164 = '+' + codPais + telLimpio; // sin espacios, para links
+    const telVisual = '+' + codPais + ' ' + prefijoMovil + telLimpio.slice(0, 4) + ' ' + telLimpio.slice(4);
+
+    const telLinkLlamar = 'tel:+' + codPais + (prefijoMovil ? '9' : '') + telLimpio;
+    const telLinkWA = 'https://wa.me/' + codPais + (prefijoMovil ? '9' : '') + telLimpio;
 
     if (cfg.esPerdido) {
       lines.push('Si lo encontrás, contactar directamente a:');
-      lines.push(nombre);
-      lines.push(tel);
-      lines.push(telLink);
+      lines.push('• ' + nombre);
+      lines.push(telVisual + ' (' + telLinkLlamar + ')');
+      lines.push('WhatsApp: ' + telLinkWA);
     } else {
       lines.push('Reportado por:');
-      lines.push(nombre);
-      lines.push(tel);
-      lines.push(telLink);
+      lines.push('• ' + nombre);
+      lines.push(telVisual + ' (' + telLinkLlamar + ')');
+      lines.push('WhatsApp: ' + telLinkWA);
     }
 
     lines.push('');
@@ -989,8 +1026,13 @@ _Por favor, contactate directamente con la persona del reporte._`,
              '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
     });
 
-    html = html.replace(/(\d{8,15})\n(https:\/\/wa\.me\/[^\s<]+)/g,
-      '$1\n<a class="preview-link-wa" href="$2" target="_blank">Abrir WhatsApp</a>');
+    // Teléfono visual + link tel: clickeable
+    html = html.replace(/(\+[\d\s]+) \((tel:[^\)]+)\)/g,
+      '$1 <a class="preview-link-wa" href="$2">(Llamar)</a>');
+
+    // Link de WhatsApp clickeable
+    html = html.replace(/WhatsApp: (https:\/\/wa\.me\/[^\s<]+)/g,
+      '<a class="preview-link-wa" href="$1" target="_blank">Abrir WhatsApp</a>');
 
     return html;
   }
@@ -1008,7 +1050,11 @@ _Por favor, contactate directamente con la persona del reporte._`,
              '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
     });
 
-    html = html.replace(/(\d{8,15}) \(WhatsApp\)/g, '$1 <a class="preview-link-wa" href="#" onclick="return false;">(WhatsApp)</a>');
+    html = html.replace(/(\+[\d\s]+) \((tel:[^\)]+)\)/g,
+      '$1 <a class="preview-link-wa" href="#" onclick="return false;">(Llamar)</a>');
+
+    html = html.replace(/WhatsApp: (https:\/\/wa\.me\/[^\s<]+)/g,
+      '<a class="preview-link-wa" href="#" onclick="return false;">Abrir WhatsApp</a>');
 
     return html;
   }
@@ -1076,13 +1122,15 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
   function resetForm(cat) {
     document.querySelectorAll('input[name=tipo_animal]').forEach(r => r.checked = false);
-    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono']
+    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono','otro-pais-cod']
       .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
     if (cat !== 'mascota-encontrada') document.getElementById('nombre-mascota').value = '';
     document.getElementById('donde-esta').value = '';
+    document.getElementById('pais-cod').value = '54';
     document.getElementById('char-num').textContent = '0';
     ocultar('otro-animal-wrap');
     ocultar('otro-lugar-wrap');
+    ocultar('otro-pais-wrap');
     document.querySelectorAll('.err-msg').forEach(e => e.classList.remove('visible'));
     document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
   }
