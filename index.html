@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#135457">
-  <link rel="apple-touch-icon" href="https://i.imgur.com/2jCxrty.png">
-  <link rel="icon" type="image/png" href="https://i.imgur.com/2jCxrty.png">
-  <title>Boletín La Eugenia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reportes Vecinales — La Eugenia</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/ZPMzq4X.png"/>
+  <link rel="apple-touch-icon" href="https://i.imgur.com/ZPMzq4X.png"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="Reportes Vecinales"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
   <style>
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --petroleo: #135457;
       --lima:     #c4df57;
@@ -18,14 +19,372 @@
       --blanco:   #ffffff;
       --hueso:    #f5f3ec;
       --negro:    #000000;
-      --error:    #c0392b;
+      --error:    #cc2200;
+      --radius:   12px;
     }
-    body { margin: 0; min-height: 100vh; background: var(--petroleo); font-family: 'Roboto', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 28px 16px; }
+    body {
+      background: var(--petroleo);
+      font-family: 'Roboto', sans-serif;
+      color: var(--petroleo);
+      min-height: 100vh;
+      padding: 20px 16px 48px;
+    }
+
+    .header { text-align: center; margin-bottom: 20px; }
+    .header img { width: 181px; margin-bottom: 12px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25)); }
+    .header h1 {
+      font-family: Impact, 'Arial Narrow', sans-serif;
+      font-size: 2.2rem;
+      color: var(--lima);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+    .header .subtitulo { color: rgba(255,255,255,0.9); font-size: 0.88rem; margin-top: 5px; }
+
+    .bienvenida {
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      max-width: 480px;
+      margin: 16px auto 16px;
+      color: var(--blanco);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .card {
+      background: var(--verdecl);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      max-width: 480px;
+      margin: 0 auto 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 480px;
+      margin: 0 auto 0;
+    }
+    .cat-btn {
+      background: var(--verdecl);
+      border: none;
+      border-radius: var(--radius);
+      padding: 20px 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.32);
+    }
+    .cat-btn:hover, .cat-btn:focus { background: #c7e2c4; transform: translateY(-2px); outline: none; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+    .cat-btn:active {
+      transform: scale(0.96);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      background: #c7e2c4;
+      transition: transform 0.08s, box-shadow 0.08s;
+    }
+    .cat-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+    .cat-btn .label {
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      color: var(--petroleo);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    .form-title {
+      font-family: Impact, sans-serif;
+      font-size: 1.4rem;
+      color: var(--negro);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--petroleo);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .field label .opc { font-weight: 400; text-transform: none; font-size: 0.78rem; color: #2d4543; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      border: 2px solid var(--petroleo);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.95rem;
+      color: var(--petroleo);
+      background: var(--blanco);
+      transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--naranja); }
+    .field input.error, .field select.error, .field textarea.error { border-color: var(--error); }
+    .field .err-msg { color: var(--error); font-size: 0.78rem; margin-top: 4px; display: none; }
+    .field .err-msg.visible { display: block; }
+    .field textarea { resize: vertical; min-height: 80px; }
+
+    .char-count { text-align: right; font-size: 0.75rem; color: #2d4543; margin-top: 3px; }
+    .char-count.over { color: var(--error); font-weight: 700; }
+
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: white;
+      border: 2px solid var(--petroleo);
+      border-radius: 8px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      transition: background 0.15s;
+      color: var(--petroleo);
+    }
+    .radio-group input[type=radio] { display: none; }
+    .radio-group label:has(input:checked) { background: var(--petroleo); color: white; border-color: var(--petroleo); }
+
+    .ejemplo-toggle {
+      background: none;
+      border: 2px solid var(--petroleo);
+      border-radius: 8px;
+      color: var(--petroleo);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      cursor: pointer;
+      margin-bottom: 14px;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ejemplo-box {
+      background: rgba(19,84,87,0.08);
+      border-left: 3px solid var(--petroleo);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: var(--petroleo);
+      white-space: pre-wrap;
+      font-family: monospace;
+      margin-bottom: 6px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: var(--naranja);
+      color: var(--petroleo);
+      border: 2px solid var(--petroleo);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: Impact, sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-secundario {
+      width: 100%;
+      background: var(--petroleo);
+      color: var(--lima);
+      border: 2px solid var(--lima);
+      border-radius: 10px;
+      padding: 13px;
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: opacity 0.2s;
+    }
+    .btn-secundario:hover { opacity: 0.88; }
+
+    .btn-editar {
+      width: auto;
+      background: none;
+      border: none;
+      padding: 8px 4px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--petroleo);
+      opacity: 0.7;
+      cursor: pointer;
+      margin-top: 4px;
+      margin-bottom: 6px;
+      text-decoration: underline;
+      transition: opacity 0.2s;
+    }
+    .btn-editar:hover { opacity: 1; }
+
+    .preview-sistema-texto {
+      color: #6b7280;
+      font-style: italic;
+    }
+    .preview-sistema-label {
+      display: block;
+      color: var(--naranja);
+      font-size: 0.72rem;
+      font-style: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-top: 2px;
+    }
+    .preview-link-wa {
+      color: #1a73e8;
+      text-decoration: underline;
+    }
+
+    .preview-box {
+      background: var(--blanco);
+      border: 2px solid var(--petroleo);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--petroleo);
+      font-family: monospace;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    }
+
+    .foto-tip {
+      background: rgba(19,84,87,0.08);
+      border-left: 3px solid var(--petroleo);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      color: var(--petroleo);
+      margin-top: 14px;
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .foto-tip strong { display: block; margin-bottom: 3px; }
+
+    .linea-envio {
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.85);
+      margin-top: 12px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    .linea-envio-card {
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(19,84,87,0.65);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    .cgv-btn {
+      display: block;
+      text-align: center;
+      background: var(--lima);
+      border: 2px solid var(--petroleo);
+      color: var(--petroleo);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin: 10px auto 0;
+      max-width: 480px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: opacity 0.2s;
+    }
+    .cgv-btn:hover { opacity: 0.88; }
+
+    /* PANTALLA CONFIRMACIÓN */
+    .confirmacion {
+      text-align: center;
+      padding: 32px 18px;
+    }
+    .confirmacion .icono { font-size: 4rem; margin-bottom: 16px; }
+    .confirmacion h2 {
+      font-family: Impact, sans-serif;
+      font-size: 1.6rem;
+      color: var(--negro);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .confirmacion p {
+      color: var(--petroleo);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .pie-italic {
+      font-style: italic;
+    }
+    .ejemplo-disclaimer {
+      font-size: 0.75rem;
+      color: #2d4543;
+      font-style: italic;
+      margin-bottom: 14px;
+      padding: 0 4px;
+      line-height: 1.4;
+    }
+    .btn-menu-ext {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      margin: 36px auto 0;
+      background: transparent;
+      border: 2px solid var(--lima);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: Impact, sans-serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--lima);
+      cursor: pointer;
+      transition: opacity 0.2s;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .btn-menu-ext:hover { opacity: 0.75; }
 
     @keyframes fadeInScreen {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    #screen-cats, #screen-form, #screen-preview, #screen-confirmacion {
+      animation: fadeInScreen 0.3s ease-out;
+    }
+
     @keyframes shakeError {
       0%, 100% { transform: translateX(0); }
       20% { transform: translateX(-6px); }
@@ -33,584 +392,747 @@
       60% { transform: translateX(-4px); }
       80% { transform: translateX(4px); }
     }
+    .field input.error, .field select.error, .field textarea.error {
+      animation: shakeError 0.35s ease-in-out;
+    }
+
     @keyframes popIn {
       0% { transform: scale(0.5); opacity: 0; }
       60% { transform: scale(1.15); opacity: 1; }
       100% { transform: scale(1); opacity: 1; }
     }
-
-    .logo-wrap img { width: 158px; height: auto; display: block; margin: 0 auto 8px; filter: drop-shadow(0 4px 7px rgba(0,0,0,0.35)); }
-    h1 { margin: 0 0 0px; color: var(--lima); font-family: Impact, sans-serif; font-size: 36px; line-height: 1; letter-spacing: 2px; text-transform: uppercase; text-align: center; }
-    h2 { margin: 0 0 4px; color: var(--lima); font-family: Impact, sans-serif; font-size: 36px; line-height: 1; letter-spacing: 2px; text-transform: uppercase; text-align: center; font-weight: 900; }
-    .club-nombre { color: #fff; font-size: 14px; font-weight: 400; text-align: center; margin-bottom: 20px; }
-    .card { background: var(--verdecl); border-radius: 24px; width: 100%; max-width: 480px; padding: 24px 20px; box-sizing: border-box; box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
-    .screen { display: none; }
-    .screen.active { display: block; animation: fadeInScreen 0.3s ease-out; }
-    .intro { color: var(--petroleo); font-size: 14px; line-height: 1.6; text-align: center; margin-bottom: 6px; }
-    .intro-baja { color: var(--petroleo); font-size: 13px; text-align: center; margin-bottom: 20px; }
-    .field-label { color: var(--petroleo); font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; margin-top: 14px; display: block; }
-    input[type=text], input[type=email], textarea { width: 100%; border: 2px solid var(--petroleo); border-radius: 14px; padding: 12px; background: var(--blanco); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 15px; outline: none; }
-    input:focus, textarea:focus { border-color: var(--naranja); }
-    input.error { border-color: var(--error); animation: shakeError 0.35s ease-in-out; }
-    textarea { min-height: 100px; resize: vertical; }
-
-    .btn-solid, .btn-susc, .btn-azul, .btn-rojo, .btn-outline, .btn-cgv, .btn-admin {
-      transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s;
-    }
-    .btn-solid:active, .btn-susc:active, .btn-azul:active, .btn-rojo:active, .btn-outline:active, .btn-cgv:active, .btn-admin:active {
-      transform: scale(0.96);
+    .confirmacion .icono {
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* Botón primario de acción dentro de card: naranja, borde/texto petróleo */
-    .btn-solid { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid var(--petroleo); background: var(--naranja); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 16px; text-align: center; text-decoration: none; }
-    .btn-solid:hover { opacity: 0.88; }
+    /* POP-UP FOTO OPCIONAL */
+    @keyframes fadeInOverlay {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeOutOverlay {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    .overlay-foto {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 999;
+    }
+    .overlay-foto.show { display: flex; animation: fadeInOverlay 0.25s ease-out; }
+    .overlay-foto.hide { display: flex; animation: fadeOutOverlay 0.25s ease-in forwards; }
+    .modal-foto {
+      background: var(--petroleo);
+      border-radius: 24px;
+      padding: 32px 26px;
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+      animation: fadeInScreen 0.3s ease-out;
+    }
+    .modal-foto .icono {
+      font-size: 52px;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .modal-foto .modal-titulo {
+      color: var(--lima);
+      font-family: Impact, sans-serif;
+      font-size: 17px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .modal-foto .modal-texto {
+      color: var(--hueso);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+    .modal-foto .modal-texto p { margin-bottom: 6px; }
+    .modal-foto .modal-texto p:last-child { margin-bottom: 0; }
+    .modal-foto .modal-divider {
+      border: none;
+      border-top: 1px solid rgba(196,223,87,0.25);
+      margin: 0 0 18px;
+    }
+    .modal-foto .btn-modal-primario {
+      display: block;
+      width: 100%;
+      background: var(--lima);
+      border: 2px solid var(--petroleo);
+      color: var(--petroleo);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: Impact, sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: opacity 0.15s, transform 0.08s, box-shadow 0.08s;
+    }
+    .modal-foto .btn-modal-primario:hover { opacity: 0.88; }
+    .modal-foto .btn-modal-primario:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .modal-foto .btn-modal-volver {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--hueso);
+      opacity: 0.75;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.85rem;
+      padding: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .modal-foto .btn-modal-volver:hover { opacity: 1; }
 
-    .btn-susc { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid var(--petroleo); background: var(--naranja); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 16px; text-align: center; }
-    .btn-susc:hover { opacity: 0.88; }
-
-    .btn-azul { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid var(--petroleo); background: var(--naranja); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; text-align: center; }
-    .btn-azul:hover { opacity: 0.88; }
-
-    /* Acción destructiva: mantiene identidad de alerta, pero con borde acorde */
-    .btn-rojo { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid var(--error); background: var(--error); color: var(--blanco); font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; text-align: center; }
-    .btn-rojo:hover { opacity: 0.88; }
-
-    .btn-outline { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid var(--petroleo); background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; text-align: center; }
-    .btn-outline:hover { background: var(--petroleo); color: var(--naranja); }
-
-    .btn-ghost { display: block; width: 100%; padding: 10px; border-radius: 24px; border: none; background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-top: 4px; text-align: center; }
-
-    /* Botón "Ir al CGV": fuera de card, píldora lima, texto/borde petróleo */
-    .btn-cgv { display: block; width: 100%; max-width: 480px; padding: 16px; border-radius: 12px; border: 2px solid var(--petroleo); background: var(--lima); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 14px; text-align: center; text-decoration: none; }
-    .btn-cgv:hover { opacity: 0.88; }
-
-    /* Botón "acceso reservado / volver al menú": fuera de card, transparente, borde/texto lima */
-    .btn-admin { display: block; width: 100%; max-width: 480px; padding: 16px; border-radius: 12px; border: 2px solid var(--lima); background: transparent; color: var(--lima); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; text-align: center; }
-    .btn-admin:hover { opacity: 0.75; }
-
-    .msg-pendiente { background: var(--blanco); border: 2px solid var(--petroleo); border-radius: 24px; padding: 12px 14px; color: var(--petroleo); font-size: 14px; text-align: center; display: none; margin-top: 10px; animation: destelloAzul 2s ease-in-out infinite; }
-    @keyframes destelloAzul { 0%,100%{box-shadow:0 0 0 rgba(19,84,87,0)} 50%{box-shadow:0 0 14px rgba(19,84,87,0.4)} }
-
-    .pin-label { text-align: center; color: var(--petroleo); font-size: 13px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
-    .pin-input { display: block; width: 100%; text-align: center; font-size: 28px; font-weight: 900; letter-spacing: 12px; border: 2px solid var(--petroleo); border-radius: 16px; padding: 12px; background: var(--blanco); color: var(--petroleo); outline: none; margin-bottom: 12px; }
-    .pin-input.error { animation: shakeError 0.35s ease-in-out; border-color: var(--error); }
-    .pin-error { text-align: center; color: var(--error); font-size: 13px; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
-
-    .stat-row { display: flex; gap: 8px; margin-bottom: 16px; }
-    .stat-box { flex: 1; background: var(--blanco); border-radius: 14px; padding: 10px 6px; text-align: center; }
-    .stat-num { font-size: 22px; font-weight: 900; color: var(--negro); }
-    .stat-label { font-size: 9px; font-weight: 700; color: var(--petroleo); text-transform: uppercase; }
-
-    .lista-toggle { background: var(--blanco); border-radius: 14px; padding: 12px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; color: var(--petroleo); font-size: 13px; font-weight: 700; }
-    .suscriptor-list { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: var(--blanco); border-radius: 0 0 14px 14px; margin-bottom: 14px; }
-    .suscriptor-list.open { max-height: 300px; overflow-y: auto; padding: 8px 10px; }
-    .suscriptor-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--lima); font-size: 12px; color: var(--petroleo); }
-    .suscriptor-item:last-child { border-bottom: none; }
-    .badge-activo { background: #d5f5e3; color: #1e8449; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 10px; }
-    .badge-baja { background: #fdebd0; color: #a04000; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 10px; }
-    .badge-pendiente { background: #eaf4ff; color: #2471a3; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 10px; }
-
-    .divider { border: none; border-top: 1.5px solid #9bb583; margin: 18px 0; }
-    .section-title { color: var(--negro); font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
-
-    .msg-box { background: var(--blanco); border-radius: 14px; padding: 12px 14px; color: var(--petroleo); font-size: 14px; text-align: center; display: none; margin-top: 10px; }
-    .msg-box.ok { border: 2px solid #1e8449; color: #1e8449; }
-    .msg-box.err { border: 2px solid var(--error); color: var(--error); }
-    .loading { text-align: center; color: var(--petroleo); font-size: 13px; font-weight: 700; min-height: 18px; margin: 8px 0; }
-
-    .preview-box { background: var(--blanco); border: 2px solid var(--petroleo); border-radius: 14px; padding: 16px; margin-top: 12px; display: none; }
-    .preview-titulo { color: var(--petroleo); font-size: 11px; font-weight: 900; text-transform: uppercase; margin-bottom: 8px; }
-    .preview-cuerpo { color: var(--petroleo); font-size: 12px; line-height: 1.6; white-space: pre-wrap; }
-
-    .confirm-icon { font-size: 60px; text-align: center; margin-bottom: 16px; animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .confirm-titulo { color: var(--negro); font-family: Impact, sans-serif; font-size: 24px; text-align: center; text-transform: uppercase; margin-bottom: 12px; }
-    .confirm-texto { color: var(--petroleo); font-size: 14px; text-align: center; line-height: 1.6; }
-
-    /* LISTA SUSCRIPTORES */
-    .lista-wrap { margin-bottom: 14px; }
-    .lista-seccion { margin-bottom: 10px; }
-    .lista-seccion-titulo { background: var(--blanco); border-radius: 10px 10px 0 0; padding: 8px 12px; font-size: 11px; font-weight: 900; color: var(--petroleo); text-transform: uppercase; }
-    .lista-seccion-items { background: var(--blanco); border-radius: 0 0 10px 10px; max-height: 180px; overflow-y: auto; }
-    .lista-seccion-vacia { padding: 8px 12px; font-size: 12px; color: var(--petroleo); opacity: 0.6; }
-
-    /* MINI TOGGLES SUSCRIPTORES */
-    .mini-toggle { display: flex; justify-content: space-between; align-items: center; padding: 7px 12px; background: var(--blanco); border-radius: 10px; margin-bottom: 2px; cursor: pointer; font-size: 11px; font-weight: 900; color: var(--negro); text-transform: uppercase; transition: transform 0.08s; }
-    .mini-toggle:active { transform: scale(0.97); }
-    .mini-flecha { font-size: 10px; opacity: 0.6; }
-    .mini-panel { display: none; background: var(--blanco); border-radius: 0 0 10px 10px; max-height: 160px; overflow-y: auto; margin-bottom: 6px; }
-    .mini-panel.open { display: block; }
-
-    /* GESTIONAR PANEL */
-    .gestionar-toggle { background: var(--blanco); border-radius: 14px; padding: 12px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; color: var(--negro); font-size: 13px; font-weight: 700; transition: transform 0.08s; }
-    .gestionar-toggle:active { transform: scale(0.98); }
-    .gestionar-panel { background: var(--blanco); border-radius: 0 0 14px 14px; padding: 14px; margin-bottom: 4px; display: none; }
-    .gestionar-panel.open { display: block; }
-    .gestionar-panel .field-label { color: var(--petroleo); }
-
-    .btns-externos { display: none; width: 100%; max-width: 480px; margin-top: 36px; }
-    .btns-externos.visible { display: block; }
-    .btns-externos .btn-cgv { margin-top: 0; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
-  <div class="logo-wrap"><img src="https://i.imgur.com/2jCxrty.png" alt="Boletín La Eugenia"></div>
-  <h1>#Boletín</h1>
-  <h2>Mensual</h2>
-  <div class="club-nombre">Club de Campo La Eugenia</div>
 
-  <div class="card">
-
-    <!-- CONFIRMACIÓN -->
-    <div class="screen" id="screenConfirmado">
-      <div class="confirm-icon">✅</div>
-      <div class="confirm-titulo">¡Suscripción confirmada!</div>
-      <div class="confirm-texto">A partir de ahora recibirás la cuota social mensual y otras novedades del club directamente en tu correo.</div>
-      <div class="confirm-texto" style="margin-top:10px;">Podés darte de baja cuando quieras desde el mismo mail.</div>
-      <a class="btn-solid" style="margin-top:24px;" href="https://clubdecampolaeugenia.taplink.site/" target="_blank">Ir al Centro de Gestión Vecinal</a>
-    </div>
-
-    <!-- BAJA -->
-    <div class="screen" id="screenBaja">
-      <div class="confirm-icon">👋</div>
-      <div class="confirm-titulo">Darse de baja</div>
-      <div class="confirm-texto" style="margin-bottom:20px;">Estás por dejar de recibir el Boletín de La Eugenia Club de Campo. Podés volver a suscribirte cuando quieras.</div>
-      <div class="msg-box" id="msgBaja"></div>
-      <div class="loading" id="loadingBaja"></div>
-      <button type="button" class="btn-rojo" onclick="confirmarBaja()">Sí, darme de baja</button>
-      <button type="button" class="btn-outline" style="margin-top:10px;" onclick="volverPublico()">Cancelar</button>
-    </div>
-
-    <!-- SUSCRIPCIÓN -->
-    <div class="screen active" id="screenPublico">
-      <div class="intro">Recibí todos los meses el valor de la cuota social junto a otras novedades del club directamente en tu correo.</div>
-      <span class="field-label">Nombre y apellido / Razón social *</span>
-      <input type="text" id="suscNombre" placeholder="Ej: María González" onblur="capitalizarNombre(this)" oninput="filtrarNombre(this)">
-      <span class="field-label">Email *</span>
-      <input type="email" id="suscEmail" placeholder="tu@email.com" oninput="validarEmail(this)">
-      <div class="loading" id="loadingSusc"></div>
-      <div class="msg-pendiente" id="msgPendiente">Te enviamos un mail de confirmación. Revisá tu casilla.</div>
-      <div class="msg-box" id="msgSusc"></div>
-      <button type="button" class="btn-susc" onclick="suscribir()">Suscribirme</button>
-      <p style="color:var(--petroleo);font-size:12px;text-align:center;margin-top:10px;font-style:italic;opacity:0.8;">Podés darte de baja cuando quieras desde el mismo mail.</p>
-    </div>
-
-    <!-- PIN -->
-    <div class="screen" id="screenPin">
-      <div class="pin-label">PIN de administración</div>
-      <input class="pin-input" type="password" inputmode="numeric" maxlength="4" id="pinInput" placeholder="····">
-      <div class="pin-error" id="pinError"></div>
-      <button type="button" class="btn-solid" onclick="verificarPin()">Ingresar</button>
-      <button type="button" class="btn-ghost" onclick="volverPublico()">Cancelar</button>
-    </div>
-
-    <!-- ADMIN -->
-    <div class="screen" id="screenAdmin">
-      <div class="stat-row">
-        <div class="stat-box"><div class="stat-num" id="statActivos">—</div><div class="stat-label">Activos</div></div>
-        <div class="stat-box"><div class="stat-num" id="statPendientes">—</div><div class="stat-label">Pendientes</div></div>
-        <div class="stat-box"><div class="stat-num" id="statBajas">—</div><div class="stat-label">Bajas</div></div>
-      </div>
-      <div id="statOrigen" style="text-align:center; color:var(--petroleo); font-size:11px; font-weight:700; margin:-10px 0 16px; opacity:0.8;"></div>
-
-      <div class="lista-wrap" id="listaWrap">
-        <div class="mini-toggle" onclick="toggleMini('secActivos','flechaActivos')">
-          <span id="labelActivos">Activos</span><span id="flechaActivos" class="mini-flecha">▼</span>
-        </div>
-        <div class="mini-panel" id="secActivos"></div>
-        <div class="mini-toggle" onclick="toggleMini('secPendientes','flechaPendientes')">
-          <span id="labelPendientes">Pendientes</span><span id="flechaPendientes" class="mini-flecha">▼</span>
-        </div>
-        <div class="mini-panel" id="secPendientes"></div>
-        <div class="mini-toggle" onclick="toggleMini('secBajas','flechaBajas')">
-          <span id="labelBajas">Bajas</span><span id="flechaBajas" class="mini-flecha">▼</span>
-        </div>
-        <div class="mini-panel" id="secBajas"></div>
-      </div>
-
-      <hr class="divider">
-      <div class="gestionar-toggle" onclick="toggleGestionar()">
-        <span>AGREGAR O QUITAR SUSCRIPTOR MANUALMENTE</span>
-        <span id="gestionarFlecha">▼</span>
-      </div>
-      <div class="gestionar-panel" id="gestionarPanel">
-        <p style="color:var(--petroleo);font-size:11px;margin:0 0 14px;opacity:0.75;font-style:italic;">Este método no requiere confirmación del email — el suscriptor queda activo de inmediato.</p>
-        <span class="field-label">Nombre y apellido / Razón social</span>
-        <input type="text" id="adminNombre" placeholder="Ej: María González">
-        <span class="field-label">Email *</span>
-        <input type="email" id="adminEmail" placeholder="email@ejemplo.com">
-        <div class="loading" id="loadingAdmin"></div>
-        <div class="msg-box" id="msgAdmin"></div>
-        <button type="button" class="btn-solid" onclick="agregarManual()">Agregar suscriptor</button>
-        <div style="border-top:1px solid #9bb583;margin:16px 0;"></div>
-        <span class="field-label">Email a desuscribir</span>
-        <input type="email" id="bajaManualEmail" placeholder="email@ejemplo.com">
-        <div class="loading" id="loadingBajaManual"></div>
-        <div class="msg-box" id="msgBajaManual"></div>
-        <button type="button" class="btn-solid" onclick="desuscribirManual()">Quitar suscriptor</button>
-      </div>
-
-      <hr class="divider">
-      <div class="section-title">Enviar #BoletínMensual</div>
-      <p style="color:var(--petroleo);font-size:13px;margin:0 0 10px;">Envía a todos los suscriptores activos el #BoletínMensual del mes con la cuota vigente en el DASHBOARD.</p>
-      <div class="loading" id="loadingMensual"></div>
-      <div class="msg-box" id="msgMensual"></div>
-      <button type="button" class="btn-azul" onclick="enviarMensual()">Enviar manualmente #BoletínMensual</button>
-
-      <hr class="divider">
-      <div class="section-title">Comunicado libre</div>
-      <span class="field-label">Asunto</span>
-      <input type="text" id="commAsunto" placeholder="Ej: Convocatoria a Asamblea" oninput="actualizarPreview()">
-      <span class="field-label">Mensaje</span>
-      <textarea id="commCuerpo" placeholder="Escribí el mensaje..." oninput="actualizarPreview()"></textarea>
-      <div class="preview-box" id="previewBox">
-        <div class="preview-titulo">Vista previa</div>
-        <div class="preview-cuerpo" id="previewCuerpo"></div>
-      </div>
-      <div class="loading" id="loadingComm"></div>
-      <div class="msg-box" id="msgComm"></div>
-      <button type="button" class="btn-solid" onclick="enviarComunicado()">Enviar a todos</button>
-
-      <hr class="divider">
-      <div class="gestionar-toggle" onclick="toggleHistorial()">
-        <span>Últimos 5 #BoletinesMensuales enviados</span>
-        <span id="historialFlecha">▼</span>
-      </div>
-      <div class="gestionar-panel" id="historialPanel" style="display:none;">
-        <div id="logEnvios" style="font-size:12px;color:var(--petroleo);line-height:1.6;">Cargando...</div>
-      </div>
-
-      <hr class="divider">
-      <button type="button" class="btn-outline" onclick="cerrarAdmin()">Volver al inicio</button>
-    </div>
-
+  <div class="header">
+    <img src="https://i.imgur.com/ZPMzq4X.png" alt="La Eugenia"/>
+    <h1>#Reportes<br>Vecinales</h1>
+    <div class="subtitulo">La Eugenia Club de Campo</div>
   </div>
 
-  <div class="btns-externos" id="btnsExternos">
-    <a class="btn-cgv" href="https://clubdecampolaeugenia.taplink.site/" target="_blank">Ir al Centro de Gestión Vecinal</a>
-    <button type="button" class="btn-admin" onclick="mostrarPin()">Acceso reservado a personal autorizado</button>
+  <!-- PANTALLA 1: CATEGORÍAS -->
+  <div id="screen-cats">
+    <div class="cat-grid">
+      <button type="button" class="cat-btn" onclick="elegirCategoria('mascota-perdida')">
+        <span class="emoji">🐶</span>
+        <span class="label">Perdí una<br>mascota</span>
+      </button>
+      <button type="button" class="cat-btn" onclick="elegirCategoria('mascota-encontrada')">
+        <span class="emoji">🐱</span>
+        <span class="label">Encontré<br>una mascota</span>
+      </button>
+      <button type="button" class="cat-btn" onclick="elegirCategoria('objeto-perdido')">
+        <span class="emoji">🎒</span>
+        <span class="label">Perdí un<br>objeto</span>
+      </button>
+      <button type="button" class="cat-btn" onclick="elegirCategoria('objeto-encontrado')">
+        <span class="emoji">📦</span>
+        <span class="label">Encontré<br>un objeto</span>
+      </button>
+    </div>
+    <div class="bienvenida">
+      Desde esta plataforma podés publicar avisos de mascotas u objetos perdidos o encontrados en el grupo de difusión oficial del club.<br><br>
+      Tocá el botón que se acomode a tu necesidad y completá el formulario. Al finalizar, se generará un mensaje que será enviado automáticamente al WhatsApp institucional <strong>LA EUGE informa 📣</strong> (+54 9 3764 11-3300). Allí lo revisaremos y lo publicaremos.<br><br>
+      Si tenés fotos para acompañar a tu <em>#ReporteVecinal</em>, podés adjuntarlas directamente desde WhatsApp, una vez enviado el formulario.
+    </div>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+  <!-- PANTALLA 2: FORMULARIO -->
+  <div id="screen-form" class="hidden">
+    <div class="card">
+      <div class="form-title" id="form-title">🐾 PERDÍ UNA MASCOTA</div>
+
+      <button type="button" class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
+        <span>📋 Ver ejemplo de publicación</span>
+        <span id="ejemplo-arrow">▼</span>
+      </button>
+      <div class="ejemplo-box hidden" id="ejemplo-box"></div>
+      <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
+
+      <div class="field" id="field-tipo-animal">
+        <label>Tipo de animal</label>
+        <div class="radio-group">
+          <label><input type="radio" name="tipo_animal" value="Perro" onchange="onTipoAnimal()"><span>🐕 Perro</span></label>
+          <label><input type="radio" name="tipo_animal" value="Gato" onchange="onTipoAnimal()"><span>🐱 Gato</span></label>
+          <label><input type="radio" name="tipo_animal" value="otro" onchange="onTipoAnimal()"><span>🐾 Otro</span></label>
+        </div>
+        <div id="otro-animal-wrap" class="hidden" style="margin-top:10px">
+          <input type="text" id="otro-animal" placeholder="¿Qué animal?" maxlength="40"/>
+        </div>
+        <span class="err-msg" id="err-tipo-animal">Seleccioná el tipo de animal.</span>
+      </div>
+
+      <div class="field" id="field-nombre-mascota">
+        <label>Nombre de la mascota <span class="opc">(opcional)</span></label>
+        <input type="text" id="nombre-mascota" placeholder="Ej: Toto, Kika, Luna..." maxlength="40"/>
+      </div>
+
+      <div class="field hidden" id="field-tipo-objeto">
+        <label>Tipo de objeto</label>
+        <input type="text" id="tipo-objeto" placeholder="Ej: mochila, llaves, bicicleta, ropa..." maxlength="60"/>
+        <span class="err-msg" id="err-tipo-objeto">Describí qué tipo de objeto es.</span>
+      </div>
+
+      <div class="field">
+        <label>Descripción</label>
+        <textarea id="descripcion" maxlength="250" placeholder="" oninput="contarChars()" onblur="normalizarDesc(this)"></textarea>
+        <div class="char-count"><span id="char-num">0</span>/250</div>
+        <span class="err-msg" id="err-descripcion">Agregá una descripción.</span>
+      </div>
+
+      <div class="field">
+        <label id="label-zona">Zona</label>
+        <input type="text" id="zona" placeholder="Ej: M09, B12, cerca de la pileta, sendero..." maxlength="80"/>
+        <span class="err-msg" id="err-zona">Indicá la zona.</span>
+      </div>
+
+      <div class="field hidden" id="field-cuando">
+        <label id="label-cuando">¿Cuándo? <span class="opc">(opcional)</span></label>
+        <input type="text" id="cuando" placeholder="" maxlength="80"/>
+      </div>
+
+      <div class="field hidden" id="field-donde-esta">
+        <label>¿Dónde está ahora?</label>
+        <select id="donde-esta" onchange="onDondeEsta()">
+          <option value="">— Seleccioná —</option>
+          <option value="Garita de seguridad">Garita de seguridad</option>
+          <option value="Cantina">Cantina</option>
+          <option value="Sector pileta (bañero)">Sector pileta (bañero)</option>
+          <option value="otro-lugar">Otro lugar...</option>
+        </select>
+        <div id="otro-lugar-wrap" class="hidden" style="margin-top:8px">
+          <input type="text" id="otro-lugar" placeholder="Especificá dónde..." maxlength="60"/>
+        </div>
+        <span class="err-msg" id="err-donde-esta">Indicá dónde está.</span>
+      </div>
+
+      <div class="field">
+        <label>Nombre de quien reporta</label>
+        <input type="text" id="nombre-reporta" placeholder="Ej: María" maxlength="60" oninput="capitalizarNombre(this)"/>
+        <span class="err-msg" id="err-nombre">Ingresá tu nombre.</span>
+      </div>
+
+      <div class="field">
+        <label>Teléfono de contacto</label>
+        <div style="display:flex; gap:8px;">
+          <select id="pais-cod" onchange="onPaisCod()" style="flex:0 0 108px; max-width:108px;">
+            <option value="54" selected>🇦🇷 +54 9</option>
+            <option value="55">🇧🇷 +55</option>
+            <option value="595">🇵🇾 +595</option>
+            <option value="598">🇺🇾 +598</option>
+            <option value="56">🇨🇱 +56</option>
+            <option value="591">🇧🇴 +591</option>
+            <option value="34">🇪🇸 +34</option>
+            <option value="1">🇺🇸 +1</option>
+            <option value="otro">🌐 Otro país</option>
+          </select>
+          <input type="tel" id="telefono" placeholder="Ej: 3764123456" maxlength="15" oninput="soloNumeros(this)" style="flex:1; min-width:0;"/>
+        </div>
+        <div id="otro-pais-wrap" class="hidden" style="margin-top:8px">
+          <input type="text" id="otro-pais-cod" placeholder="Código de país (ej: 44)" maxlength="4" oninput="soloNumeros(this)"/>
+        </div>
+        <span class="err-msg" id="err-tel">Ingresá un número válido (mínimo 10 dígitos).</span>
+      </div>
+
+
+      <button type="button" class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
+    </div>
+    <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+  <!-- PANTALLA 3: PREVIEW -->
+  <div id="screen-preview" class="hidden">
+    <div class="card">
+      <div class="form-title">REVISÁ TU MENSAJE</div>
+      <div class="preview-box" id="preview-text"></div>
+      <button type="button" class="btn-editar" onclick="volverAForm()">← Editar</button>
+      <button type="button" class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
+      <div class="linea-envio-card">
+        Este mensaje será enviado para su revisión a +54 9 3764-113300<br>
+        la línea de LA EUGE informa 📣
+      </div>
+    </div>
+    <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+  <!-- PANTALLA 4: CONFIRMACIÓN -->
+  <div id="screen-confirmacion" class="hidden">
+    <div class="card confirmacion">
+      <div class="icono">✅</div>
+      <h2>¡Mensaje enviado!</h2>
+      <p>Tu mensaje fue enviado con éxito.<br>Abrí WhatsApp y, si lo deseás, adjuntá una fotografía.</p>
+    </div>
+    <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
+    <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
+  </div>
+
+  <!-- POP-UP FOTO OPCIONAL -->
+  <div class="overlay-foto" id="overlay-foto">
+    <div class="modal-foto">
+      <div class="icono">📸</div>
+      <div class="modal-titulo">Foto opcional</div>
+      <div class="modal-texto">
+        <p>Ahora se abrirá WhatsApp con tu mensaje ya escrito.</p>
+        <p>Cuando estés en el chat, podés adjuntar una foto antes de enviarlo.</p>
+      </div>
+      <hr class="modal-divider">
+      <button type="button" class="btn-modal-primario" onclick="enviarWhatsApp()">Abrir WhatsApp</button>
+      <button type="button" class="btn-modal-volver" onclick="cerrarPopupFoto()">Volver</button>
+    </div>
   </div>
 
 <script>
-const PIN = '1112';
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhPg43JwP_WH7qhq-kPT9n3EFJZ7SJby0iVBo1uzHIRz3vAZbYN9kMzH1SgWxOe1CY/exec';
-const NOMBRE_CLUB = 'La Eugenia Club de Campo';
-const URL_BOLETIN = 'https://clubdecampolaeugenia.github.io/boletin-la-eugenia/';
+  const WA_NUMBER = '5493764113300';
 
-let emailParaBaja = '';
+  const CONFIG = {
+    'mascota-perdida':    { emoji: '🐾', titulo: 'PERDÍ UNA MASCOTA',    esMascota: true,  esPerdido: true  },
+    'mascota-encontrada': { emoji: '🐾', titulo: 'ENCONTRÉ UNA MASCOTA', esMascota: true,  esPerdido: false },
+    'objeto-perdido':     { emoji: '🎒', titulo: 'PERDÍ UN OBJETO',      esMascota: false, esPerdido: true  },
+    'objeto-encontrado':  { emoji: '📦', titulo: 'ENCONTRÉ UN OBJETO',   esMascota: false, esPerdido: false },
+  };
 
-window.addEventListener('load', () => {
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get('token');
-  const esBaja = params.get('baja');
-  const emailParam = params.get('email');
-  if (token) {
-    confirmarToken(token);
-    ocultarBtnsExternos();
-  } else if (esBaja && emailParam) {
-    emailParaBaja = decodeURIComponent(emailParam);
-    mostrarScreen('screenBaja');
-    ocultarBtnsExternos();
-  } else {
-    mostrarBtnsExternos();
+  const PLACEHOLDERS = {
+    'mascota-perdida':    'Ej: Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.',
+    'mascota-encontrada': 'Ej: Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.',
+    'objeto-perdido':     'Ej: Mochila azul con cierre rojo, tiene llaves y una pelota adentro.',
+    'objeto-encontrado':  'Ej: Mochila azul con cierre rojo, encontrada en muy buen estado.',
+  };
+
+  const ZONA_LABEL = {
+    'mascota-perdida':    'Zona donde fue visto por última vez',
+    'mascota-encontrada': 'Zona donde fue encontrado',
+    'objeto-perdido':     'Zona donde fue perdido',
+    'objeto-encontrado':  'Zona donde fue encontrado',
+  };
+
+  const CUANDO_LABEL = {
+    'mascota-perdida': '¿Cuándo fue la última vez que lo viste?',
+    'objeto-perdido':  '¿Cuándo lo perdiste?',
+  };
+
+  const CUANDO_PLACEHOLDER = {
+    'mascota-perdida': 'Ej: el jueves a la noche, durante la tormenta...',
+    'objeto-perdido':  'Ej: el jueves a la tarde, en el sector pileta...',
+  };
+
+  const CUANDO_LABEL_MSG = {
+    'mascota-perdida': 'Última vez visto',
+    'objeto-perdido':  'Cuándo',
+  };
+
+  const EJEMPLOS = {
+    'mascota-perdida': `_#ReporteVecinal_
+
+🐾 PERDÍ UNA MASCOTA
+
+• *Perro* | Nombre: Toto
+Perro mediano, marrón con manchas blancas, collar azul. Se fue asustado por los truenos y no volvió.
+
+Zona: Lote M09
+
+Última vez visto: El jueves a la noche durante la tormenta
+
+Si lo encontrás, contactar directamente a:
+• María González
++54 9 3764 123456
+WhatsApp: https://wa.me/5493764123456
+
+_Por favor, contactate directamente con la persona del reporte._`,
+
+    'mascota-encontrada': `_#ReporteVecinal_
+
+🐾 ENCONTRÉ UNA MASCOTA
+
+• *Perro* | sin nombre conocido
+Perro mediano, marrón con manchas blancas, collar azul. Está tranquilo y deja acercarse.
+
+Zona: Plaza de Juegos
+
+Retirar en: Lote M09
+
+Reportado por:
+• María González
++54 9 3764 123456
+WhatsApp: https://wa.me/5493764123456
+
+_Por favor, contactate directamente con la persona del reporte._`,
+
+    'objeto-perdido': `_#ReporteVecinal_
+
+🎒 PERDÍ UN OBJETO
+
+• *Mochila*
+Mochila azul con cierre rojo, tiene llaves y una pelota adentro.
+
+Zona: Sector pileta
+
+Cuándo: El jueves a la tarde
+
+Si lo encontrás, contactar directamente a:
+• María González
++54 9 3764 123456
+WhatsApp: https://wa.me/5493764123456
+
+_Por favor, contactate directamente con la persona del reporte._`,
+
+    'objeto-encontrado': `_#ReporteVecinal_
+
+📦 ENCONTRÉ UN OBJETO
+
+• *Mochila*
+Mochila azul con cierre rojo, encontrada en muy buen estado.
+
+Zona: Cancha de pádel
+
+Retirar en: Garita de seguridad
+
+Reportado por:
+• María González
++54 9 3764 123456
+WhatsApp: https://wa.me/5493764123456
+
+_Por favor, contactate directamente con la persona del reporte._`,
+  };
+
+  let categoriaActual = '';
+  let ejemploVisible = false;
+
+  function elegirCategoria(cat) {
+    categoriaActual = cat;
+    const cfg = CONFIG[cat];
+
+    document.getElementById('form-title').textContent = cfg.emoji + ' ' + cfg.titulo;
+    document.getElementById('descripcion').placeholder = PLACEHOLDERS[cat];
+    document.getElementById('label-zona').textContent = ZONA_LABEL[cat];
+
+    if (cfg.esPerdido) {
+      document.getElementById('label-cuando').innerHTML =
+        CUANDO_LABEL[cat] + ' <span class="opc">(opcional)</span>';
+      document.getElementById('cuando').placeholder = CUANDO_PLACEHOLDER[cat];
+    }
+
+    toggle('field-tipo-animal',    cfg.esMascota);
+    toggle('field-nombre-mascota', cfg.esMascota);
+    toggle('field-tipo-objeto',    !cfg.esMascota);
+    toggle('field-cuando',         cfg.esPerdido);
+    toggle('field-donde-esta',     !cfg.esPerdido);
+
+    if (cat === 'mascota-encontrada') {
+      document.getElementById('nombre-mascota').value = 'sin nombre conocido';
+    }
+
+    document.getElementById('ejemplo-box').innerHTML = renderizarEjemploHTML(EJEMPLOS[cat]);
+    ejemploVisible = false;
+    ocultar('ejemplo-box');
+    ocultar('ejemplo-disclaimer');
+    document.getElementById('ejemplo-arrow').textContent = '▼';
+
+    resetForm(cat);
+    mostrar('screen-form');
+    ocultar('screen-cats');
+    window.scrollTo(0, 0);
   }
-});
 
-function mostrarBtnsExternos() { document.getElementById('btnsExternos').classList.add('visible'); }
-function ocultarBtnsExternos() { document.getElementById('btnsExternos').classList.remove('visible'); }
-
-async function confirmarToken(token) {
-  try {
-    const r = await llamarScript({ accion: 'confirmar', token });
-    mostrarScreen(r.ok ? 'screenConfirmado' : 'screenPublico');
-  } catch(e) { mostrarScreen('screenPublico'); mostrarBtnsExternos(); }
-}
-
-async function confirmarBaja() {
-  if (!emailParaBaja) { mostrarMsg('msgBaja', 'No se encontró el email.', 'err'); return; }
-  document.getElementById('loadingBaja').innerText = 'Procesando...';
-  try {
-    const r = await llamarScript({ accion: 'baja', email: emailParaBaja });
-    document.getElementById('loadingBaja').innerText = '';
-    mostrarMsg('msgBaja', r.mensaje, r.ok ? 'ok' : 'err');
-  } catch(e) {
-    document.getElementById('loadingBaja').innerText = '';
-    mostrarMsg('msgBaja', 'Error. Intentá de nuevo.', 'err');
+  function toggleEjemplo() {
+    ejemploVisible = !ejemploVisible;
+    toggle('ejemplo-box', ejemploVisible);
+    toggle('ejemplo-disclaimer', ejemploVisible);
+    document.getElementById('ejemplo-arrow').textContent = ejemploVisible ? '▲' : '▼';
   }
-}
 
-function capitalizarNombre(input) {
-  input.value = input.value.replace(/\b\w/g, c => c.toUpperCase());
-}
-function filtrarNombre(input) {
-  input.value = input.value.replace(/[0-9]/g, '');
-}
-function validarEmail(input) {
-  const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
-  input.classList.toggle('error', input.value.length > 0 && !ok);
-}
-
-function mostrarScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-function mostrarPin() { mostrarScreen('screenPin'); ocultarBtnsExternos(); document.getElementById('pinInput').value = ''; document.getElementById('pinError').innerText = ''; }
-function volverPublico() { mostrarScreen('screenPublico'); mostrarBtnsExternos(); }
-function cerrarAdmin() { mostrarScreen('screenPublico'); mostrarBtnsExternos(); }
-
-function verificarPin() {
-  if (document.getElementById('pinInput').value === PIN) {
-    mostrarScreen('screenAdmin');
-    ocultarBtnsExternos();
-    cargarSuscriptores();
-    cargarLog();
-  } else {
-    document.getElementById('pinError').innerText = 'PIN incorrecto.';
-    document.getElementById('pinInput').value = '';
-    const pinEl = document.getElementById('pinInput');
-    pinEl.classList.add('error');
-    setTimeout(() => pinEl.classList.remove('error'), 400);
+  function irAlMenu() {
+    ['screen-form','screen-preview','screen-confirmacion'].forEach(ocultar);
+    mostrar('screen-cats');
+    window.scrollTo(0, 0);
   }
-}
-document.getElementById('pinInput').addEventListener('keydown', e => { if (e.key === 'Enter') verificarPin(); });
 
-function toggleMini(panelId, flechaId) {
-  const panel = document.getElementById(panelId);
-  const flecha = document.getElementById(flechaId);
-  panel.classList.toggle('open');
-  flecha.innerText = panel.classList.contains('open') ? '▲' : '▼';
-}
+  function volverAForm() {
+    ocultar('screen-preview');
+    mostrar('screen-form');
+    window.scrollTo(0, 0);
+  }
 
-function toggleGestionar() {
-  const panel = document.getElementById('gestionarPanel');
-  const flecha = document.getElementById('gestionarFlecha');
-  const isOpen = panel.classList.contains('open');
-  panel.classList.toggle('open');
-  flecha.innerText = isOpen ? '▼' : '▲';
-}
+  function onTipoAnimal() {
+    const val = document.querySelector('input[name=tipo_animal]:checked')?.value;
+    toggle('otro-animal-wrap', val === 'otro');
+  }
 
-function toggleHistorial() {
-  const panel = document.getElementById('historialPanel');
-  const flecha = document.getElementById('historialFlecha');
-  const isOpen = panel.style.display !== 'none';
-  panel.style.display = isOpen ? 'none' : 'block';
-  flecha.innerText = isOpen ? '▼' : '▲';
-}
+  function onDondeEsta() {
+    toggle('otro-lugar-wrap', document.getElementById('donde-esta').value === 'otro-lugar');
+  }
 
-async function llamarScript(params) {
-  return new Promise((resolve) => {
-    const callbackName = 'cb_' + Date.now();
-    const url = new URL(SCRIPT_URL);
-    Object.entries(params).forEach(([k, v]) => url.searchParams.append(k, v));
-    url.searchParams.append('callback', callbackName);
-    window[callbackName] = function(data) {
-      delete window[callbackName];
-      document.body.removeChild(script);
-      resolve(data);
-    };
-    const script = document.createElement('script');
-    script.src = url.toString();
-    script.onerror = () => resolve({ ok: false, mensaje: 'Error de conexión.' });
-    document.body.appendChild(script);
-  });
-}
+  function onPaisCod() {
+    toggle('otro-pais-wrap', document.getElementById('pais-cod').value === 'otro');
+  }
 
-function mostrarMsg(id, texto, tipo) {
-  const el = document.getElementById(id);
-  el.innerText = texto;
-  el.className = 'msg-box ' + tipo;
-  el.style.display = 'block';
-  setTimeout(() => { el.style.display = 'none'; }, 6000);
-}
+  function soloNumeros(el) { el.value = el.value.replace(/[^0-9]/g, ''); }
 
-async function suscribir() {
-  const email = document.getElementById('suscEmail').value.trim();
-  const nombre = document.getElementById('suscNombre').value.trim();
-  if (!nombre) { mostrarMsg('msgSusc', 'Ingresá tu nombre, apellido o razón social.', 'err'); marcarError('suscNombre'); return; }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { mostrarMsg('msgSusc', 'Ingresá un email válido.', 'err'); marcarError('suscEmail'); return; }
-  document.getElementById('loadingSusc').innerText = 'Procesando...';
-  try {
-    const r = await llamarScript({ accion: 'suscribir', email, nombre });
-    document.getElementById('loadingSusc').innerText = '';
-    if (r.ok) {
-      document.getElementById('msgPendiente').style.display = 'block';
-      document.getElementById('suscEmail').value = '';
-      document.getElementById('suscNombre').value = '';
+  function contarChars() {
+    const n = document.getElementById('descripcion').value.length;
+    document.getElementById('char-num').textContent = n;
+    document.getElementById('char-num').parentElement.classList.toggle('over', n >= 230);
+  }
+
+  function corregirOrto(texto) {
+    return texto
+      .replace(/(^\s*|[.!?]\s+)([a-záéíóúüñ])/gi, (m, p1, p2) => p1 + p2.toUpperCase())
+      .trim();
+  }
+
+  function getEmojiAnimal(val) {
+    if (val === 'Perro') return '🐕';
+    if (val === 'Gato') return '🐱';
+    return '🐾';
+  }
+
+  function validar() {
+    let ok = true;
+    const cfg = CONFIG[categoriaActual];
+
+    if (cfg.esMascota) {
+      const tipoAnimal = document.querySelector('input[name=tipo_animal]:checked');
+      const sinOtro = tipoAnimal?.value === 'otro' && !document.getElementById('otro-animal').value.trim();
+      mostrarError('err-tipo-animal', !tipoAnimal || sinOtro);
+      if (!tipoAnimal || sinOtro) ok = false;
     } else {
-      mostrarMsg('msgSusc', r.mensaje, 'err');
-    }
-  } catch(e) {
-    document.getElementById('loadingSusc').innerText = '';
-    mostrarMsg('msgSusc', 'Error. Intentá de nuevo.', 'err');
-  }
-}
-
-function marcarError(id) {
-  const el = document.getElementById(id);
-  el.classList.add('error');
-  setTimeout(() => el.classList.remove('error'), 400);
-}
-
-async function cargarSuscriptores() {
-  try {
-    const r = await llamarScript({ accion: 'listar' });
-    document.getElementById('statActivos').innerText = r.activos;
-    document.getElementById('statPendientes').innerText = r.pendientes || 0;
-    document.getElementById('statBajas').innerText = r.bajas;
-
-    const web = r.activosWeb || 0;
-    const manual = r.activosManual || 0;
-    document.getElementById('statOrigen').innerText = `${web} vía web · ${manual} manual/importación`;
-
-    const activos = r.suscriptores.filter(s => s.estado === 'activo');
-    const pendientes = r.suscriptores.filter(s => s.estado === 'pendiente');
-    const bajas = r.suscriptores.filter(s => s.estado === 'baja');
-
-    // Actualizar labels con conteo
-    document.getElementById('labelActivos').innerText = `Activos (${activos.length})`;
-    document.getElementById('labelPendientes').innerText = `Pendientes (${pendientes.length})`;
-    document.getElementById('labelBajas').innerText = `Bajas (${bajas.length})`;
-
-    function origenAbrev(origen) {
-      if (origen === 'web') return 'W';
-      if (origen === 'importacion') return 'I';
-      return 'M';
+      const to = document.getElementById('tipo-objeto').value.trim();
+      mostrarError('err-tipo-objeto', !to);
+      if (!to) ok = false;
     }
 
-    function renderMini(id, items, badgeClass, badgeLabel) {
-      const el = document.getElementById(id);
-      if (items.length === 0) { el.innerHTML = '<div style="padding:6px 12px;font-size:11px;opacity:0.6;">Sin registros.</div>'; return; }
-      el.innerHTML = items.map(s => `
-        <div class="suscriptor-item" style="padding:5px 12px;">
-          <span style="flex:1;overflow:hidden;text-overflow:ellipsis;font-size:11px;">${s.nombre ? s.nombre + ' — ' : ''}${s.email}</span>
-          <span style="flex-shrink:0;margin-left:6px;font-size:9px;opacity:0.55;font-weight:900;" title="${s.origen}">${origenAbrev(s.origen)}</span>
-          <span class="badge-${badgeClass}" style="flex-shrink:0;margin-left:4px;font-size:9px;">${badgeLabel}</span>
-        </div>`).join('');
+    const desc = document.getElementById('descripcion').value.trim();
+    mostrarError('err-descripcion', !desc);
+    if (!desc) ok = false;
+
+    const zona = document.getElementById('zona').value.trim();
+    mostrarError('err-zona', !zona);
+    if (!zona) ok = false;
+
+    if (!cfg.esPerdido) {
+      const de = document.getElementById('donde-esta').value;
+      const sinOtroLugar = de === 'otro-lugar' && !document.getElementById('otro-lugar').value.trim();
+      mostrarError('err-donde-esta', !de || sinOtroLugar);
+      if (!de || sinOtroLugar) ok = false;
     }
 
-    renderMini('secActivos', activos, 'activo', 'Activo');
-    renderMini('secPendientes', pendientes, 'pendiente', 'Pendiente');
-    renderMini('secBajas', bajas, 'baja', 'Baja');
+    const nombre = document.getElementById('nombre-reporta').value.trim();
+    mostrarError('err-nombre', nombre.length < 2);
+    if (nombre.length < 2) ok = false;
 
-  } catch(e) {
-    document.getElementById('secActivos').innerHTML = '<div style="color:#c0392b;font-size:13px;padding:10px;">Error cargando lista.</div>';
+    const tel = document.getElementById('telefono').value.trim();
+    const paisSelVal = document.getElementById('pais-cod').value;
+    const otroPaisVal = document.getElementById('otro-pais-cod').value.trim();
+    const telOk = tel.length >= 10 && (paisSelVal !== 'otro' || otroPaisVal.length >= 1);
+    mostrarError('err-tel', !telOk);
+    if (!telOk) ok = false;
+
+    return ok;
   }
-}
 
-async function agregarManual() {
-  const email = document.getElementById('adminEmail').value.trim();
-  const nombre = document.getElementById('adminNombre').value.trim();
-  if (!email) { mostrarMsg('msgAdmin', 'Ingresá el email.', 'err'); marcarError('adminEmail'); return; }
-  document.getElementById('loadingAdmin').innerText = 'Agregando...';
-  try {
-    const r = await llamarScript({ accion: 'agregarManual', email, nombre });
-    document.getElementById('loadingAdmin').innerText = '';
-    mostrarMsg('msgAdmin', r.mensaje, r.ok ? 'ok' : 'err');
-    if (r.ok) { document.getElementById('adminEmail').value = ''; document.getElementById('adminNombre').value = ''; cargarSuscriptores(); }
-  } catch(e) {
-    document.getElementById('loadingAdmin').innerText = '';
-    mostrarMsg('msgAdmin', 'Error. Intentá de nuevo.', 'err');
+  function verPreview() {
+    if (!validar()) { window.scrollTo(0, 0); return; }
+    document.getElementById('preview-text').innerHTML = renderizarPreviewHTML(armarMensaje());
+    ocultar('screen-form');
+    mostrar('screen-preview');
+    window.scrollTo(0, 0);
   }
-}
 
-async function desuscribirManual() {
-  const email = document.getElementById('bajaManualEmail').value.trim();
-  if (!email) { mostrarMsg('msgBajaManual', 'Ingresá el email.', 'err'); marcarError('bajaManualEmail'); return; }
-  if (!confirm(`¿Dar de baja a ${email}?`)) return;
-  document.getElementById('loadingBajaManual').innerText = 'Procesando...';
-  try {
-    const r = await llamarScript({ accion: 'baja', email });
-    document.getElementById('loadingBajaManual').innerText = '';
-    mostrarMsg('msgBajaManual', r.mensaje, r.ok ? 'ok' : 'err');
-    if (r.ok) { document.getElementById('bajaManualEmail').value = ''; cargarSuscriptores(); }
-  } catch(e) {
-    document.getElementById('loadingBajaManual').innerText = '';
-    mostrarMsg('msgBajaManual', 'Error. Intentá de nuevo.', 'err');
-  }
-}
+  function armarMensaje() {
+    const cfg = CONFIG[categoriaActual];
+    const lines = [];
 
-async function enviarMensual() {
-  if (!confirm('⚠️ Estás por enviar manualmente a todos los suscriptores el #BoletínMensual con la cuota social vigente.\n\n¿Confirmás el envío?')) return;
-  document.getElementById('loadingMensual').innerText = 'Enviando...';
-  try {
-    const r = await llamarScript({ accion: 'enviarMensual' });
-    document.getElementById('loadingMensual').innerText = '';
-    mostrarMsg('msgMensual', r.mensaje, r.ok ? 'ok' : 'err');
-    if (r.ok) cargarLog();
-  } catch(e) {
-    document.getElementById('loadingMensual').innerText = '';
-    mostrarMsg('msgMensual', 'Error al enviar.', 'err');
-  }
-}
+    lines.push('_#ReporteVecinal_');
+    lines.push('');
+    lines.push(cfg.emoji + ' ' + cfg.titulo);
+    lines.push('');
 
-function actualizarPreview() {
-  const asunto = document.getElementById('commAsunto').value.trim();
-  const cuerpo = document.getElementById('commCuerpo').value.trim();
-  const preview = document.getElementById('previewBox');
-  if (!asunto && !cuerpo) { preview.style.display = 'none'; return; }
-  preview.style.display = 'block';
-  const firma = `\n\n──────────────────────────\nAtentos saludos,\n${NOMBRE_CLUB}`;
-  document.getElementById('previewCuerpo').innerText =
-    (asunto ? `Asunto: ${asunto}\n${'─'.repeat(30)}\n\n` : '') + cuerpo + firma;
-}
-
-async function enviarComunicado() {
-  const asunto = document.getElementById('commAsunto').value.trim();
-  const cuerpo = document.getElementById('commCuerpo').value.trim();
-  if (!asunto || !cuerpo) { mostrarMsg('msgComm', 'Completá el asunto y el mensaje.', 'err'); return; }
-  if (!confirm(`¿Enviar este comunicado a todos los suscriptores activos?\n\nAsunto: ${asunto}`)) return;
-  document.getElementById('loadingComm').innerText = 'Enviando...';
-  try {
-    const r = await llamarScript({ accion: 'enviarComunicado', asunto, cuerpo });
-    document.getElementById('loadingComm').innerText = '';
-    mostrarMsg('msgComm', r.mensaje, r.ok ? 'ok' : 'err');
-    if (r.ok) {
-      document.getElementById('commAsunto').value = '';
-      document.getElementById('commCuerpo').value = '';
-      document.getElementById('previewBox').style.display = 'none';
-      cargarLog();
+    if (cfg.esMascota) {
+      const tipoAnimalEl = document.querySelector('input[name=tipo_animal]:checked');
+      const tipoVal = tipoAnimalEl?.value;
+      const tipoAnimal = tipoVal === 'otro' ? document.getElementById('otro-animal').value.trim() : tipoVal || '';
+      const nombreMascota = document.getElementById('nombre-mascota').value.trim();
+      const nombreLabel = (nombreMascota && nombreMascota !== 'sin nombre conocido')
+        ? 'Nombre: ' + nombreMascota
+        : 'sin nombre conocido';
+      lines.push('• *' + tipoAnimal + '*' + ' | ' + nombreLabel);
+    } else {
+      const tipoObjeto = document.getElementById('tipo-objeto').value.trim();
+      lines.push('• *' + tipoObjeto + '*');
     }
-  } catch(e) {
-    document.getElementById('loadingComm').innerText = '';
-    mostrarMsg('msgComm', 'Error al enviar.', 'err');
+
+    lines.push(corregirOrto(document.getElementById('descripcion').value.trim()));
+    lines.push('');
+
+    lines.push('Zona: ' + document.getElementById('zona').value.trim());
+    lines.push('');
+
+    if (cfg.esPerdido) {
+      const cuando = document.getElementById('cuando').value.trim();
+      if (cuando) {
+        const label = CUANDO_LABEL_MSG[categoriaActual] || 'Cuándo';
+        lines.push(label + ': ' + cuando);
+        lines.push('');
+      }
+    } else {
+      let dondeEsta = document.getElementById('donde-esta').value;
+      if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
+      lines.push('Retirar en: ' + dondeEsta);
+      lines.push('');
+    }
+
+    const nombre = document.getElementById('nombre-reporta').value.trim();
+    const tel = document.getElementById('telefono').value.trim();
+    const telLimpio = tel.replace(/\D/g, '').replace(/^0+/, '');
+
+    const paisSel = document.getElementById('pais-cod').value;
+    const codPais = paisSel === 'otro'
+      ? document.getElementById('otro-pais-cod').value.trim()
+      : paisSel;
+    const prefijoMovil = (codPais === '54') ? '9 ' : '';
+    const e164 = '+' + codPais + telLimpio; // sin espacios, para links
+    const telVisual = '+' + codPais + ' ' + prefijoMovil + telLimpio.slice(0, 4) + ' ' + telLimpio.slice(4);
+
+    const telLinkLlamar = 'tel:+' + codPais + (prefijoMovil ? '9' : '') + telLimpio;
+    const telLinkWA = 'https://wa.me/' + codPais + (prefijoMovil ? '9' : '') + telLimpio;
+
+    if (cfg.esPerdido) {
+      lines.push('Si lo encontrás, contactar directamente a:');
+      lines.push('• ' + nombre);
+      lines.push(telVisual);
+      lines.push('WhatsApp: ' + telLinkWA);
+    } else {
+      lines.push('Reportado por:');
+      lines.push('• ' + nombre);
+      lines.push(telVisual);
+      lines.push('WhatsApp: ' + telLinkWA);
+    }
+
+    lines.push('');
+    lines.push('_Por favor, contactate directamente con la persona del reporte._');
+
+    return lines.join('\n');
   }
-}
 
-async function cargarLog() {
-  try {
-    const r = await llamarScript({ accion: 'logEnvios' });
-    const el = document.getElementById('logEnvios');
-    if (!r.envios || r.envios.length === 0) { el.innerText = 'Sin envíos registrados aún.'; return; }
+  function renderizarPreviewHTML(textoPlano) {
+    let html = textoPlano
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
 
-    // Agrupar por año
-    const porAnio = {};
-    r.envios.forEach(e => {
-      const fecha = new Date(e.fecha);
-      const anio = fecha.getFullYear();
-      if (!porAnio[anio]) porAnio[anio] = [];
-      porAnio[anio].push(e);
+    html = html.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+
+    // Hashtag en cursiva simple (sin etiqueta de sistema)
+    html = html.replace(/_#ReporteVecinal_/g, '<em>#ReporteVecinal</em>');
+
+    // Disclaimer final en cursiva con etiqueta de sistema
+    html = html.replace(/_([^_]+)_/g, (m, contenido) => {
+      return '<span class="preview-sistema-texto">' + contenido +
+             '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
     });
 
-    el.innerHTML = Object.keys(porAnio).sort((a,b) => b-a).map(anio => `
-      <div style="font-weight:900;color:#135457;margin:8px 0 4px;font-size:13px;">${anio}</div>
-      ${porAnio[anio].map(e => {
-        const fecha = new Date(e.fecha);
-        const fechaStr = fecha.toLocaleDateString('es-AR', {day:'2-digit',month:'2-digit',year:'numeric'}) + ', ' + fecha.toLocaleTimeString('es-AR', {hour:'2-digit',minute:'2-digit'});
-        const esAuto = e.origen === 'automatico';
-        const esMensual = e.tipo === 'mensual';
-        const tag = esAuto ? '<span style="color:#1e8449;font-size:10px;">(Automático)</span>' : '<span style="color:#2471a3;font-size:10px;">(Manual)</span>';
-        const asuntoMostrar = esMensual 
-          ? `#BoletínMensual — Cuota Social — ${e.asunto.replace('Cuota social — ','')}`
-          : `Comunicado — ${e.asunto}`;
-        return `<div style="padding:5px 0;border-bottom:1px solid #c4df57;font-size:12px;">
-          ${asuntoMostrar} ${tag}<br>
-          <span style="opacity:0.6;font-size:11px;">${fechaStr}</span>
-        </div>`;
-      }).join('')}
-    `).join('');
-  } catch(e) {
-    document.getElementById('logEnvios').innerText = 'Error cargando historial.';
+    // Link de WhatsApp clickeable, mostrando la URL cruda
+    html = html.replace(/WhatsApp: (https:\/\/wa\.me\/[^\s<]+)/g,
+      'WhatsApp: <a class="preview-link-wa" href="$1" target="_blank">$1</a>');
+
+    return html;
   }
-}
+
+  function renderizarEjemploHTML(textoPlano) {
+    let html = textoPlano
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    html = html.replace(/\*([^*]+)\*/g, '<strong>$1</strong>');
+
+    html = html.replace(/_#ReporteVecinal_/g, '<em>#ReporteVecinal</em>');
+
+    html = html.replace(/_([^_]+)_/g, (m, contenido) => {
+      return '<span class="preview-sistema-texto">' + contenido +
+             '<span class="preview-sistema-label">(este texto se agrega automáticamente)</span></span>';
+    });
+
+    html = html.replace(/WhatsApp: (https:\/\/wa\.me\/[^\s<]+)/g,
+      'WhatsApp: <a class="preview-link-wa" href="#" onclick="return false;">$1</a>');
+
+    return html;
+  }
+
+  function abrirPopupFoto() {
+    const overlay = document.getElementById('overlay-foto');
+    overlay.classList.remove('hide');
+    overlay.classList.add('show');
+  }
+
+  function cerrarPopupFoto() {
+    const overlay = document.getElementById('overlay-foto');
+    overlay.classList.remove('show');
+    overlay.classList.add('hide');
+    setTimeout(() => { overlay.classList.remove('hide'); }, 300);
+  }
+
+  function enviarWhatsApp() {
+    const overlay = document.getElementById('overlay-foto');
+    overlay.classList.remove('show');
+    overlay.classList.add('hide');
+    setTimeout(() => { overlay.classList.remove('hide'); }, 300);
+
+    const msg = armarMensaje();
+    window.location.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+    ocultar('screen-preview');
+    mostrar('screen-confirmacion');
+    window.scrollTo(0, 0);
+  }
+
+  function mostrar(id) { document.getElementById(id).classList.remove('hidden'); }
+  function ocultar(id) { document.getElementById(id).classList.add('hidden'); }
+  function toggle(id, show) { show ? mostrar(id) : ocultar(id); }
+
+  function mostrarError(id, show) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('visible', show);
+    const campo = el.previousElementSibling;
+    if (campo && ['INPUT','SELECT','TEXTAREA'].includes(campo.tagName)) {
+      campo.classList.toggle('error', show);
+    }
+  }
+
+  function capitalizarNombre(el) {
+    const pos = el.selectionStart;
+    el.value = el.value
+      .toLowerCase()
+      .replace(/(?:^|\s)\S/g, c => c.toUpperCase());
+    el.setSelectionRange(pos, pos);
+  }
+
+  function normalizarDesc(el) {
+    const val = el.value.trim();
+    const letters = val.replace(/[^a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]/g, '');
+    if (!letters.length) return;
+    const upperCount = (letters.match(/[A-ZÁÉÍÓÚÜÑ]/g) || []).length;
+    if (upperCount / letters.length > 0.6) {
+      el.value = val
+        .toLowerCase()
+        .replace(/(^|[.!?]\s+)([a-záéíóúüñ])/gi, (m, p1, p2) => p1 + p2.toUpperCase())
+        .replace(/^[a-záéíóúüñ]/, c => c.toUpperCase());
+    }
+  }
+
+  function resetForm(cat) {
+    document.querySelectorAll('input[name=tipo_animal]').forEach(r => r.checked = false);
+    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono','otro-pais-cod']
+      .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    if (cat !== 'mascota-encontrada') document.getElementById('nombre-mascota').value = '';
+    document.getElementById('donde-esta').value = '';
+    document.getElementById('pais-cod').value = '54';
+    document.getElementById('char-num').textContent = '0';
+    ocultar('otro-animal-wrap');
+    ocultar('otro-lugar-wrap');
+    ocultar('otro-pais-wrap');
+    document.querySelectorAll('.err-msg').forEach(e => e.classList.remove('visible'));
+    document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+  }
 </script>
 </body>
 </html>
