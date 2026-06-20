@@ -42,12 +42,34 @@
     }
     .header .subtitulo { color: rgba(255,255,255,0.9); font-size: 0.88rem; margin-top: 5px; }
 
+    .bienvenida-toggle {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: var(--radius);
+      color: var(--blanco);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 12px 16px;
+      cursor: pointer;
+      margin: 16px auto 0;
+      max-width: 480px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .bienvenida-toggle:hover { background: rgba(255,255,255,0.16); }
+    .bienvenida-arrow { font-size: 0.78rem; opacity: 0.8; transition: transform 0.2s; flex-shrink: 0; margin-left: 10px; }
+
     .bienvenida {
       background: rgba(255,255,255,0.1);
       border-radius: var(--radius);
       padding: 14px 16px;
       max-width: 480px;
-      margin: 16px auto 16px;
+      margin: 6px auto 16px;
       color: var(--blanco);
       font-size: 0.88rem;
       line-height: 1.6;
@@ -527,11 +549,17 @@
         <span class="label">Encontré<br>un objeto</span>
       </button>
     </div>
-    <div class="bienvenida">
+
+    <button type="button" class="bienvenida-toggle" onclick="toggleBienvenida()" id="btn-bienvenida">
+      <span>¿Primera vez por acá?</span>
+      <span class="bienvenida-arrow" id="bienvenida-arrow">▼</span>
+    </button>
+    <div class="bienvenida hidden" id="bienvenida-box">
       Desde esta plataforma podés publicar avisos de mascotas u objetos perdidos o encontrados en el grupo de difusión oficial del club.<br><br>
       Tocá el botón que se acomode a tu necesidad y completá el formulario. Al finalizar, se generará un mensaje que será enviado automáticamente al WhatsApp institucional <strong>LA EUGE informa 📣</strong> (+54 9 3764 11-3300). Allí lo revisaremos y lo publicaremos.<br><br>
       Si tenés fotos para acompañar a tu <em>#ReporteVecinal</em>, podés adjuntarlas directamente desde WhatsApp, una vez enviado el formulario.
     </div>
+
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
 
@@ -796,6 +824,13 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
   let categoriaActual = '';
   let ejemploVisible = false;
+  let bienvenidaVisible = false;
+
+  function toggleBienvenida() {
+    bienvenidaVisible = !bienvenidaVisible;
+    toggle('bienvenida-box', bienvenidaVisible);
+    document.getElementById('bienvenida-arrow').textContent = bienvenidaVisible ? '▲' : '▼';
+  }
 
   function elegirCategoria(cat) {
     categoriaActual = cat;
