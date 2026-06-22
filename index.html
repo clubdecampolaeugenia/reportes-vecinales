@@ -33,13 +33,14 @@
     .header { text-align: center; margin-bottom: 20px; }
     .header img { width: 181px; margin-bottom: 12px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25)); }
     .header h1 {
-      font-family: Impact, 'Arial Narrow', sans-serif;
-      font-size: 2.2rem;
-      color: var(--lima);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      line-height: 1.1;
-    }
+  font-family: Impact, 'Arial Narrow', sans-serif;
+  font-size: clamp(1.35rem, 4.8vw, 2.2rem);
+  color: var(--lima);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  white-space: nowrap;
+}
     .header .subtitulo { color: rgba(255,255,255,0.9); font-size: 0.88rem; margin-top: 5px; }
 
     .bienvenida-toggle {
@@ -525,7 +526,7 @@
 
   <div class="header">
     <img src="https://i.imgur.com/ZPMzq4X.png" alt="La Eugenia"/>
-    <h1>#Reportes<br>Vecinales</h1>
+    <h1>#REPORTES VECINALES</h1>
     <div class="subtitulo">La Eugenia Club de Campo</div>
   </div>
 
