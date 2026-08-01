@@ -630,10 +630,6 @@
         <div id="otro-lugar-wrap" class="hidden" style="margin-top:8px">
           <input type="text" id="otro-lugar" placeholder="Especificá dónde..." maxlength="60"/>
         </div>
-        <div id="tel-lugar-wrap" class="hidden" style="margin-top:8px">
-          <label style="font-size:0.78rem;opacity:0.75;">Teléfono del lugar (podés editarlo)</label>
-          <input type="text" id="tel-lugar" placeholder="Teléfono" maxlength="40"/>
-        </div>
         <span class="err-msg" id="err-donde-esta">Indicá dónde está.</span>
       </div>
 
@@ -904,15 +900,18 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
   function onDondeEsta() {
     const val = document.getElementById('donde-esta').value;
-    toggle('otro-lugar-wrap', val === 'otro-lugar');
-    const telWrap = document.getElementById('tel-lugar-wrap');
-    const telInput = document.getElementById('tel-lugar');
-    if (LUGARES_TEL[val]) {
-      toggle('tel-lugar-wrap', true);
-      telInput.value = LUGARES_TEL[val];
+    const input = document.getElementById('otro-lugar');
+    if (val === 'otro-lugar') {
+      toggle('otro-lugar-wrap', true);
+      input.value = '';
+      input.placeholder = 'Especificá dónde...';
+    } else if (LUGARES_TEL[val]) {
+      toggle('otro-lugar-wrap', true);
+      input.value = val + ' — ' + LUGARES_TEL[val];
+      input.placeholder = 'Especificá dónde...';
     } else {
-      toggle('tel-lugar-wrap', false);
-      telInput.value = '';
+      toggle('otro-lugar-wrap', false);
+      input.value = '';
     }
   }
 
@@ -1030,11 +1029,9 @@ _Por favor, contactate directamente con la persona del reporte._`,
       }
     } else {
       let dondeEsta = document.getElementById('donde-esta').value;
-      if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
-      const telLugar = document.getElementById('tel-lugar').value.trim();
-      let dondeEstaTexto = dondeEsta;
-      if (telLugar) dondeEstaTexto += ' — ' + telLugar;
-      lines.push('Retirar en: ' + dondeEstaTexto);
+      const otroLugarVal = document.getElementById('otro-lugar').value.trim();
+      if (dondeEsta === 'otro-lugar' || LUGARES_TEL[dondeEsta]) dondeEsta = otroLugarVal || dondeEsta;
+      lines.push('Retirar en: ' + dondeEsta);
       lines.push('');
     }
 
@@ -1179,7 +1176,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
   function resetForm(cat) {
     document.querySelectorAll('input[name=tipo_animal]').forEach(r => r.checked = false);
-    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','tel-lugar','nombre-reporta','telefono','otro-pais-cod']
+    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono','otro-pais-cod']
       .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
     if (cat !== 'mascota-encontrada') document.getElementById('nombre-mascota').value = '';
     document.getElementById('donde-esta').value = '';
@@ -1187,7 +1184,6 @@ _Por favor, contactate directamente con la persona del reporte._`,
     document.getElementById('char-num').textContent = '0';
     ocultar('otro-animal-wrap');
     ocultar('otro-lugar-wrap');
-    ocultar('tel-lugar-wrap');
     ocultar('otro-pais-wrap');
     document.querySelectorAll('.err-msg').forEach(e => e.classList.remove('visible'));
     document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
