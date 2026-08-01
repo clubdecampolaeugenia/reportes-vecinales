@@ -826,8 +826,8 @@ _Por favor, contactate directamente con la persona del reporte._`,
   let categoriaActual = '';
 
   const LUGARES_TEL = {
-    'Garita de seguridad': '+54 9 11 6188-8188',
-    'Cantina': '+54 9 3764 68-3859'
+    'Garita de seguridad': '1161888188',
+    'Cantina': '3764683859'
   };
   let ejemploVisible = false;
   let bienvenidaVisible = false;
@@ -900,19 +900,20 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
   function onDondeEsta() {
     const val = document.getElementById('donde-esta').value;
-    const input = document.getElementById('otro-lugar');
-    if (val === 'otro-lugar') {
-      toggle('otro-lugar-wrap', true);
-      input.value = '';
-      input.placeholder = 'Especificá dónde...';
-    } else if (LUGARES_TEL[val]) {
-      toggle('otro-lugar-wrap', true);
-      input.value = val + ' — ' + LUGARES_TEL[val];
-      input.placeholder = 'Especificá dónde...';
-    } else {
-      toggle('otro-lugar-wrap', false);
-      input.value = '';
+    toggle('otro-lugar-wrap', val === 'otro-lugar');
+    if (val !== 'otro-lugar') document.getElementById('otro-lugar').value = '';
+
+    const telInput = document.getElementById('telefono');
+    if (LUGARES_TEL[val]) {
+      document.getElementById('pais-cod').value = '54';
+      onPaisCod();
+      telInput.value = LUGARES_TEL[val];
+    } else if (telInput.dataset.autofill === '1') {
+      // Solo lo borramos si lo habíamos autocompletado nosotros y el usuario no lo tocó
+      telInput.value = '';
+      telInput.dataset.autofill = '';
     }
+    if (LUGARES_TEL[val]) telInput.dataset.autofill = '1';
   }
 
   function onPaisCod() {
@@ -1029,8 +1030,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
       }
     } else {
       let dondeEsta = document.getElementById('donde-esta').value;
-      const otroLugarVal = document.getElementById('otro-lugar').value.trim();
-      if (dondeEsta === 'otro-lugar' || LUGARES_TEL[dondeEsta]) dondeEsta = otroLugarVal || dondeEsta;
+      if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
       lines.push('Retirar en: ' + dondeEsta);
       lines.push('');
     }
