@@ -824,6 +824,11 @@ _Por favor, contactate directamente con la persona del reporte._`,
   };
 
   let categoriaActual = '';
+
+  const LUGARES_TEL = {
+    'Garita de seguridad': '+54 9 11 6188-8188',
+    'Cantina': '+54 9 3764 68-3859'
+  };
   let ejemploVisible = false;
   let bienvenidaVisible = false;
 
@@ -1012,7 +1017,9 @@ _Por favor, contactate directamente con la persona del reporte._`,
     } else {
       let dondeEsta = document.getElementById('donde-esta').value;
       if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
-      lines.push('Retirar en: ' + dondeEsta);
+      let dondeEstaTexto = dondeEsta;
+      if (LUGARES_TEL[dondeEsta]) dondeEstaTexto += ' — ' + LUGARES_TEL[dondeEsta];
+      lines.push('Retirar en: ' + dondeEstaTexto);
       lines.push('');
     }
 
