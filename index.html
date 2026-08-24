@@ -41,7 +41,7 @@
       line-height: 1.1;
       white-space: nowrap;
     }
-    .header .subtitulo { color: rgba(255,255,255,0.9); font-size: 0.88rem; margin-top: 5px; }
+    .header .subtitulo { color: rgba(255,255,255,0.9); font-size: 0.92rem; margin-top: 5px; }
 
     .bienvenida-toggle {
       background: rgba(255,255,255,0.1);
@@ -49,7 +49,7 @@
       border-radius: var(--radius);
       color: var(--blanco);
       font-family: 'Roboto', sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.95rem;
       font-weight: 700;
       padding: 12px 16px;
       cursor: pointer;
@@ -72,8 +72,8 @@
       max-width: 480px;
       margin: 6px auto 16px;
       color: var(--blanco);
-      font-size: 0.88rem;
-      line-height: 1.6;
+      font-size: 0.95rem;
+      line-height: 1.65;
       text-align: left;
     }
 
@@ -134,30 +134,54 @@
     .field { margin-bottom: 14px; }
     .field label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--petroleo);
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       text-transform: uppercase;
       letter-spacing: 0.4px;
     }
-    .field label .opc { font-weight: 400; text-transform: none; font-size: 0.78rem; color: #2d4543; }
+    .field label .opc { font-weight: 400; text-transform: none; font-size: 0.85rem; color: #2d4543; }
     .field input, .field select, .field textarea {
       width: 100%;
       border: 2px solid var(--petroleo);
       border-radius: 8px;
-      padding: 10px 12px;
+      padding: 12px 12px;
       font-family: 'Roboto', sans-serif;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: var(--petroleo);
       background: var(--blanco);
       transition: border-color 0.2s;
     }
     .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--naranja); }
     .field input.error, .field select.error, .field textarea.error { border-color: var(--error); }
-    .field .err-msg { color: var(--error); font-size: 0.78rem; margin-top: 4px; display: none; }
+    .field .err-msg { color: var(--error); font-size: 0.85rem; margin-top: 5px; display: none; font-weight: 500; }
     .field .err-msg.visible { display: block; }
     .field textarea { resize: vertical; min-height: 80px; }
+
+    .chk-mismo-lugar {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 10px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--petroleo);
+      cursor: pointer;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .chk-mismo-lugar input[type=checkbox] {
+      width: 20px;
+      height: 20px;
+      margin: 1px 0 0 0;
+      padding: 0;
+      accent-color: var(--petroleo);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .chk-mismo-lugar > span { line-height: 1.4; }
+    .chk-mismo-lugar .opc { font-weight: 400; font-size: 0.82rem; color: #2d4543; text-transform: none; }
 
     .char-count { text-align: right; font-size: 0.75rem; color: #2d4543; margin-top: 3px; }
     .char-count.over { color: var(--error); font-weight: 700; }
@@ -170,9 +194,9 @@
       background: white;
       border: 2px solid var(--petroleo);
       border-radius: 8px;
-      padding: 7px 12px;
+      padding: 9px 14px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.98rem;
       font-weight: 500;
       text-transform: none;
       letter-spacing: 0;
@@ -185,12 +209,12 @@
     .ejemplo-toggle {
       background: none;
       border: 2px solid var(--petroleo);
-      border-radius: 8px;
+      border-radius: 24px;
       color: var(--petroleo);
       font-family: 'Roboto', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.92rem;
       font-weight: 700;
-      padding: 8px 14px;
+      padding: 10px 16px;
       cursor: pointer;
       margin-bottom: 14px;
       width: 100%;
@@ -198,18 +222,34 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: border-radius 0.2s, margin 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .ejemplo-toggle.abierto {
+      border-radius: 20px 20px 0 0;
+      border-bottom: none;
+      margin-bottom: 0;
+      animation: pulseEjemplo 1.8s ease-in-out infinite;
+    }
+    @keyframes pulseEjemplo {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(19,84,87,0.3); }
+      50%      { box-shadow: 0 0 0 5px rgba(19,84,87,0); }
     }
     .ejemplo-box {
       background: rgba(19,84,87,0.08);
-      border-left: 3px solid var(--petroleo);
-      border-radius: 6px;
-      padding: 12px 14px;
-      font-size: 0.82rem;
-      line-height: 1.6;
+      border: 2px solid var(--petroleo);
+      border-top: none;
+      border-radius: 0 0 20px 20px;
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      line-height: 1.65;
       color: var(--petroleo);
       white-space: pre-wrap;
       font-family: monospace;
-      margin-bottom: 6px;
+      margin-top: 0;
+      margin-bottom: 14px;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -267,23 +307,28 @@
     .copiar-wrap {
       display: flex;
       justify-content: flex-end;
-      margin-top: 6px;
+      margin-top: 8px;
     }
     .link-copiar {
-      background: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(19,84,87,0.1);
       border: none;
-      padding: 6px 2px;
+      border-radius: 20px;
+      padding: 9px 16px;
       font-family: 'Roboto', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--petroleo);
-      opacity: 0.75;
+      opacity: 1;
       cursor: pointer;
-      text-decoration: underline;
-      transition: opacity 0.2s;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.08s;
     }
-    .link-copiar:hover { opacity: 1; }
-    .link-copiar.copiado { opacity: 1; text-decoration: none; }
+    .link-copiar:hover { background: rgba(19,84,87,0.18); }
+    .link-copiar:active { transform: scale(0.96); }
+    .link-copiar.copiado { background: rgba(19,84,87,0.2); }
 
     .preview-sistema-texto {
       color: #6b7280;
@@ -291,8 +336,8 @@
     }
     .preview-sistema-label {
       display: block;
-      color: var(--naranja);
-      font-size: 0.72rem;
+      color: var(--negro);
+      font-size: 0.78rem;
       font-style: normal;
       text-transform: uppercase;
       letter-spacing: 0.3px;
@@ -308,8 +353,8 @@
       border: 2px solid var(--petroleo);
       border-radius: 10px;
       padding: 14px;
-      font-size: 0.92rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.65;
       white-space: pre-wrap;
       word-break: break-word;
       color: var(--petroleo);
@@ -343,8 +388,8 @@
 
     .linea-envio-card {
       text-align: center;
-      font-size: 0.78rem;
-      color: rgba(19,84,87,0.65);
+      font-size: 0.85rem;
+      color: rgba(19,84,87,0.7);
       margin-top: 14px;
       line-height: 1.5;
     }
@@ -393,12 +438,12 @@
       font-style: italic;
     }
     .ejemplo-disclaimer {
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       color: #2d4543;
       font-style: italic;
       margin-bottom: 14px;
       padding: 0 4px;
-      line-height: 1.4;
+      line-height: 1.45;
     }
     .btn-menu-ext {
       display: block;
@@ -594,7 +639,7 @@
         <span>📋 Ver ejemplo de publicación</span>
         <span id="ejemplo-arrow">▼</span>
       </button>
-      <div class="ejemplo-box hidden" id="ejemplo-box"></div>
+      <div class="ejemplo-box hidden" id="ejemplo-box" onclick="toggleEjemplo()"></div>
       <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
 
       <div class="field" id="field-tipo-animal">
@@ -630,8 +675,14 @@
 
       <div class="field">
         <label id="label-zona">Zona</label>
-        <input type="text" id="zona" placeholder="Ej: M09, B12, cerca de la pileta, sendero..." maxlength="80"/>
-        <span class="err-msg" id="err-zona">Indicá la zona.</span>
+        <div id="zona-input-wrap">
+          <input type="text" id="zona" placeholder="Ej: M09, B12, cerca de la pileta, sendero..." maxlength="80"/>
+          <span class="err-msg" id="err-zona">Indicá la zona.</span>
+        </div>
+        <label class="chk-mismo-lugar hidden" id="chk-mismo-lugar-wrap">
+          <input type="checkbox" id="chk-mismo-lugar" onchange="onChkMismoLugar()">
+          <span>Es el mismo lugar donde está ahora <span class="opc">(lo indico más abajo)</span></span>
+        </label>
       </div>
 
       <div class="field hidden" id="field-cuando">
@@ -695,7 +746,7 @@
       <div class="form-title">REVISÁ TU MENSAJE</div>
       <div class="preview-box" id="preview-text"></div>
       <div class="copiar-wrap">
-        <button type="button" class="link-copiar" id="link-copiar" onclick="copiarMensaje()">Copiar mensaje</button>
+        <button type="button" class="link-copiar" id="link-copiar" onclick="copiarMensaje()">📋 Copiar mensaje</button>
       </div>
       <button type="button" class="btn-editar" onclick="volverAForm()">← Editar</button>
       <button type="button" class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
@@ -881,6 +932,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
     toggle('field-tipo-objeto',    !cfg.esMascota);
     toggle('field-cuando',         cfg.esPerdido);
     toggle('field-donde-esta',     !cfg.esPerdido);
+    toggle('chk-mismo-lugar-wrap', !cfg.esPerdido);
 
     if (cat === 'mascota-encontrada') {
       document.getElementById('nombre-mascota').value = 'sin nombre conocido';
@@ -891,6 +943,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
     ocultar('ejemplo-box');
     ocultar('ejemplo-disclaimer');
     document.getElementById('ejemplo-arrow').textContent = '▼';
+    document.getElementById('btn-ejemplo').classList.remove('abierto');
 
     resetForm(cat);
     mostrar('screen-form');
@@ -903,6 +956,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
     toggle('ejemplo-box', ejemploVisible);
     toggle('ejemplo-disclaimer', ejemploVisible);
     document.getElementById('ejemplo-arrow').textContent = ejemploVisible ? '▲' : '▼';
+    document.getElementById('btn-ejemplo').classList.toggle('abierto', ejemploVisible);
   }
 
   function irAlMenu() {
@@ -938,6 +992,15 @@ _Por favor, contactate directamente con la persona del reporte._`,
       telInput.dataset.autofill = '';
     }
     if (LUGARES_TEL[val]) telInput.dataset.autofill = '1';
+  }
+
+  function onChkMismoLugar() {
+    const checked = document.getElementById('chk-mismo-lugar').checked;
+    toggle('zona-input-wrap', !checked);
+    if (checked) {
+      document.getElementById('zona').value = '';
+      mostrarError('err-zona', false);
+    }
   }
 
   function onPaisCod() {
@@ -983,9 +1046,16 @@ _Por favor, contactate directamente con la persona del reporte._`,
     mostrarError('err-descripcion', !desc);
     if (!desc) ok = false;
 
-    const zona = document.getElementById('zona').value.trim();
-    mostrarError('err-zona', !zona);
-    if (!zona) ok = false;
+    const chkMismo = document.getElementById('chk-mismo-lugar');
+    const esMismoLugar = !cfg.esPerdido && chkMismo && chkMismo.checked;
+
+    if (!esMismoLugar) {
+      const zona = document.getElementById('zona').value.trim();
+      mostrarError('err-zona', !zona);
+      if (!zona) ok = false;
+    } else {
+      mostrarError('err-zona', false);
+    }
 
     if (!cfg.esPerdido) {
       const de = document.getElementById('donde-esta').value;
@@ -1043,8 +1113,13 @@ _Por favor, contactate directamente con la persona del reporte._`,
     lines.push(corregirOrto(document.getElementById('descripcion').value.trim()));
     lines.push('');
 
-    lines.push('Zona: ' + document.getElementById('zona').value.trim());
-    lines.push('');
+    const chkMismoLugarEl = document.getElementById('chk-mismo-lugar');
+    const esMismoLugarMsg = !cfg.esPerdido && chkMismoLugarEl && chkMismoLugarEl.checked;
+
+    if (!esMismoLugarMsg) {
+      lines.push((ZONA_LABEL[categoriaActual] || 'Zona') + ': ' + document.getElementById('zona').value.trim());
+      lines.push('');
+    }
 
     if (cfg.esPerdido) {
       const cuando = document.getElementById('cuando').value.trim();
@@ -1056,7 +1131,11 @@ _Por favor, contactate directamente con la persona del reporte._`,
     } else {
       let dondeEsta = document.getElementById('donde-esta').value;
       if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
-      lines.push('Retirar en: ' + dondeEsta);
+      if (esMismoLugarMsg) {
+        lines.push('Encontrado y a retirar en: ' + dondeEsta);
+      } else {
+        lines.push('Retirar en: ' + dondeEsta);
+      }
       lines.push('');
     }
 
@@ -1141,7 +1220,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
   function resetLinkCopiar() {
     const el = document.getElementById('link-copiar');
     if (!el) return;
-    el.textContent = 'Copiar mensaje';
+    el.textContent = '📋 Copiar mensaje';
     el.classList.remove('copiado');
   }
 
@@ -1247,6 +1326,8 @@ _Por favor, contactate directamente con la persona del reporte._`,
       .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
     if (cat !== 'mascota-encontrada') document.getElementById('nombre-mascota').value = '';
     document.getElementById('donde-esta').value = '';
+    document.getElementById('chk-mismo-lugar').checked = false;
+    mostrar('zona-input-wrap');
     document.getElementById('pais-cod').value = '54';
     document.getElementById('char-num').textContent = '0';
     ocultar('otro-animal-wrap');
