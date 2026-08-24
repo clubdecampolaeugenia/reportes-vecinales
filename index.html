@@ -131,6 +131,31 @@
       gap: 8px;
     }
 
+    .guia-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(222,175,77,0.22);
+      border-left: 3px solid var(--naranja);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--petroleo);
+      line-height: 1.35;
+    }
+    .guia-icono { font-size: 1rem; flex-shrink: 0; }
+
+    @keyframes pulsoGuia {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(19,84,87,0.28); }
+      50%      { box-shadow: 0 0 0 6px rgba(19,84,87,0); }
+    }
+    .pulso-guia {
+      border-radius: 10px;
+      animation: pulsoGuia 1.8s ease-in-out infinite;
+    }
+
     .field { margin-bottom: 14px; }
     .field label {
       display: block;
@@ -632,8 +657,13 @@
 
   <!-- PANTALLA 2: FORMULARIO -->
   <div id="screen-form" class="hidden">
-    <div class="card">
+    <div class="card" id="form-card">
       <div class="form-title" id="form-title">🐾 PERDÍ UNA MASCOTA</div>
+
+      <div class="guia-wrap hidden" id="guia-wrap">
+        <span class="guia-icono">👉</span>
+        <span id="guia-texto"></span>
+      </div>
 
       <button type="button" class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
         <span>📋 Ver ejemplo de publicación</span>
@@ -666,14 +696,14 @@
         <span class="err-msg" id="err-tipo-objeto">Describí qué tipo de objeto es.</span>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-descripcion">
         <label>Descripción</label>
         <textarea id="descripcion" maxlength="250" placeholder="" oninput="contarChars()" onblur="normalizarDesc(this)"></textarea>
         <div class="char-count"><span id="char-num">0</span>/250</div>
         <span class="err-msg" id="err-descripcion">Agregá una descripción.</span>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-zona">
         <label id="label-zona">Zona</label>
         <div id="zona-input-wrap">
           <input type="text" id="zona" placeholder="Ej: M09, B12, cerca de la pileta, sendero..." maxlength="80"/>
@@ -705,13 +735,13 @@
         <span class="err-msg" id="err-donde-esta">Indicá dónde está.</span>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-nombre-reporta">
         <label>Nombre de quien reporta</label>
         <input type="text" id="nombre-reporta" placeholder="Ej: María" maxlength="60" oninput="capitalizarNombre(this)"/>
         <span class="err-msg" id="err-nombre">Ingresá tu nombre.</span>
       </div>
 
-      <div class="field">
+      <div class="field" id="field-telefono">
         <label>Teléfono de contacto</label>
         <div style="display:flex; gap:8px;">
           <select id="pais-cod" onchange="onPaisCod()" style="flex:0 0 108px; max-width:108px;">
@@ -907,6 +937,9 @@ _Por favor, contactate directamente con la persona del reporte._`,
   let ejemploVisible = false;
   let bienvenidaVisible = false;
 
+  document.getElementById('form-card').addEventListener('input', actualizarGuia);
+  document.getElementById('form-card').addEventListener('change', actualizarGuia);
+
   function toggleBienvenida() {
     bienvenidaVisible = !bienvenidaVisible;
     toggle('bienvenida-box', bienvenidaVisible);
@@ -948,6 +981,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
     resetForm(cat);
     mostrar('screen-form');
     ocultar('screen-cats');
+    actualizarGuia();
     window.scrollTo(0, 0);
   }
 
@@ -968,6 +1002,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
   function volverAForm() {
     ocultar('screen-preview');
     mostrar('screen-form');
+    actualizarGuia();
     window.scrollTo(0, 0);
   }
 
@@ -1000,6 +1035,107 @@ _Por favor, contactate directamente con la persona del reporte._`,
     if (checked) {
       document.getElementById('zona').value = '';
       mostrarError('err-zona', false);
+    }
+    actualizarGuia();
+  }
+
+  // ---- GUÍA DINÁMICA (texto + pulso) ----
+  const CAMPOS_GUIA = ['field-tipo-animal','field-tipo-objeto','field-descripcion','field-zona','field-donde-esta','field-nombre-reporta','field-telefono'];
+
+  function getPasosGuia(cat) {
+    if (!cat) return [];
+    const cfg = CONFIG[cat];
+    const pasos = [];
+
+    if (cfg.esMascota) {
+      pasos.push({
+        contenedor: 'field-tipo-animal',
+        texto: 'Elegí el tipo de animal',
+        completo: () => {
+          const sel = document.querySelector('input[name=tipo_animal]:checked');
+          if (!sel) return false;
+          if (sel.value === 'otro') return document.getElementById('otro-animal').value.trim() !== '';
+          return true;
+        }
+      });
+    } else {
+      pasos.push({
+        contenedor: 'field-tipo-objeto',
+        texto: 'Contanos qué tipo de objeto es',
+        completo: () => document.getElementById('tipo-objeto').value.trim() !== ''
+      });
+    }
+
+    pasos.push({
+      contenedor: 'field-descripcion',
+      texto: 'Agregá una descripción',
+      completo: () => document.getElementById('descripcion').value.trim() !== ''
+    });
+
+    if (cfg.esPerdido) {
+      pasos.push({
+        contenedor: 'field-zona',
+        texto: 'Indicá la zona',
+        completo: () => document.getElementById('zona').value.trim() !== ''
+      });
+    } else {
+      pasos.push({
+        contenedor: 'field-zona',
+        texto: 'Indicá la zona (o marcá que es el mismo lugar de abajo)',
+        completo: () => {
+          const chk = document.getElementById('chk-mismo-lugar');
+          if (chk && chk.checked) return true;
+          return document.getElementById('zona').value.trim() !== '';
+        }
+      });
+      pasos.push({
+        contenedor: 'field-donde-esta',
+        texto: 'Indicá dónde está ahora',
+        completo: () => {
+          const de = document.getElementById('donde-esta').value;
+          if (!de) return false;
+          if (de === 'otro-lugar') return document.getElementById('otro-lugar').value.trim() !== '';
+          return true;
+        }
+      });
+    }
+
+    pasos.push({
+      contenedor: 'field-nombre-reporta',
+      texto: 'Ingresá tu nombre',
+      completo: () => document.getElementById('nombre-reporta').value.trim().length >= 2
+    });
+
+    pasos.push({
+      contenedor: 'field-telefono',
+      texto: 'Dejá tu teléfono de contacto',
+      completo: () => {
+        const tel = document.getElementById('telefono').value.trim();
+        const paisSelVal = document.getElementById('pais-cod').value;
+        const otroPaisVal = document.getElementById('otro-pais-cod').value.trim();
+        return tel.length >= 10 && (paisSelVal !== 'otro' || otroPaisVal.length >= 1);
+      }
+    });
+
+    return pasos;
+  }
+
+  function actualizarGuia() {
+    CAMPOS_GUIA.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('pulso-guia');
+    });
+
+    const pasos = getPasosGuia(categoriaActual);
+    const siguiente = pasos.find(p => !p.completo());
+
+    if (siguiente) {
+      const cont = document.getElementById(siguiente.contenedor);
+      if (cont) cont.classList.add('pulso-guia');
+      document.getElementById('guia-texto').textContent = siguiente.texto;
+      mostrar('guia-wrap');
+    } else {
+      ocultar('guia-wrap');
     }
   }
 
