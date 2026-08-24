@@ -135,15 +135,18 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(222,175,77,0.22);
-      border-left: 3px solid var(--naranja);
-      border-radius: 8px;
-      padding: 10px 14px;
+      background: var(--naranja);
+      border-radius: 14px;
+      padding: 11px 16px;
       margin-bottom: 16px;
       font-size: 0.92rem;
       font-weight: 700;
       color: var(--petroleo);
       line-height: 1.35;
+      position: sticky;
+      top: 10px;
+      z-index: 5;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
     }
     .guia-icono { font-size: 1rem; flex-shrink: 0; }
 
@@ -231,50 +234,50 @@
     .radio-group input[type=radio] { display: none; }
     .radio-group label:has(input:checked) { background: var(--petroleo); color: white; border-color: var(--petroleo); }
 
-    .ejemplo-toggle {
-      background: none;
-      border: 2px solid var(--petroleo);
-      border-radius: 24px;
-      color: var(--petroleo);
-      font-family: 'Roboto', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 700;
-      padding: 10px 16px;
-      cursor: pointer;
-      margin-bottom: 14px;
-      width: 100%;
-      text-align: left;
+    .ejemplo-toggle-ext {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: border-radius 0.2s, margin 0.2s;
-      position: relative;
-      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      margin: 22px auto 0;
+      background: var(--hueso);
+      border: 2px solid var(--hueso);
+      border-radius: 24px;
+      color: var(--petroleo);
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 11px 16px;
+      cursor: pointer;
+      box-sizing: border-box;
+      text-align: left;
+      transition: border-radius 0.2s, opacity 0.2s;
     }
-    .ejemplo-toggle.abierto {
+    .ejemplo-toggle-ext:hover { opacity: 0.9; }
+    .ejemplo-toggle-ext.abierto {
       border-radius: 20px 20px 0 0;
-      border-bottom: none;
-      margin-bottom: 0;
       animation: pulseEjemplo 1.8s ease-in-out infinite;
     }
     @keyframes pulseEjemplo {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(19,84,87,0.3); }
-      50%      { box-shadow: 0 0 0 5px rgba(19,84,87,0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(196,223,87,0.5); }
+      50%      { box-shadow: 0 0 0 5px rgba(196,223,87,0); }
     }
-    .ejemplo-box {
-      background: rgba(19,84,87,0.08);
-      border: 2px solid var(--petroleo);
+    .ejemplo-box-ext {
+      background: var(--hueso);
+      border: 2px solid var(--hueso);
       border-top: none;
       border-radius: 0 0 20px 20px;
       padding: 14px 16px;
+      max-width: 480px;
+      margin: 0 auto;
       font-size: 0.9rem;
       line-height: 1.65;
       color: var(--petroleo);
       white-space: pre-wrap;
       font-family: monospace;
-      margin-top: 0;
-      margin-bottom: 14px;
       cursor: pointer;
+      box-sizing: border-box;
     }
 
     .btn-primary {
@@ -464,9 +467,11 @@
     }
     .ejemplo-disclaimer {
       font-size: 0.82rem;
-      color: #2d4543;
+      color: rgba(255,255,255,0.75);
       font-style: italic;
-      margin-bottom: 14px;
+      text-align: center;
+      max-width: 480px;
+      margin: 8px auto 0;
       padding: 0 4px;
       line-height: 1.45;
     }
@@ -665,13 +670,6 @@
         <span id="guia-texto"></span>
       </div>
 
-      <button type="button" class="ejemplo-toggle" onclick="toggleEjemplo()" id="btn-ejemplo">
-        <span>📋 Ver ejemplo de publicación</span>
-        <span id="ejemplo-arrow">▼</span>
-      </button>
-      <div class="ejemplo-box hidden" id="ejemplo-box" onclick="toggleEjemplo()"></div>
-      <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
-
       <div class="field" id="field-tipo-animal">
         <label>Tipo de animal</label>
         <div class="radio-group">
@@ -766,6 +764,14 @@
 
       <button type="button" class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
     </div>
+
+    <button type="button" class="ejemplo-toggle-ext" onclick="toggleEjemplo()" id="btn-ejemplo">
+      <span>📋 Ver ejemplo de publicación</span>
+      <span id="ejemplo-arrow">▼</span>
+    </button>
+    <div class="ejemplo-box-ext hidden" id="ejemplo-box" onclick="toggleEjemplo()"></div>
+    <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
+
     <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
   </div>
