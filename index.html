@@ -131,6 +131,7 @@
       gap: 8px;
     }
 
+    .guia-spacer { height: 0; transition: height 0.15s ease; }
     .guia-wrap {
       display: flex;
       align-items: center;
@@ -138,15 +139,19 @@
       background: var(--naranja);
       border-radius: 14px;
       padding: 11px 16px;
-      margin-bottom: 16px;
       font-size: 0.92rem;
       font-weight: 700;
       color: var(--petroleo);
       line-height: 1.35;
-      position: sticky;
-      top: 10px;
-      z-index: 5;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      position: fixed;
+      bottom: max(16px, env(safe-area-inset-bottom, 16px));
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 480px;
+      z-index: 50;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+      box-sizing: border-box;
     }
     .guia-icono { font-size: 1rem; flex-shrink: 0; }
 
@@ -763,6 +768,7 @@
 
 
       <button type="button" class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
+      <div class="guia-spacer" id="guia-spacer"></div>
     </div>
 
     <button type="button" class="ejemplo-toggle-ext" onclick="toggleEjemplo()" id="btn-ejemplo">
@@ -1134,14 +1140,24 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
     const pasos = getPasosGuia(categoriaActual);
     const siguiente = pasos.find(p => !p.completo());
+    const guiaWrap = document.getElementById('guia-wrap');
+    const spacer = document.getElementById('guia-spacer');
 
     if (siguiente) {
       const cont = document.getElementById(siguiente.contenedor);
       if (cont) cont.classList.add('pulso-guia');
       document.getElementById('guia-texto').textContent = siguiente.texto;
       mostrar('guia-wrap');
+      // Medimos la altura real (puede variar si el texto pasa a 2 líneas)
+      // y se la damos al spacer para reservar el lugar en el flujo normal,
+      // ya que la píldora ahora es "fixed" (fuera del flujo) para que no
+      // se pierda con el teclado en iOS.
+      requestAnimationFrame(() => {
+        if (spacer && guiaWrap) spacer.style.height = (guiaWrap.offsetHeight + 16) + 'px';
+      });
     } else {
       ocultar('guia-wrap');
+      if (spacer) spacer.style.height = '0px';
     }
   }
 
