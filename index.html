@@ -264,6 +264,27 @@
     }
     .btn-editar:hover { opacity: 1; }
 
+    .copiar-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+    .link-copiar {
+      background: none;
+      border: none;
+      padding: 6px 2px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--petroleo);
+      opacity: 0.75;
+      cursor: pointer;
+      text-decoration: underline;
+      transition: opacity 0.2s;
+    }
+    .link-copiar:hover { opacity: 1; }
+    .link-copiar.copiado { opacity: 1; text-decoration: none; }
+
     .preview-sistema-texto {
       color: #6b7280;
       font-style: italic;
@@ -673,6 +694,9 @@
     <div class="card">
       <div class="form-title">REVISÁ TU MENSAJE</div>
       <div class="preview-box" id="preview-text"></div>
+      <div class="copiar-wrap">
+        <button type="button" class="link-copiar" id="link-copiar" onclick="copiarMensaje()">Copiar mensaje</button>
+      </div>
       <button type="button" class="btn-editar" onclick="volverAForm()">← Editar</button>
       <button type="button" class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
       <div class="linea-envio-card">
@@ -987,6 +1011,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
   function verPreview() {
     if (!validar()) { window.scrollTo(0, 0); return; }
     document.getElementById('preview-text').innerHTML = renderizarPreviewHTML(armarMensaje());
+    resetLinkCopiar();
     ocultar('screen-form');
     mostrar('screen-preview');
     window.scrollTo(0, 0);
@@ -1111,6 +1136,48 @@ _Por favor, contactate directamente con la persona del reporte._`,
       'WhatsApp: <a class="preview-link-wa" href="#" onclick="return false;">$1</a>');
 
     return html;
+  }
+
+  function resetLinkCopiar() {
+    const el = document.getElementById('link-copiar');
+    if (!el) return;
+    el.textContent = 'Copiar mensaje';
+    el.classList.remove('copiado');
+  }
+
+  function copiarMensaje() {
+    const texto = armarMensaje();
+    const el = document.getElementById('link-copiar');
+
+    const marcarCopiado = () => {
+      if (!el) return;
+      el.textContent = '✓ Copiado';
+      el.classList.add('copiado');
+      setTimeout(resetLinkCopiar, 1800);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(texto).then(marcarCopiado).catch(() => copiarFallback(texto, marcarCopiado));
+    } else {
+      copiarFallback(texto, marcarCopiado);
+    }
+  }
+
+  function copiarFallback(texto, onOk) {
+    const ta = document.createElement('textarea');
+    ta.value = texto;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      document.execCommand('copy');
+      onOk();
+    } catch (e) {
+      // silencioso: si tampoco funciona el fallback, no rompemos el flujo
+    }
+    document.body.removeChild(ta);
   }
 
   function abrirPopupFoto() {
