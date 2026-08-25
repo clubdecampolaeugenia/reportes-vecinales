@@ -485,29 +485,35 @@
     .overlay-foto.show { display: flex; animation: fadeInOverlay 0.25s ease-out; }
     .overlay-foto.hide { display: flex; animation: fadeOutOverlay 0.25s ease-in forwards; }
     .modal-foto {
-      background: var(--petroleo);
+      background: rgba(245,243,236,0.96);
+      color: var(--petroleo);
       border-radius: 24px;
       padding: 32px 26px;
       max-width: 320px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 16px 36px rgba(13,42,43,0.22);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.3);
       animation: fadeInScreen 0.3s ease-out;
     }
-    .modal-foto .icono {
-      font-size: 52px;
-      margin-bottom: 4px;
-      line-height: 1;
+    .modal-foto .icono-circulo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--lima);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
     }
     .modal-foto .modal-titulo {
-      color: var(--lima);
+      color: var(--petroleo);
       font-family: 'Roboto', sans-serif;
       font-weight: 900;
       font-size: 18px;
       margin-bottom: 12px;
     }
     .modal-foto .modal-texto {
-      color: var(--hueso);
+      color: #2d4543;
       font-size: 14px;
       line-height: 1.55;
       margin-bottom: 20px;
@@ -516,7 +522,7 @@
     .modal-foto .modal-texto p:last-child { margin-bottom: 0; }
     .modal-foto .modal-divider {
       border: none;
-      border-top: 1px solid rgba(196,223,87,0.25);
+      border-top: 1px solid rgba(19,84,87,0.15);
       margin: 0 0 18px;
     }
     .modal-foto .btn-modal-primario {
@@ -536,14 +542,14 @@
       transition: opacity 0.15s, transform 0.08s, box-shadow 0.08s;
     }
     .modal-foto .btn-modal-primario:hover { opacity: 0.88; }
-    .modal-foto .btn-modal-primario:active { transform: scale(0.96); box-shadow: 0 3px 10px rgba(13,42,43,0.18); }
+    .modal-foto .btn-modal-primario:active { transform: scale(0.96); box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
     .modal-foto .btn-modal-volver {
       display: block;
       width: 100%;
       background: transparent;
       border: none;
-      color: var(--hueso);
-      opacity: 0.75;
+      color: var(--petroleo);
+      opacity: 0.65;
       font-family: 'Roboto', sans-serif;
       font-size: 0.85rem;
       padding: 8px;
@@ -744,7 +750,12 @@
   <!-- POP-UP FOTO OPCIONAL -->
   <div class="overlay-foto" id="overlay-foto">
     <div class="modal-foto">
-      <div class="icono">📸</div>
+      <div class="icono-circulo">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#135457" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+      </div>
       <div class="modal-titulo">Foto opcional</div>
       <div class="modal-texto">
         <p>Ahora se abrirá WhatsApp con tu mensaje ya escrito.</p>
