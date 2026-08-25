@@ -83,7 +83,7 @@
       padding: 22px 18px;
       max-width: 480px;
       margin: 0 auto 16px;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 36px rgba(13,42,43,0.22);
     }
 
     .cat-grid {
@@ -101,23 +101,23 @@
       cursor: pointer;
       text-align: center;
       transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.32);
+      box-shadow: 0 8px 18px rgba(13,42,43,0.16);
     }
-    .cat-btn:hover, .cat-btn:focus { background: #c7e2c4; transform: translateY(-2px); outline: none; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+    .cat-btn:hover, .cat-btn:focus { background: #c7e2c4; transform: translateY(-2px); outline: none; box-shadow: 0 10px 22px rgba(13,42,43,0.22); }
     .cat-btn:active {
       transform: scale(0.96);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      box-shadow: 0 3px 10px rgba(13,42,43,0.18);
       background: #c7e2c4;
       transition: transform 0.08s, box-shadow 0.08s;
     }
     .cat-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
     .cat-btn .label {
-      font-family: Impact, sans-serif;
-      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: 0.98rem;
       color: var(--petroleo);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
+      letter-spacing: 0.1px;
+      line-height: 1.25;
     }
 
     .form-title {
@@ -131,63 +131,32 @@
       gap: 8px;
     }
 
-    .guia-spacer { height: 0; transition: height 0.15s ease; }
-    .guia-wrap {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--naranja);
-      border-radius: 14px;
-      padding: 11px 16px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--petroleo);
-      line-height: 1.35;
-      position: fixed;
-      bottom: max(16px, env(safe-area-inset-bottom, 16px));
-      left: 50%;
-      transform: translateX(-50%);
-      width: calc(100% - 32px);
-      max-width: 480px;
-      z-index: 50;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.4);
-      box-sizing: border-box;
-    }
-    .guia-icono { font-size: 1rem; flex-shrink: 0; }
-
-    @keyframes pulsoGuia {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(19,84,87,0.28); }
-      50%      { box-shadow: 0 0 0 6px rgba(19,84,87,0); }
-    }
-    .pulso-guia {
-      border-radius: 10px;
-      animation: pulsoGuia 1.8s ease-in-out infinite;
-    }
-
     .field { margin-bottom: 14px; }
     .field label {
       display: block;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--petroleo);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+      margin-bottom: 7px;
+      letter-spacing: 0.1px;
     }
-    .field label .opc { font-weight: 400; text-transform: none; font-size: 0.85rem; color: #2d4543; }
+    .field label .opc { font-weight: 400; font-size: 0.85rem; color: #2d4543; }
     .field input, .field select, .field textarea {
       width: 100%;
-      border: 2px solid var(--petroleo);
-      border-radius: 8px;
-      padding: 12px 12px;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 14px;
       font-family: 'Roboto', sans-serif;
       font-size: 1rem;
       color: var(--petroleo);
       background: var(--blanco);
-      transition: border-color 0.2s;
+      box-shadow: inset 0 0 0 1.5px rgba(19,84,87,0.15);
+      transition: box-shadow 0.2s;
     }
-    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--naranja); }
-    .field input.error, .field select.error, .field textarea.error { border-color: var(--error); }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; box-shadow: inset 0 0 0 3px var(--petroleo); }
+    .field input.campo-completo, .field select.campo-completo, .field textarea.campo-completo { box-shadow: inset 0 0 0 3px var(--petroleo); }
+    .field input.error, .field select.error, .field textarea.error { box-shadow: inset 0 0 0 3px var(--error); }
+    .field select:disabled, .field input:read-only { opacity: 0.65; }
     .field .err-msg { color: var(--error); font-size: 0.85rem; margin-top: 5px; display: none; font-weight: 500; }
     .field .err-msg.visible { display: block; }
     .field textarea { resize: vertical; min-height: 80px; }
@@ -196,10 +165,11 @@
       display: flex;
       align-items: flex-start;
       gap: 9px;
-      margin-top: 10px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--petroleo);
+      margin: 12px 0 4px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      font-style: italic;
+      color: #4a6667;
       cursor: pointer;
       text-transform: none;
       letter-spacing: 0;
@@ -213,74 +183,47 @@
       cursor: pointer;
       flex-shrink: 0;
     }
-    .chk-mismo-lugar > span { line-height: 1.4; }
+    .chk-mismo-lugar > span { line-height: 1.4; flex: 1; }
     .chk-mismo-lugar .opc { font-weight: 400; font-size: 0.82rem; color: #2d4543; text-transform: none; }
 
     .char-count { text-align: right; font-size: 0.75rem; color: #2d4543; margin-top: 3px; }
     .char-count.over { color: var(--error); font-weight: 700; }
 
-    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; border-radius: 16px; }
     .radio-group label {
       display: flex;
       align-items: center;
       gap: 6px;
       background: white;
-      border: 2px solid var(--petroleo);
-      border-radius: 8px;
-      padding: 9px 14px;
+      border: none;
+      border-radius: 14px;
+      padding: 10px 15px;
       cursor: pointer;
       font-size: 0.98rem;
-      font-weight: 500;
+      font-weight: 700;
       text-transform: none;
       letter-spacing: 0;
-      transition: background 0.15s;
+      box-shadow: 0 2px 8px rgba(19,84,87,0.12);
+      transition: background 0.15s, box-shadow 0.15s, transform 0.08s;
       color: var(--petroleo);
     }
+    .radio-group label:active { transform: scale(0.97); }
     .radio-group input[type=radio] { display: none; }
-    .radio-group label:has(input:checked) { background: var(--petroleo); color: white; border-color: var(--petroleo); }
+    .radio-group label:has(input:checked) { background: white; color: var(--petroleo); border: 3px solid var(--petroleo); box-shadow: 0 4px 12px rgba(19,84,87,0.18); }
+    .radio-group:has(input:checked) label:not(:has(input:checked)) { opacity: 0.65; }
 
-    .ejemplo-toggle-ext {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      max-width: 480px;
-      margin: 22px auto 0;
-      background: var(--hueso);
-      border: 2px solid var(--hueso);
-      border-radius: 24px;
-      color: var(--petroleo);
-      font-family: 'Roboto', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      padding: 11px 16px;
-      cursor: pointer;
-      box-sizing: border-box;
-      text-align: left;
-      transition: border-radius 0.2s, opacity 0.2s;
-    }
-    .ejemplo-toggle-ext:hover { opacity: 0.9; }
-    .ejemplo-toggle-ext.abierto {
-      border-radius: 20px 20px 0 0;
-      animation: pulseEjemplo 1.8s ease-in-out infinite;
-    }
-    @keyframes pulseEjemplo {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(196,223,87,0.5); }
-      50%      { box-shadow: 0 0 0 5px rgba(196,223,87,0); }
-    }
-    .ejemplo-box-ext {
-      background: var(--hueso);
-      border: 2px solid var(--hueso);
-      border-top: none;
-      border-radius: 0 0 20px 20px;
+    .ejemplo-link { margin-bottom: 16px; }
+    .arrow { font-size: 0.68rem; }
+    .ejemplo-box-inline {
+      background: rgba(19,84,87,0.06);
+      border-radius: 14px;
       padding: 14px 16px;
-      max-width: 480px;
-      margin: 0 auto;
       font-size: 0.9rem;
       line-height: 1.65;
       color: var(--petroleo);
       white-space: pre-wrap;
       font-family: monospace;
+      margin: -6px 0 16px;
       cursor: pointer;
       box-sizing: border-box;
     }
@@ -289,57 +232,45 @@
       width: 100%;
       background: var(--naranja);
       color: var(--petroleo);
-      border: 2px solid var(--petroleo);
-      border-radius: 10px;
-      padding: 14px;
-      font-family: Impact, sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      border: none;
+      border-radius: 24px;
+      padding: 16px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: 0.2px;
       cursor: pointer;
       margin-top: 6px;
-      transition: opacity 0.2s;
+      box-shadow: 0 10px 22px rgba(222,175,77,0.35);
+      transition: opacity 0.2s, transform 0.08s, box-shadow 0.15s;
     }
-    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:hover { opacity: 0.92; }
+    .btn-primary:active { transform: scale(0.97); box-shadow: 0 4px 12px rgba(222,175,77,0.3); }
 
     .btn-secundario {
       width: 100%;
       background: var(--petroleo);
       color: var(--lima);
-      border: 2px solid var(--lima);
-      border-radius: 10px;
-      padding: 13px;
-      font-family: Impact, sans-serif;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      border: none;
+      border-radius: 24px;
+      padding: 15px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: 0.98rem;
+      letter-spacing: 0.2px;
       cursor: pointer;
       margin-top: 10px;
-      transition: opacity 0.2s;
+      box-shadow: 0 10px 22px rgba(19,84,87,0.3);
+      transition: opacity 0.2s, transform 0.08s;
     }
-    .btn-secundario:hover { opacity: 0.88; }
+    .btn-secundario:hover { opacity: 0.9; }
+    .btn-secundario:active { transform: scale(0.97); }
 
-    .btn-editar {
-      width: auto;
-      background: none;
-      border: none;
-      padding: 8px 4px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--petroleo);
-      opacity: 0.7;
-      cursor: pointer;
-      margin-top: 4px;
-      margin-bottom: 6px;
-      text-decoration: underline;
-      transition: opacity 0.2s;
-    }
-    .btn-editar:hover { opacity: 1; }
-
-    .copiar-wrap {
+    .acciones-preview {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
       margin-top: 8px;
     }
     .link-copiar {
@@ -392,7 +323,7 @@
       word-break: break-word;
       color: var(--petroleo);
       font-family: monospace;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      box-shadow: 0 8px 20px rgba(13,42,43,0.18);
     }
 
     .foto-tip {
@@ -431,22 +362,24 @@
       display: block;
       text-align: center;
       background: var(--lima);
-      border: 2px solid var(--petroleo);
+      border: none;
       color: var(--petroleo);
-      border-radius: 10px;
-      padding: 14px;
-      font-family: Impact, sans-serif;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      border-radius: 24px;
+      padding: 15px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: 0.95rem;
+      letter-spacing: 0.2px;
       text-decoration: none;
       margin: 10px auto 0;
       max-width: 480px;
       width: 100%;
       box-sizing: border-box;
-      transition: opacity 0.2s;
+      box-shadow: 0 8px 18px rgba(196,223,87,0.3);
+      transition: opacity 0.2s, transform 0.08s;
     }
-    .cgv-btn:hover { opacity: 0.88; }
+    .cgv-btn:hover { opacity: 0.9; }
+    .cgv-btn:active { transform: scale(0.98); }
 
     /* PANTALLA CONFIRMACIÓN */
     .confirmacion {
@@ -455,10 +388,10 @@
     }
     .confirmacion .icono { font-size: 4rem; margin-bottom: 16px; }
     .confirmacion h2 {
-      font-family: Impact, sans-serif;
-      font-size: 1.6rem;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
       color: var(--negro);
-      text-transform: uppercase;
       margin-bottom: 12px;
     }
     .confirmacion p {
@@ -471,13 +404,12 @@
       font-style: italic;
     }
     .ejemplo-disclaimer {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.75);
+      font-size: 0.8rem;
+      color: #4a6667;
       font-style: italic;
-      text-align: center;
-      max-width: 480px;
-      margin: 8px auto 0;
-      padding: 0 4px;
+      text-align: left;
+      margin: -6px 0 16px;
+      padding: 0 2px;
       line-height: 1.45;
     }
     .btn-menu-ext {
@@ -486,13 +418,12 @@
       max-width: 480px;
       margin: 36px auto 0;
       background: transparent;
-      border: 2px solid var(--lima);
-      border-radius: 10px;
-      padding: 14px;
-      font-family: Impact, sans-serif;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      border: 1.5px solid rgba(196,223,87,0.6);
+      border-radius: 24px;
+      padding: 13px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
       color: var(--lima);
       cursor: pointer;
       transition: opacity 0.2s;
@@ -557,7 +488,7 @@
       max-width: 320px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 36px rgba(13,42,43,0.22);
       animation: fadeInScreen 0.3s ease-out;
     }
     .modal-foto .icono {
@@ -567,10 +498,9 @@
     }
     .modal-foto .modal-titulo {
       color: var(--lima);
-      font-family: Impact, sans-serif;
-      font-size: 17px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
       margin-bottom: 12px;
     }
     .modal-foto .modal-texto {
@@ -590,20 +520,20 @@
       display: block;
       width: 100%;
       background: var(--lima);
-      border: 2px solid var(--petroleo);
+      border: none;
       color: var(--petroleo);
-      border-radius: 10px;
-      padding: 14px;
-      font-family: Impact, sans-serif;
+      border-radius: 24px;
+      padding: 15px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
       font-size: 0.95rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
       cursor: pointer;
       margin-bottom: 10px;
+      box-shadow: 0 8px 18px rgba(196,223,87,0.3);
       transition: opacity 0.15s, transform 0.08s, box-shadow 0.08s;
     }
     .modal-foto .btn-modal-primario:hover { opacity: 0.88; }
-    .modal-foto .btn-modal-primario:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .modal-foto .btn-modal-primario:active { transform: scale(0.96); box-shadow: 0 3px 10px rgba(13,42,43,0.18); }
     .modal-foto .btn-modal-volver {
       display: block;
       width: 100%;
@@ -626,7 +556,7 @@
 <body>
 
   <div class="header">
-    <img src="https://i.imgur.com/ZPMzq4X.png" alt="La Eugenia"/>
+    <img src="https://i.imgur.com/ZPMzq4X.png" alt="La Eugenia" onclick="irAlMenu()" style="cursor:pointer;"/>
     <h1>#Reportes Vecinales</h1>
     <div class="subtitulo">La Eugenia Club de Campo</div>
   </div>
@@ -670,14 +600,16 @@
     <div class="card" id="form-card">
       <div class="form-title" id="form-title">🐾 PERDÍ UNA MASCOTA</div>
 
-      <div class="guia-wrap hidden" id="guia-wrap">
-        <span class="guia-icono">👉</span>
-        <span id="guia-texto"></span>
-      </div>
+      <button type="button" class="link-copiar ejemplo-link" onclick="toggleEjemplo()" id="btn-ejemplo">
+        <span>Ver un ejemplo</span>
+        <span id="ejemplo-arrow" class="arrow">▼</span>
+      </button>
+      <div class="ejemplo-box-inline hidden" id="ejemplo-box" onclick="toggleEjemplo()"></div>
+      <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
 
       <div class="field" id="field-tipo-animal">
         <label>Tipo de animal</label>
-        <div class="radio-group">
+        <div class="radio-group" id="radio-group-animal">
           <label><input type="radio" name="tipo_animal" value="Perro" onchange="onTipoAnimal()"><span>🐕 Perro</span></label>
           <label><input type="radio" name="tipo_animal" value="Gato" onchange="onTipoAnimal()"><span>🐱 Gato</span></label>
           <label><input type="radio" name="tipo_animal" value="otro" onchange="onTipoAnimal()"><span>🐾 Otro</span></label>
@@ -712,10 +644,6 @@
           <input type="text" id="zona" placeholder="Ej: M09, B12, cerca de la pileta, sendero..." maxlength="80"/>
           <span class="err-msg" id="err-zona">Indicá la zona.</span>
         </div>
-        <label class="chk-mismo-lugar hidden" id="chk-mismo-lugar-wrap">
-          <input type="checkbox" id="chk-mismo-lugar" onchange="onChkMismoLugar()">
-          <span>Es el mismo lugar donde está ahora <span class="opc">(lo indico más abajo)</span></span>
-        </label>
       </div>
 
       <div class="field hidden" id="field-cuando">
@@ -732,6 +660,10 @@
           <option value="Sector pileta (bañero)">Sector pileta (bañero)</option>
           <option value="otro-lugar">Otro lugar...</option>
         </select>
+        <label class="chk-mismo-lugar" id="chk-mismo-lugar-wrap">
+          <input type="checkbox" id="chk-mismo-lugar" onchange="onChkMismoLugar()">
+          <span>Si está en el mismo lugar donde fue encontrado, tildá para copiarlo</span>
+        </label>
         <div id="otro-lugar-wrap" class="hidden" style="margin-top:8px">
           <input type="text" id="otro-lugar" placeholder="Especificá dónde..." maxlength="60"/>
         </div>
@@ -746,7 +678,7 @@
 
       <div class="field" id="field-telefono">
         <label>Teléfono de contacto</label>
-        <div style="display:flex; gap:8px;">
+        <div id="telefono-row" style="display:flex; gap:8px; border-radius:14px;">
           <select id="pais-cod" onchange="onPaisCod()" style="flex:0 0 108px; max-width:108px;">
             <option value="54" selected>🇦🇷 +54 9</option>
             <option value="55">🇧🇷 +55</option>
@@ -768,15 +700,7 @@
 
 
       <button type="button" class="btn-primary" onclick="verPreview()">Ver mensaje →</button>
-      <div class="guia-spacer" id="guia-spacer"></div>
     </div>
-
-    <button type="button" class="ejemplo-toggle-ext" onclick="toggleEjemplo()" id="btn-ejemplo">
-      <span>📋 Ver ejemplo de publicación</span>
-      <span id="ejemplo-arrow">▼</span>
-    </button>
-    <div class="ejemplo-box-ext hidden" id="ejemplo-box" onclick="toggleEjemplo()"></div>
-    <p class="ejemplo-disclaimer hidden" id="ejemplo-disclaimer">Los datos mostrados son ilustrativos. Tu publicación se generará con la información que completes en el formulario.</p>
 
     <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
     <a href="https://clubdecampolaeugenia.taplink.site/" class="cgv-btn">Ir al Centro de Gestión Vecinal</a>
@@ -787,14 +711,16 @@
     <div class="card">
       <div class="form-title">REVISÁ TU MENSAJE</div>
       <div class="preview-box" id="preview-text"></div>
-      <div class="copiar-wrap">
-        <button type="button" class="link-copiar" id="link-copiar" onclick="copiarMensaje()">📋 Copiar mensaje</button>
+      <div class="acciones-preview">
+        <button type="button" class="link-copiar" onclick="volverAForm()">← Editar</button>
+        <button type="button" class="link-copiar" id="link-copiar" onclick="copiarMensaje()">Copiar mensaje</button>
       </div>
-      <button type="button" class="btn-editar" onclick="volverAForm()">← Editar</button>
-      <button type="button" class="btn-primary" onclick="abrirPopupFoto()">📲 Enviar por WhatsApp</button>
+      <button type="button" class="btn-primary" onclick="abrirPopupFoto()">Enviar por WhatsApp</button>
       <div class="linea-envio-card">
-        Este mensaje será enviado para su revisión a +54 9 3764-113300<br>
-        la línea de LA EUGE informa 📣
+        Este mensaje será enviado para su revisión a<br>
+        la línea de LA EUGE informa 📣<br>
+        +54 9 3764-113300<br>
+        Luego se publicará en el grupo de difusión
       </div>
     </div>
     <button type="button" class="btn-menu-ext" onclick="irAlMenu()">Volver al menú principal</button>
@@ -879,7 +805,7 @@ Zona: Lote M09
 Última vez visto: El jueves a la noche durante la tormenta
 
 Si lo encontrás, contactar directamente a:
-• María González
+• *María González*
 +54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
@@ -897,7 +823,7 @@ Zona: Plaza de Juegos
 Retirar en: Lote M09
 
 Reportado por:
-• María González
+• *María González*
 +54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
@@ -915,7 +841,7 @@ Zona: Sector pileta
 Cuándo: El jueves a la tarde
 
 Si lo encontrás, contactar directamente a:
-• María González
+• *María González*
 +54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
@@ -933,7 +859,7 @@ Zona: Cancha de pádel
 Retirar en: Garita de seguridad
 
 Reportado por:
-• María González
+• *María González*
 +54 9 3764 123456
 WhatsApp: https://wa.me/5493764123456
 
@@ -949,8 +875,8 @@ _Por favor, contactate directamente con la persona del reporte._`,
   let ejemploVisible = false;
   let bienvenidaVisible = false;
 
-  document.getElementById('form-card').addEventListener('input', actualizarGuia);
-  document.getElementById('form-card').addEventListener('change', actualizarGuia);
+  document.getElementById('form-card').addEventListener('input', actualizarCompletados);
+  document.getElementById('form-card').addEventListener('change', actualizarCompletados);
 
   function toggleBienvenida() {
     bienvenidaVisible = !bienvenidaVisible;
@@ -977,11 +903,9 @@ _Por favor, contactate directamente con la persona del reporte._`,
     toggle('field-tipo-objeto',    !cfg.esMascota);
     toggle('field-cuando',         cfg.esPerdido);
     toggle('field-donde-esta',     !cfg.esPerdido);
-    toggle('chk-mismo-lugar-wrap', !cfg.esPerdido);
 
-    if (cat === 'mascota-encontrada') {
-      document.getElementById('nombre-mascota').value = 'sin nombre conocido';
-    }
+    document.getElementById('nombre-mascota').placeholder =
+      (cat === 'mascota-encontrada') ? 'sin nombre conocido' : 'Ej: Toto, Kika, Luna...';
 
     document.getElementById('ejemplo-box').innerHTML = renderizarEjemploHTML(EJEMPLOS[cat]);
     ejemploVisible = false;
@@ -991,9 +915,9 @@ _Por favor, contactate directamente con la persona del reporte._`,
     document.getElementById('btn-ejemplo').classList.remove('abierto');
 
     resetForm(cat);
+    actualizarCompletados();
     mostrar('screen-form');
     ocultar('screen-cats');
-    actualizarGuia();
     window.scrollTo(0, 0);
   }
 
@@ -1014,7 +938,6 @@ _Por favor, contactate directamente con la persona del reporte._`,
   function volverAForm() {
     ocultar('screen-preview');
     mostrar('screen-form');
-    actualizarGuia();
     window.scrollTo(0, 0);
   }
 
@@ -1043,122 +966,60 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
   function onChkMismoLugar() {
     const checked = document.getElementById('chk-mismo-lugar').checked;
-    toggle('zona-input-wrap', !checked);
+    const deSelect = document.getElementById('donde-esta');
+    const otroInput = document.getElementById('otro-lugar');
+
     if (checked) {
-      document.getElementById('zona').value = '';
-      mostrarError('err-zona', false);
+      deSelect.value = 'otro-lugar';
+      mostrar('otro-lugar-wrap');
+      otroInput.value = document.getElementById('zona').value;
+      deSelect.disabled = true;
+      otroInput.readOnly = true;
+      mostrarError('err-donde-esta', false);
+    } else {
+      deSelect.disabled = false;
+      otroInput.readOnly = false;
+      deSelect.value = '';
+      otroInput.value = '';
+      ocultar('otro-lugar-wrap');
     }
-    actualizarGuia();
+    actualizarCompletados();
   }
 
-  // ---- GUÍA DINÁMICA (texto + pulso) ----
-  const CAMPOS_GUIA = ['field-tipo-animal','field-tipo-objeto','field-descripcion','field-zona','field-donde-esta','field-nombre-reporta','field-telefono'];
-
-  function getPasosGuia(cat) {
-    if (!cat) return [];
-    const cfg = CONFIG[cat];
-    const pasos = [];
-
-    if (cfg.esMascota) {
-      pasos.push({
-        contenedor: 'field-tipo-animal',
-        texto: 'Elegí el tipo de animal',
-        completo: () => {
-          const sel = document.querySelector('input[name=tipo_animal]:checked');
-          if (!sel) return false;
-          if (sel.value === 'otro') return document.getElementById('otro-animal').value.trim() !== '';
-          return true;
-        }
-      });
-    } else {
-      pasos.push({
-        contenedor: 'field-tipo-objeto',
-        texto: 'Contanos qué tipo de objeto es',
-        completo: () => document.getElementById('tipo-objeto').value.trim() !== ''
-      });
-    }
-
-    pasos.push({
-      contenedor: 'field-descripcion',
-      texto: 'Agregá una descripción',
-      completo: () => document.getElementById('descripcion').value.trim() !== ''
-    });
-
-    if (cfg.esPerdido) {
-      pasos.push({
-        contenedor: 'field-zona',
-        texto: 'Indicá la zona',
-        completo: () => document.getElementById('zona').value.trim() !== ''
-      });
-    } else {
-      pasos.push({
-        contenedor: 'field-zona',
-        texto: 'Indicá la zona (o marcá que es el mismo lugar de abajo)',
-        completo: () => {
-          const chk = document.getElementById('chk-mismo-lugar');
-          if (chk && chk.checked) return true;
-          return document.getElementById('zona').value.trim() !== '';
-        }
-      });
-      pasos.push({
-        contenedor: 'field-donde-esta',
-        texto: 'Indicá dónde está ahora',
-        completo: () => {
-          const de = document.getElementById('donde-esta').value;
-          if (!de) return false;
-          if (de === 'otro-lugar') return document.getElementById('otro-lugar').value.trim() !== '';
-          return true;
-        }
-      });
-    }
-
-    pasos.push({
-      contenedor: 'field-nombre-reporta',
-      texto: 'Ingresá tu nombre',
-      completo: () => document.getElementById('nombre-reporta').value.trim().length >= 2
-    });
-
-    pasos.push({
-      contenedor: 'field-telefono',
-      texto: 'Dejá tu teléfono de contacto',
-      completo: () => {
-        const tel = document.getElementById('telefono').value.trim();
-        const paisSelVal = document.getElementById('pais-cod').value;
-        const otroPaisVal = document.getElementById('otro-pais-cod').value.trim();
-        return tel.length >= 10 && (paisSelVal !== 'otro' || otroPaisVal.length >= 1);
-      }
-    });
-
-    return pasos;
+  // ---- Borde petroleo en campos ya completos ----
+  function marcarCompleto(id, ok) {
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('campo-completo', ok);
   }
 
-  function actualizarGuia() {
-    CAMPOS_GUIA.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.classList.remove('pulso-guia');
-    });
-
-    const pasos = getPasosGuia(categoriaActual);
-    const siguiente = pasos.find(p => !p.completo());
-    const guiaWrap = document.getElementById('guia-wrap');
-    const spacer = document.getElementById('guia-spacer');
-
-    if (siguiente) {
-      const cont = document.getElementById(siguiente.contenedor);
-      if (cont) cont.classList.add('pulso-guia');
-      document.getElementById('guia-texto').textContent = siguiente.texto;
-      mostrar('guia-wrap');
-      // Medimos la altura real (puede variar si el texto pasa a 2 líneas)
-      // y se la damos al spacer para reservar el lugar en el flujo normal,
-      // ya que la píldora ahora es "fixed" (fuera del flujo) para que no
-      // se pierda con el teclado en iOS.
-      requestAnimationFrame(() => {
-        if (spacer && guiaWrap) spacer.style.height = (guiaWrap.offsetHeight + 16) + 'px';
-      });
-    } else {
-      ocultar('guia-wrap');
-      if (spacer) spacer.style.height = '0px';
+  function actualizarCompletados() {
+    const chkMismo = document.getElementById('chk-mismo-lugar');
+    if (chkMismo && chkMismo.checked) {
+      document.getElementById('otro-lugar').value = document.getElementById('zona').value;
     }
+
+    marcarCompleto('nombre-mascota', document.getElementById('nombre-mascota').value.trim() !== '');
+    marcarCompleto('otro-animal', document.getElementById('otro-animal').value.trim() !== '');
+    marcarCompleto('tipo-objeto', document.getElementById('tipo-objeto').value.trim() !== '');
+    marcarCompleto('descripcion', document.getElementById('descripcion').value.trim() !== '');
+    marcarCompleto('cuando', document.getElementById('cuando').value.trim() !== '');
+    marcarCompleto('otro-lugar', document.getElementById('otro-lugar').value.trim() !== '');
+    marcarCompleto('otro-pais-cod', document.getElementById('otro-pais-cod').value.trim() !== '');
+
+    marcarCompleto('zona', document.getElementById('zona').value.trim() !== '');
+
+    const de = document.getElementById('donde-esta').value;
+    const deOk = !!de && (de !== 'otro-lugar' || document.getElementById('otro-lugar').value.trim() !== '');
+    marcarCompleto('donde-esta', deOk);
+
+    marcarCompleto('nombre-reporta', document.getElementById('nombre-reporta').value.trim().length >= 2);
+
+    const tel = document.getElementById('telefono').value.trim();
+    const paisSelVal = document.getElementById('pais-cod').value;
+    const otroPaisVal = document.getElementById('otro-pais-cod').value.trim();
+    const telOk = tel.length >= 10 && (paisSelVal !== 'otro' || otroPaisVal.length >= 1);
+    marcarCompleto('pais-cod', telOk);
+    marcarCompleto('telefono', telOk);
   }
 
   function onPaisCod() {
@@ -1204,16 +1065,9 @@ _Por favor, contactate directamente con la persona del reporte._`,
     mostrarError('err-descripcion', !desc);
     if (!desc) ok = false;
 
-    const chkMismo = document.getElementById('chk-mismo-lugar');
-    const esMismoLugar = !cfg.esPerdido && chkMismo && chkMismo.checked;
-
-    if (!esMismoLugar) {
-      const zona = document.getElementById('zona').value.trim();
-      mostrarError('err-zona', !zona);
-      if (!zona) ok = false;
-    } else {
-      mostrarError('err-zona', false);
-    }
+    const zona = document.getElementById('zona').value.trim();
+    mostrarError('err-zona', !zona);
+    if (!zona) ok = false;
 
     if (!cfg.esPerdido) {
       const de = document.getElementById('donde-esta').value;
@@ -1274,10 +1128,8 @@ _Por favor, contactate directamente con la persona del reporte._`,
     const chkMismoLugarEl = document.getElementById('chk-mismo-lugar');
     const esMismoLugarMsg = !cfg.esPerdido && chkMismoLugarEl && chkMismoLugarEl.checked;
 
-    if (!esMismoLugarMsg) {
-      lines.push((ZONA_LABEL[categoriaActual] || 'Zona') + ': ' + document.getElementById('zona').value.trim());
-      lines.push('');
-    }
+    lines.push((ZONA_LABEL[categoriaActual] || 'Zona') + ': ' + document.getElementById('zona').value.trim());
+    lines.push('');
 
     if (cfg.esPerdido) {
       const cuando = document.getElementById('cuando').value.trim();
@@ -1286,14 +1138,10 @@ _Por favor, contactate directamente con la persona del reporte._`,
         lines.push(label + ': ' + cuando);
         lines.push('');
       }
-    } else {
+    } else if (!esMismoLugarMsg) {
       let dondeEsta = document.getElementById('donde-esta').value;
       if (dondeEsta === 'otro-lugar') dondeEsta = document.getElementById('otro-lugar').value.trim();
-      if (esMismoLugarMsg) {
-        lines.push('Encontrado y a retirar en: ' + dondeEsta);
-      } else {
-        lines.push('Retirar en: ' + dondeEsta);
-      }
+      lines.push('Retirar en: ' + dondeEsta);
       lines.push('');
     }
 
@@ -1314,12 +1162,12 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
     if (cfg.esPerdido) {
       lines.push('Si lo encontrás, contactar directamente a:');
-      lines.push('• ' + nombre);
+      lines.push('• *' + nombre + '*');
       lines.push(telVisual);
       lines.push('WhatsApp: ' + telLinkWA.replace('https://', ''));
     } else {
       lines.push('Reportado por:');
-      lines.push('• ' + nombre);
+      lines.push('• *' + nombre + '*');
       lines.push(telVisual);
       lines.push('WhatsApp: ' + telLinkWA.replace('https://', ''));
     }
@@ -1378,7 +1226,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
   function resetLinkCopiar() {
     const el = document.getElementById('link-copiar');
     if (!el) return;
-    el.textContent = '📋 Copiar mensaje';
+    el.textContent = 'Copiar mensaje';
     el.classList.remove('copiado');
   }
 
@@ -1480,12 +1328,12 @@ _Por favor, contactate directamente con la persona del reporte._`,
 
   function resetForm(cat) {
     document.querySelectorAll('input[name=tipo_animal]').forEach(r => r.checked = false);
-    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono','otro-pais-cod']
+    ['otro-animal','tipo-objeto','descripcion','zona','cuando','otro-lugar','nombre-reporta','telefono','otro-pais-cod','nombre-mascota']
       .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-    if (cat !== 'mascota-encontrada') document.getElementById('nombre-mascota').value = '';
     document.getElementById('donde-esta').value = '';
+    document.getElementById('donde-esta').disabled = false;
+    document.getElementById('otro-lugar').readOnly = false;
     document.getElementById('chk-mismo-lugar').checked = false;
-    mostrar('zona-input-wrap');
     document.getElementById('pais-cod').value = '54';
     document.getElementById('char-num').textContent = '0';
     ocultar('otro-animal-wrap');
@@ -1493,6 +1341,7 @@ _Por favor, contactate directamente con la persona del reporte._`,
     ocultar('otro-pais-wrap');
     document.querySelectorAll('.err-msg').forEach(e => e.classList.remove('visible'));
     document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+    document.querySelectorAll('.campo-completo').forEach(e => e.classList.remove('campo-completo'));
   }
 </script>
 </body>
